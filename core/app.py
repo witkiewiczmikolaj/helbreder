@@ -26,6 +26,11 @@ def k8s():
     t_name = data["target_name"]
     t_kind = data["target_kind"]
 
+    if t_name.endswith('*'):
+        func = str(t_kind + '_find')
+        t_name = t_name.replace('*', '')
+        t_name = eval(func)(ns, t_name)
+
     func = str(action + '_' + t_kind)
     eval(func)(ns, t_name)
 
