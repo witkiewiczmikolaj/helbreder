@@ -4,6 +4,8 @@
 
 This is an REST API made for monitoring integration (webhooks mostly) in order to make self-healing operation simple
 
+[Docker image](https://hub.docker.com/repository/docker/wiktorkisielewski/helbreder)
+
 ## How to run
 
 ### Authorization
