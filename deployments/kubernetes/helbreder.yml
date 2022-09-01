@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: wiktorkisielewski/helbreder:alpha_0.1
+        image: wiktorkisielewski/helbreder:helbreder:alpha_0.2.1
         ports:
         - containerPort: 5000
