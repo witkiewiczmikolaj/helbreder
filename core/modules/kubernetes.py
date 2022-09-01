@@ -1,6 +1,10 @@
 from kubernetes import client, config
+import datetime
 
-config.load_kube_config()
+try:
+    config.load_kube_config()
+except Exception as e:
+    print(f'{datetime.datetime.now()}\nKube config file not found in /kube/config, starting anyway\n{e}')
 
 v1 = client.CoreV1Api()
 

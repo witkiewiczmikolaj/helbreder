@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helbreder
+spec:
+  selector:
+    matchLabels:
+      app: helbreder
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: helbreder
+    spec:
+      containers:
+      - name: nginx
+        image: wiktorkisielewski/helbreder:alpha_0.1
+        ports:
+        - containerPort: 5000

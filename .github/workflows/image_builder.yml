@@ -1,0 +1,42 @@
+name: Helbreder docker image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  helbreder:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'helbreder_')"
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+      - name: checkout 
+        uses: actions/checkout@v2
+      - name: docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_LOGIN }}
+          password: ${{ secrets.DOCKER_PASS }}
+      - name: build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./core
+          tags: |
+            wiktorkisielewski/helbreder:${{ github.event.head_commit.message }}
+          push: true
+      - name: k8s manifest update
+        run: |
+          sed -i 's|image: wiktorkisielewski/helbreder:.*|image: wiktorkisielewski/helbreder:${{ github.event.head_commit.message }}|g' \
+          ./deployments/kubernetes/helbreder.yml
+      - name: commit
+        run: |
+          git config --local user.name "wiktorkisielewski"
+          git add ./deployments/kubernetes/helbreder.yml
+          git commit -m "${{ github.event.head_commit.message }} - auto"
+      - name: push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          force: false
+  
