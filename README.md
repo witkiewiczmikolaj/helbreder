@@ -1,4 +1,4 @@
-[Work in progress]
+[Work in progress] [![Helbreder docker image](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml/badge.svg?branch=main)](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml)
 
 # Helbreader - API for self-healing software
 

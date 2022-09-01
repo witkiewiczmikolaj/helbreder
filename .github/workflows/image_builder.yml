@@ -1,4 +1,4 @@
-name: Helbreder docker image
+name: Helbreder [docker]
 
 on:
   push:
