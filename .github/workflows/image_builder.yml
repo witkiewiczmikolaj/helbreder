@@ -23,7 +23,7 @@ jobs:
         with:
           context: ./core
           tags: |
-            wiktorkisielewski/helbreder:${{ github.event.head_commit.message }}
+            wiktorkisielewski/${{ github.event.head_commit.message }}
           push: true
       - name: k8s manifest update
         run: |
