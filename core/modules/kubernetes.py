@@ -9,15 +9,24 @@ except Exception as e:
 v1 = client.CoreV1Api()
 api = client.AppsV1Api()
 
-def pod_find(namespace_, name_):
-    ret = v1.list_namespaced_pod(namespace_)
+def find_(namespace_, name_, t_kind):
+    func = str('v1.list_namespaced_' + t_kind)
+    try:
+        ret = eval(func)(namespace=namespace_)
+    except AttributeError:
+        func = str('api.list_namespaced_' + t_kind)
+        ret = eval(func)(namespace=namespace_)
+
+    names = []
     for i in ret.items:
-        if name_ in i.metadata.name:
-            return i.metadata.name
+        if i.metadata.name.startswith(name_):
+            names.append(i.metadata.name)
+    
+    return names
 
 def delete_(namespace_, name_, t_kind):
+    func = str('v1.delete_namespaced_' + t_kind)
     try:
-        func = str('v1.delete_namespaced_' + t_kind)
         eval(func)(name=name_, namespace=namespace_)
     except AttributeError:
         func = str('api.delete_namespaced_' + t_kind)

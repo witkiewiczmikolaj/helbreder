@@ -27,12 +27,15 @@ def k8s():
     t_kind = data["target_kind"]
 
     if t_name.endswith('*'):
-        func = str(t_kind + '_find')
         t_name = t_name.replace('*', '')
-        t_name = eval(func)(ns, t_name)
+        names = find_(ns, t_name, t_kind)
+    else:
+        names = [t_name]
 
     func = str(action + '_')
-    eval(func)(ns, t_name, t_kind)
+
+    for t_name in names:
+        eval(func)(ns, t_name, t_kind)
 
     return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
 
