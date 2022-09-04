@@ -31,10 +31,10 @@ def k8s():
         t_name = t_name.replace('*', '')
         t_name = eval(func)(ns, t_name)
 
-    func = str(action + '_' + t_kind)
-    eval(func)(ns, t_name)
+    func = str(action + '_')
+    eval(func)(ns, t_name, t_kind)
 
-    return f"[{datetime.datetime.now()}] action: {func} on {t_kind}/{t_name}\n"
+    return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
 
 if __name__ == "__main__":
     helbreder.run(debug=True)
