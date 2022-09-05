@@ -1,0 +1,5 @@
+body {
+    background: rgb(26,26,26);
+    background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(57,57,57,1) 100%);
+    text-align: center;
+}

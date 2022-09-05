@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Helbreder</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    </head>
+    <body>
+        <h1>&#128137;</h1>
+        <p>{{ img }}</p>
+        <br>
+        <div id="place_for_outcome"></div>
+        <button id="butt" type="button">Hi</button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $("#butt").mouseup(function(){
+                var hi = "Here are some suggestions"
+                $.ajax({
+                    url: "/object",
+                    type: "get",
+                    data: {jsdata: hi},
+                    success: function(response) {
+                        $("#place_for_outcome").html(response);
+                    },
+                    error: function(xhr) {
+                        //handle error
+                    }
+                    });
+            })  
+        </script>
+    </body>
+</html>
