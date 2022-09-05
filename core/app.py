@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask,request,json
+from flask import Flask,request,json, render_template
 from basic_auth import *
 from modules.kubernetes import *
 
@@ -7,7 +7,13 @@ helbreder = Flask(__name__)
 
 @helbreder.route('/')
 def static_main():
-    return '<h1>&#128137;</h1>'
+    img = "What bothers you?"
+    return render_template("index.html", img = img)
+
+@helbreder.route('/hi')
+def object():
+    resp = str(request.args.get('jsdata'))
+    return render_template("object.html", resp = resp)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
