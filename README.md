@@ -28,11 +28,33 @@ for k8s connection add:
 
 ### Kubernetes
 
-## Example requests
+## Modules
 
 ### Kubernetes 
 
-- Kill a pod with specified name and namespace
+The kubernetes module is based on [python kubernetes-client](https://github.com/kubernetes-client/python)
+
+#### Standard fields
+
+- `action` &#8594; [supported actions](#supported-actions)
+
+- `namespace` &#8594; [k8s docs](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+
+- `target_kind` &#8594; `pod | deployment | stateful_set`
+
+- `target_name` &#8594; name of the target
+
+> Wildcard can be used at the end of the name
+>
+>`some_name*` - will match any object/s with name starting with "some_name"
+
+#### Supported actions
+
+- `delete` - removes an object from cluster, based on its name and declared namespace
+
+#### Example
+
+- Delete a pod with specified name and namespace
 
     > json data
 

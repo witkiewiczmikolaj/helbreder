@@ -1,14 +1,15 @@
 from kubernetes import client, config
 import datetime
 
-try:
-    config.load_kube_config()
-except Exception as e:
-    print(f'{datetime.datetime.now()}\nKube config file not found in /kube/config, starting anyway\n{e}')
-
 v1 = client.CoreV1Api()
 api = client.AppsV1Api()
 
+def k8s_auth():
+    try:
+        config.load_kube_config()
+    except Exception as e:
+        print(f'{datetime.datetime.now()}\nKube config file not found in /kube/config, starting anyway\n{e}')
+        
 def find_(namespace_, name_, t_kind):
     func = str('v1.list_namespaced_' + t_kind)
     try:
@@ -31,3 +32,5 @@ def delete_(namespace_, name_, t_kind):
     except AttributeError:
         func = str('api.delete_namespaced_' + t_kind)
         eval(func)(name=name_, namespace=namespace_)
+
+k8s_auth()
