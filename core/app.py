@@ -21,23 +21,23 @@ def static_main():
 def object():
     with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
         data = yaml.safe_load(stream)
-
+    act = "Choose an action:"
     action = str(request.args.get('jsdata'))
     action1 = data['modules'][f'{action}']['actions'][0].title()
     action2 = data['modules'][f'{action}']['actions'][1].title()
     action3 = data['modules'][f'{action}']['actions'][2].title()
-    return render_template("actions.html", action1 = action1, action2 = action2, action3 = action3)
+    return render_template("actions.html", action1 = action1, action2 = action2, action3 = action3, act = act)
 
 @helbreder.route('/targets')
 def action():
     with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
         data = yaml.safe_load(stream)
-
+    targ = "Choose a target:"
     target = str(request.args.get('jsdata'))
     target1 = data['modules'][f'{target}']['targets'][0].title()
     target2 = data['modules'][f'{target}']['targets'][1].title()
     target3 = data['modules'][f'{target}']['targets'][2].title()
-    return render_template("targets.html", target1 = target1, target2 = target2, target3 = target3)
+    return render_template("targets.html", target1 = target1, target2 = target2, target3 = target3, targ = targ)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
