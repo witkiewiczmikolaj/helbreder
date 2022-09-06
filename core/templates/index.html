@@ -7,26 +7,74 @@
     </head>
     <body>
         <h1>&#128137;</h1>
-        <p>{{ img }}</p>
+        <p>{{ welc }}</p>
         <br>
-        <div id="place_for_outcome"></div>
-        <button id="butt" type="button">Hi</button>
+        <div class="row">
+            <div class="column">
+                <button id="butt" type="button">{{ kubernetes }}</button> 
+                <br>
+                <button id="butt1" type="button">{{ server }}</button> 
+            </div>
+            <div class="column">
+                <div id="actions"></div>
+            </div>
+            <div class="column">
+                <div id="targets"></div>
+            </div>
+        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             $("#butt").mouseup(function(){
-                var hi = "Here are some suggestions"
+                var kuber = "kubernetes"
                 $.ajax({
-                    url: "/object",
+                    url: "/actions",
                     type: "get",
-                    data: {jsdata: hi},
+                    data: {jsdata: kuber},
                     success: function(response) {
-                        $("#place_for_outcome").html(response);
+                        $("#actions").html(response);
                     },
                     error: function(xhr) {
                         //handle error
                     }
                     });
-            })  
+                $.ajax({
+                    url: "/targets",
+                    type: "get",
+                    data: {jsdata: kuber},
+                    success: function(response) {
+                        $("#targets").html(response);
+                    },
+                    error: function(xhr) {
+                        //handle error
+                    }
+                    });
+            });  
+
+            $("#butt1").mouseup(function(){
+                var serv = "server"
+                $.ajax({
+                    url: "/actions",
+                    type: "get",
+                    data: {jsdata: serv},
+                    success: function(response) {
+                        $("#actions").html(response);
+                    },
+                    error: function(xhr) {
+                        //handle error
+                    }
+                    });
+                $.ajax({
+                    url: "/targets",
+                    type: "get",
+                    data: {jsdata: serv},
+                    success: function(response) {
+                        $("#targets").html(response);
+                    },
+                    error: function(xhr) {
+                        //handle error
+                    }
+                    });
+            });  
         </script>
     </body>
 </html>
