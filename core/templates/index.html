@@ -7,13 +7,13 @@
     </head>
     <body>
         <h1>&#128137;</h1>
-        <p>{{ welc }}</p>
         <br>
         <div class="row">
             <div class="column">
-                <button id="butt" type="button">{{ kubernetes }}</button> 
+                <p>{{ welc }}</p>
+                <button class="welc_butt" id="butt" type="button">{{ kubernetes }}</button> 
                 <br>
-                <button id="butt1" type="button">{{ server }}</button> 
+                <button class="welc_butt" id="butt1" type="button">{{ server }}</button> 
             </div>
             <div class="column">
                 <div id="actions"></div>
@@ -22,6 +22,10 @@
                 <div id="targets"></div>
             </div>
         </div>
+        <br>
+        <!--<div class="summary">
+            <p>I welcome you {{ module }} and I'm gonna do to you {{ action }} on your {{ target }}</p>
+        </div>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             $("#butt").mouseup(function(){

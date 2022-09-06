@@ -1,6 +1,6 @@
 body {
     background: rgb(26,26,26);
-    background: linear-gradient(90deg, rgb(209, 206, 206) 0%, rgb(108, 106, 106) 100%);
+    background: radial-gradient(circle, rgb(209, 206, 206) 0%, rgb(108, 106, 106) 100%);
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -8,7 +8,6 @@ body {
 p {
     font-weight: 600;
     font-size: 30px;
-    margin-left: 5rem;
 }
 
 h1 {
@@ -16,13 +15,16 @@ h1 {
     font-size: 70px;
 }
 
-.row {
-    display: flex;
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
   }
   
-  .column {
-    flex: 25%;
-    margin-left: 5rem;
+.column {
+    float: left;
+    width: 33.33%;
+    text-align: center;
   }
 
 button {
@@ -44,3 +46,28 @@ button:hover {
     border-color: rgb(209, 206, 206);
     cursor: pointer;
 }
+
+.targ_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+}
+
+.welc_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+}
+
+.act_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+}
+
+.value_label {
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }
