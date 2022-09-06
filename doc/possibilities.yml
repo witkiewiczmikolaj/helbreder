@@ -1,0 +1,19 @@
+modules:
+  kubernetes:
+    actions:
+      - delete
+      - lorem
+      - ipsum
+    targets:
+      - pod
+      - deployment
+      - statefull_set
+  server:
+    actions:
+      - reboot
+      - lorem
+      - ipsum
+    targets:
+      - ubuntu
+      - lorem
+      - ipsum
