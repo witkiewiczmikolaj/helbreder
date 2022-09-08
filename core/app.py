@@ -1,44 +1,46 @@
 import datetime
-from flask import Flask,request,json, render_template
+from flask import Flask,request,json, render_template, flash
 from basic_auth import *
 from modules.kubernetes import *
-import yaml
-import os
+from templates.modules_func import *
 
 helbreder = Flask(__name__)
 
 @helbreder.route('/')
 def static_main():
-    with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
-        data = yaml.safe_load(stream)
-    
-    kubernetes = list(data['modules'].keys())[0].title()
-    server = list(data['modules'].keys())[1].title()
-    welc = "Choose a module:"
-    return render_template("index.html", welc = welc, kubernetes = kubernetes, server = server)
+    mod1 = modules()[0]
+    mod2 = modules()[1]
+    return render_template('index.html', mod1 = mod1, mod2 = mod2)
 
-@helbreder.route('/actions')
-def object():
+#WIP
+'''@helbreder.route('/modules', methods=['GET', 'POST'])
+def module():    
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'Show me':
+            mod1 = modules()[0]
+            mod2 = modules()[1]
+            return render_template('index.html', mod1 = mod1, mod2 = mod2)
+
+@helbreder.route('/actions', methods=['POST'])
+def actions():
     with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
         data = yaml.safe_load(stream)
-    act = "Choose an action:"
     action = str(request.args.get('jsdata'))
     action1 = data['modules'][f'{action}']['actions'][0].title()
     action2 = data['modules'][f'{action}']['actions'][1].title()
     action3 = data['modules'][f'{action}']['actions'][2].title()
-    return render_template("actions.html", action1 = action1, action2 = action2, action3 = action3, act = act)
+    return render_template("index.html", action1 = action1, action2 = action2, action3 = action3)
 
-@helbreder.route('/targets')
-def action():
+@helbreder.route('/targets', methods=['POST'])
+def targets():
     with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
         data = yaml.safe_load(stream)
-    targ = "Choose a target:"
     target = str(request.args.get('jsdata'))
     target1 = data['modules'][f'{target}']['targets'][0].title()
     target2 = data['modules'][f'{target}']['targets'][1].title()
     target3 = data['modules'][f'{target}']['targets'][2].title()
-    return render_template("targets.html", target1 = target1, target2 = target2, target3 = target3, targ = targ)
-
+    return render_template("index.html", target1 = target1, target2 = target2, target3 = target3)
+'''
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
 def api_base():
