@@ -9,76 +9,36 @@
         <h1>&#128137;</h1>
         <br>
         <div class="row">
-            <div class="column">
-                <p>{{ welc }}</p>
-                <button class="welc_butt" id="butt" type="button">{{ kubernetes }}</button> 
-                <br>
-                <button class="welc_butt" id="butt1" type="button">{{ server }}</button> 
-            </div>
-            <div class="column">
-                <div id="actions"></div>
-            </div>
-            <div class="column">
-                <div id="targets"></div>
-            </div>
+                <div class="column">
+                    <p>Choose a module:</p>
+                    <br>
+                    <button class="module_butt" type="submit">{{mod1}}</button>
+                    <br>
+                    <button class="module_butt" type="submit">{{mod2}}</button>
+                </div>
+            <form action="actions" method="post">
+                <div class="column">
+                    <p>Choose an action:</p>
+                    <!-- WIP
+                        {% for message in get_flashed_messages()%}
+                        <button class="action_butt" type="button">{{message}}</button> 
+                    {% endfor %} -->
+                </div>
+            </form>
+            <form action="targets" method="post">
+                <div class="column">
+                    <p>Choose a target:</p>
+                    <!-- WIP
+                        {% for message in get_flashed_messages()%}
+                        <button class="target_butt" type="button">{{message}}</button> 
+                    {% endfor %}-->
+                </div>
+            </form>
         </div>
         <br>
-        <!--<div class="summary">
+        <!-- WIP
+            <div class="summary">
             <p>I welcome you {{ module }} and I'm gonna do to you {{ action }} on your {{ target }}</p>
         </div>-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script>
-            $("#butt").mouseup(function(){
-                var kuber = "kubernetes"
-                $.ajax({
-                    url: "/actions",
-                    type: "get",
-                    data: {jsdata: kuber},
-                    success: function(response) {
-                        $("#actions").html(response);
-                    },
-                    error: function(xhr) {
-                        //handle error
-                    }
-                    });
-                $.ajax({
-                    url: "/targets",
-                    type: "get",
-                    data: {jsdata: kuber},
-                    success: function(response) {
-                        $("#targets").html(response);
-                    },
-                    error: function(xhr) {
-                        //handle error
-                    }
-                    });
-            });  
-
-            $("#butt1").mouseup(function(){
-                var serv = "server"
-                $.ajax({
-                    url: "/actions",
-                    type: "get",
-                    data: {jsdata: serv},
-                    success: function(response) {
-                        $("#actions").html(response);
-                    },
-                    error: function(xhr) {
-                        //handle error
-                    }
-                    });
-                $.ajax({
-                    url: "/targets",
-                    type: "get",
-                    data: {jsdata: serv},
-                    success: function(response) {
-                        $("#targets").html(response);
-                    },
-                    error: function(xhr) {
-                        //handle error
-                    }
-                    });
-            });  
-        </script>
     </body>
 </html>

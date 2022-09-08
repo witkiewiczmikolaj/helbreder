@@ -2,3 +2,4 @@ Flask==2.2.2
 Flask-HTTPAuth==4.7.0
 MarkupSafe==2.1.1
 kubernetes==24.2.0
+pyyaml==6.0
