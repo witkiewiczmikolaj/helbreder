@@ -10,7 +10,12 @@ def psql_connect_(psql_db):
     c = psycopg2.connect(database=psql_db, user=psql_user, password=psql_pass, host=psql_ip, port=psql_port)
     cur = c.cursor()
 
-    return cur
+    return c, cur
 
-def drop_connections_():
-    psql_connect_()
+def drop_connections_(psql_db):
+    c, cur = psql_connect_(psql_db)
+    cur.execute(f'''SELECT pg_terminate_backend(pg_stat_activity.pid)
+        FROM pg_stat_activity
+        WHERE pg_stat_activity.datname = '{psql_db}'
+        AND pid <> pg_backend_pid();''')
+    c.commit()

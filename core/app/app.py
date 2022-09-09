@@ -1,7 +1,9 @@
 import datetime
 from flask import Flask,request,json
 from basic_auth import *
+
 from modules.kubernetes import *
+from modules.postgresql import *
 
 helbreder = Flask(__name__)
 
