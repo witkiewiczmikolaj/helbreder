@@ -2,7 +2,7 @@ import yaml
 from templates.list_modifications import *
 
 def modules():
-    file = open("./doc/possibilities.yml")
+    file = open("/helbreder/app/doc/possibilities.yml")
     data = yaml.safe_load(file)
     modules = []
     modules_list = list(data['modules'].keys())

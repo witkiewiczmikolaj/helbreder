@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask,request,json
+from flask import Flask,request,json,render_template
 from basic_auth import *
 
 from modules.kubernetes import *
