@@ -1,7 +1,10 @@
 import datetime
-from flask import Flask, request, json, render_template
+from flask import Flask,request,json
 from basic_auth import *
+
 from modules.kubernetes import *
+from modules.postgresql import *
+
 from templates.modules_fcn import *
 from templates.post import *
 
@@ -34,14 +37,17 @@ def k8s():
     t_kind = data["target_kind"]
 
     if t_name.endswith('*'):
-        func = str(t_kind + '_find')
         t_name = t_name.replace('*', '')
-        t_name = eval(func)(ns, t_name)
+        names = find_(ns, t_name, t_kind)
+    else:
+        names = [t_name]
 
-    func = str(action + '_' + t_kind)
-    eval(func)(ns, t_name)
+    func = str(action + '_')
 
-    return f"[{datetime.datetime.now()}] action: {func} on {t_kind}/{t_name}\n"
+    for t_name in names:
+        eval(func)(ns, t_name, t_kind)
+
+    return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
 
 if __name__ == "__main__":
     helbreder.run(debug=True)
