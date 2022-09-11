@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Helbreder</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    </head>
+    <body>
+        <h1>&#128137;</h1>
+        <br>
+        <div class="row">
+            <form action="/" method="post">
+                <div class="column">
+                    <p>Choose a module:</p>
+                    <br>
+                    {{ module | safe }}
+                </div>
+                <div class="column">
+                    <p>Choose an action:</p>
+                    <br>
+                    {{ action | safe }}
+                </div>
+                <div class="column">
+                    <p>Choose a target:</p>
+                    <br>
+                    {{ target | safe }}
+                </div>
+            </form>
+        </div>
+        <br>
+        <!-- WIP
+            <div class="summary">
+            <p>I welcome you {{ module }} and I'm gonna do to you {{ action }} on your {{ target }}</p>
+        </div>-->
+    </body>
+</html>

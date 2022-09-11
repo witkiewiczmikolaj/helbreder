@@ -1,0 +1,73 @@
+body {
+    background: rgb(26,26,26);
+    background: radial-gradient(circle, rgb(209, 206, 206) 0%, rgb(108, 106, 106) 100%);
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    font-weight: 600;
+    font-size: 30px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+.column {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+  }
+
+input {
+    background-color: rgb(108, 106, 106);
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+input:hover {
+    border: 2px;
+    border-color: rgb(209, 206, 206);
+    cursor: pointer;
+}
+
+.target_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+}
+
+.module_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+}
+
+.action_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+}
+
+.value_label {
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }
