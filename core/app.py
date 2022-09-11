@@ -1,46 +1,21 @@
 import datetime
-from flask import Flask,request,json, render_template, flash
+from flask import Flask, request, json, render_template
 from basic_auth import *
 from modules.kubernetes import *
-from templates.modules_func import *
+from templates.modules_fcn import *
+from templates.post import *
 
 helbreder = Flask(__name__)
 
-@helbreder.route('/')
+@helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
-    mod1 = modules()[0]
-    mod2 = modules()[1]
-    return render_template('index.html', mod1 = mod1, mod2 = mod2)
-
-#WIP
-'''@helbreder.route('/modules', methods=['GET', 'POST'])
-def module():    
+    module = modules_buttonized()
+    action = '<h3>Waiting for module</h3>'
+    target = '<h3>Waiting for module</h3>'
     if request.method == 'POST':
-        if request.form['submit_button'] == 'Show me':
-            mod1 = modules()[0]
-            mod2 = modules()[1]
-            return render_template('index.html', mod1 = mod1, mod2 = mod2)
+        action, target = action_target()
+    return render_template('index.html', module = module, action = action, target = target)
 
-@helbreder.route('/actions', methods=['POST'])
-def actions():
-    with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
-        data = yaml.safe_load(stream)
-    action = str(request.args.get('jsdata'))
-    action1 = data['modules'][f'{action}']['actions'][0].title()
-    action2 = data['modules'][f'{action}']['actions'][1].title()
-    action3 = data['modules'][f'{action}']['actions'][2].title()
-    return render_template("index.html", action1 = action1, action2 = action2, action3 = action3)
-
-@helbreder.route('/targets', methods=['POST'])
-def targets():
-    with open(os.path.abspath("D:/helbreder/doc/possibilities.yml"), 'r') as stream:
-        data = yaml.safe_load(stream)
-    target = str(request.args.get('jsdata'))
-    target1 = data['modules'][f'{target}']['targets'][0].title()
-    target2 = data['modules'][f'{target}']['targets'][1].title()
-    target3 = data['modules'][f'{target}']['targets'][2].title()
-    return render_template("index.html", target1 = target1, target2 = target2, target3 = target3)
-'''
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
 def api_base():

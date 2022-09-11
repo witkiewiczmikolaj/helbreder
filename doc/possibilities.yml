@@ -17,3 +17,11 @@ modules:
       - ubuntu
       - lorem
       - ipsum
+  postgresql:
+    actions:
+      - 'drop database'
+      - 'drop connections'
+    targets:
+      - host
+      - database
+      - cluster
