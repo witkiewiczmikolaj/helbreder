@@ -5,11 +5,19 @@ from basic_auth import *
 from modules.kubernetes import *
 from modules.postgresql import *
 
+from templates.modules_fcn import *
+from templates.post import *
+
 helbreder = Flask(__name__)
 
-@helbreder.route('/')
+@helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
-    return '<h1>&#128137;</h1>'
+    module = modules_buttonized()
+    action = '<h3>Waiting for module</h3>'
+    target = '<h3>Waiting for module</h3>'
+    if request.method == 'POST':
+        action, target = action_target()
+    return render_template('index.html', module = module, action = action, target = target)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
@@ -43,3 +51,4 @@ def k8s():
 
 if __name__ == "__main__":
     helbreder.run(debug=True)
+
