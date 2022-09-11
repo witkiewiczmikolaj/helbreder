@@ -9,29 +9,21 @@
         <h1>&#128137;</h1>
         <br>
         <div class="row">
+            <form action="/" method="post">
                 <div class="column">
                     <p>Choose a module:</p>
                     <br>
-                    <button class="module_butt" type="submit">{{mod1}}</button>
-                    <br>
-                    <button class="module_butt" type="submit">{{mod2}}</button>
+                    {{ module | safe }}
                 </div>
-            <form action="actions" method="post">
                 <div class="column">
                     <p>Choose an action:</p>
-                    <!-- WIP
-                        {% for message in get_flashed_messages()%}
-                        <button class="action_butt" type="button">{{message}}</button> 
-                    {% endfor %} -->
+                    <br>
+                    {{ action | safe }}
                 </div>
-            </form>
-            <form action="targets" method="post">
                 <div class="column">
                     <p>Choose a target:</p>
-                    <!-- WIP
-                        {% for message in get_flashed_messages()%}
-                        <button class="target_butt" type="button">{{message}}</button> 
-                    {% endfor %}-->
+                    <br>
+                    {{ target | safe }}
                 </div>
             </form>
         </div>
