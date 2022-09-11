@@ -2,7 +2,7 @@ name: Helbreder [docker]
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "frontend" ]
 
 jobs:
   helbreder:
