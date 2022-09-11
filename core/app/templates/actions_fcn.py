@@ -2,8 +2,8 @@ import yaml
 from templates.list_modifications import *
 from templates.modules_fcn import *
 
-def actions(module):
-    file = open("./doc/possibilities.yml")
+def actions(module):    
+    file = open("/helbreder/app/doc/possibilities.yml")
     data = yaml.safe_load(file)
     actions = []
     actions_list = list(data['modules'][module]['actions'])
