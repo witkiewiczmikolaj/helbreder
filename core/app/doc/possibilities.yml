@@ -2,8 +2,8 @@ modules:
   kubernetes:
     actions:
       - delete
-      - lorem
-      - ipsum
+      - delete1
+      - delete2
     targets:
       - pod
       - deployment
@@ -11,12 +11,12 @@ modules:
   server:
     actions:
       - reboot
-      - lorem
-      - ipsum
+      - reboot1
+      - reebot2
     targets:
       - ubuntu
-      - lorem
-      - ipsum
+      - ubuntu1
+      - ubuntu2
   postgresql:
     actions:
       - 'drop database'
