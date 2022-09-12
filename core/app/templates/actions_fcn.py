@@ -5,10 +5,7 @@ from templates.modules_fcn import *
 def actions(module):    
     file = open("/helbreder/app/doc/possibilities.yml")
     data = yaml.safe_load(file)
-    actions = []
     actions_list = list(data['modules'][module]['actions'])
-    for i in range (len(actions_list)):
-        actions.append(list(data['modules'][module]['actions'][i]))
     return actions_list
 
 def actions_buttonized(action_list):
