@@ -19,13 +19,17 @@ h1 {
     content: "";
     display: table;
     clear: both;
-  }
+}
   
 .column {
     float: left;
     width: 33.33%;
     text-align: center;
-  }
+}
+
+  .lang_picker {
+    text-align: center;
+}
 
 input {
     background-color: rgb(108, 106, 106);
@@ -42,9 +46,32 @@ input {
 }
 
 input:hover {
-    border: 2px;
-    border-color: rgb(209, 206, 206);
     cursor: pointer;
+}
+
+.shell_butt {
+    background: none;
+    width: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.python_butt {
+    background: none;
+    width: 70px;
+    height: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.copy_butt {
+    background: none;
+    width: 30px;
+}
+
+.lang_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
 }
 
 .target_butt:focus {
@@ -62,12 +89,83 @@ input:hover {
     box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
 }
 
-.value_label {
-    align-items: center;
+.playground_shell {
+    background: #242e34;
+    color-scheme: dark;
+    border-radius: 20px;
+    width: 50%;
+    height: 240px;
+    margin-left: 25%;
+    line-height: 150%;
+}
+
+.playground_python {
+    background: #242e34;
+    color-scheme: dark;
+    border-radius: 20px;
+    width: 50%;
+    height: 455px;
+    margin-left: 25%;
+    line-height: 150%;
+}
+
+.playground_shell input, .playground_python input {
+    margin-left: 0%;
+}
+
+.code_mirror {
+    overflow: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    height: 100%;
+    font-size: 12px;
+    width: 100%;
+    color: #fff;
+    position: relative;
+    direction: ltr;
+}
+
+.cm-linerow {
+    text-indent: 0;
+    position: relative;
+}
+
+.cm-lineNumber, .cm-builtin, .cm-attribute, .cm-string, .cm-variable {
+    color: #adaacc;
+    min-width: 30px;    
+    display: inline-block;
+    padding: 0 6px 0 10px;
+    right: auto;
+    text-align: right;
+}
+
+.cm-lineNumber {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cm-builtin {
+    color: #FFCB6B;
+}
+
+.cm-attribute {
+    color: #C792EA;
+}
+
+.cm-string {
+    color: #C3E88D;
+}
+
+.cm-variable {
+    color: #f07178;
 }
 
 @media screen and (max-width: 600px) {
     .column {
       width: 100%;
     }
-  }
+}

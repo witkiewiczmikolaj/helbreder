@@ -28,8 +28,54 @@
             </form>
         </div>
         <br>
-            <div class="summary">
-            <p>{{ output }}</p>
+        <br>
+        <div class="lang_picker">
+            <input class="shell_butt" type="image" src="../static/images/bash.png" onclick="showShell()"/>
+            <input class="python_butt" type="image" src="../static/images/python.png" onclick="showPython()"/>
         </div>
+        <br>
+        <div id="playgr_shell" style="display: none;" class="playground_shell">
+            <div class="code_mirror">
+                <div class="cm-linerow"><span class="cm-lineNumber">1</span><span class="cm-builtin">curl&nbsp;</span><span class="cm-attribute">--request</span> POST \</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">2</span><span class="cm-builtin"></span><span class="cm-attribute">--url&nbsp;&nbsp;&nbsp;</span> http://helbreder_url/api/endpoint \</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">3</span><span class="cm-builtin"></span><span class="cm-attribute">--header&nbsp;</span><span class="cm-string"> 'Accept: application/json'</span> \</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">4</span><span class="cm-builtin"></span><span class="cm-attribute">--header&nbsp;</span><span class="cm-string"> 'Authorization: Basic ${user:pass encoded}'</span> \</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">5</span><span class="cm-builtin"></span><span class="cm-attribute">--header&nbsp;</span><span class="cm-string"> 'Content-Type: application/json'</span>\</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">6</span><span class="cm-builtin"></span><span class="cm-attribute">--data&nbsp;</span><span class="cm-string"> '{"namespace": "{{ butt_clicked[0] }}", "action": "{{ butt_clicked[1] }}", "target_name": "{{ butt_clicked[2] }}", "target_kind": "${target}"}'</span></div>
+                <hr>
+                <input class="copy_butt" type="image" src="../static/images/copy.png">
+            </div>
+        </div>
+        <div id="playgr_python" style="display: none;" class="playground_python">
+            <div class="code_mirror">
+                <div class="cm-linerow"><span class="cm-lineNumber">1</span><span class="cm-attribute">import&nbsp;</span><span style="color:#f07178;">requests</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">2</span><span class="cm-builtin"></span><span class="cm-attribute"></span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">3</span><span class="cm-variable">headers</span> = {</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">4</span><span class="cm-builtin"></span><span class="cm-string">'Accept':&nbsp;</span><span class="cm-string"> 'application/json',</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">5</span><span class="cm-builtin"></span><span class="cm-string">'Authorization':&nbsp;</span><span class="cm-string"> f"Basic {user:pass} encoded}",</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">6</span>}</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">7</span><span class="cm-builtin"></span><span class="cm-attribute"></span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">8</span><span class="cm-variable">json_data</span> = {</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">9</span><span class="cm-builtin"></span><span class="cm-string">'namespace':&nbsp;</span><span class="cm-string"> '{{ butt_clicked[0] }}',</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">10</span><span class="cm-builtin"></span><span class="cm-string">'action':&nbsp;</span><span class="cm-string"> '{{ butt_clicked[1] }}',</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">11</span><span class="cm-builtin"></span><span class="cm-string">'target_name':&nbsp;</span><span class="cm-string"> '{{ butt_clicked[2] }}',</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">12</span><span class="cm-builtin"></span><span class="cm-string">'target_kind':&nbsp;</span><span class="cm-string"> '${target}',</span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">13</span>}</div>
+                <div class="cm-linerow"><span class="cm-lineNumber">14</span><span class="cm-builtin"></span><span class="cm-attribute"></span></div>
+                <div class="cm-linerow"><span class="cm-lineNumber">15</span><span class="cm-variable">response</span>=&nbsp;<span style="color:#f07178;">requests</span>.<span style="color:#C792EA;">post</span>('http://helbreder_url/api/endpoint', headers=headers, json=json_data)</div>
+                <hr>
+                <input class="copy_butt" type="image" src="../static/images/copy.png">
+            </div>
+        </div>
+        <script>
+            function showShell() {
+                document.getElementById('playgr_shell').style.display = "block";
+                document.getElementById('playgr_python').style.display = "none";
+            }
+            function showPython() {
+                document.getElementById('playgr_python').style.display = "block";
+                document.getElementById('playgr_shell').style.display = "none";
+            }
+        </script>
     </body>
 </html>
