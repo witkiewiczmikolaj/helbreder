@@ -15,12 +15,11 @@ def static_main():
     module = modules_buttonized()
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
-    username = 'username'
-    password = 'password'
+    user_pass = 'user:pass'
     global butt_clicked
     if request.method == 'POST':
-        action, target, username, password = collect_data()
-    return render_template('index.html', module = module, action = action, target = target, butt_clicked = butt_clicked, username = username, password = password)
+        action, target, user_pass = collect_data()
+    return render_template('index.html', module = module, action = action, target = target, butt_clicked = butt_clicked, user_pass = user_pass)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
