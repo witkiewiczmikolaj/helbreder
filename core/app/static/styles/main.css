@@ -32,7 +32,7 @@ h1 {
     padding-top: 4em;
 }
 
-  .lang_picker {
+.lang_picker {
     text-align: center;
 }
 
@@ -74,6 +74,31 @@ input:hover {
     width: 30px;
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+  
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 70px;
+    background-color: rgb(108, 106, 106);
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 .lang_butt:focus {
     transform: scale(0.98);
     box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
@@ -98,9 +123,9 @@ input:hover {
     background: #242e34;
     color-scheme: dark;
     border-radius: 20px;
-    width: 50%;
-    height: 240px;
-    margin-left: 25%;
+    width: 40%;
+    height: 160px;
+    margin-left: 30%;
     line-height: 150%;
 }
 
@@ -108,9 +133,9 @@ input:hover {
     background: #242e34;
     color-scheme: dark;
     border-radius: 20px;
-    width: 50%;
-    height: 455px;
-    margin-left: 25%;
+    width: 40%;
+    height: 375px;
+    margin-left: 30%;
     line-height: 150%;
 }
 
@@ -125,7 +150,7 @@ input:hover {
     height: 100%;
     font-size: 12px;
     width: 100%;
-    color: #fff;
+    color: white;
     position: relative;
     direction: ltr;
 }
@@ -172,15 +197,15 @@ input:hover {
 ::placeholder { 
     color: white;
     opacity: 0.5; 
-  }
+}
   
-  :-ms-input-placeholder { 
+:-ms-input-placeholder { 
     color: white;
-  }
+}
   
-  ::-ms-input-placeholder {
+::-ms-input-placeholder {
     color: white;
-  }
+}
 
 @media screen and (max-width: 600px) {
     .column {
