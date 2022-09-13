@@ -27,6 +27,11 @@ h1 {
     text-align: center;
 }
 
+.user {
+    text-align: center;
+    padding-top: 4em;
+}
+
   .lang_picker {
     text-align: center;
 }
@@ -163,6 +168,19 @@ input:hover {
 .cm-variable {
     color: #f07178;
 }
+
+::placeholder { 
+    color: white;
+    opacity: 0.5; 
+  }
+  
+  :-ms-input-placeholder { 
+    color: white;
+  }
+  
+  ::-ms-input-placeholder {
+    color: white;
+  }
 
 @media screen and (max-width: 600px) {
     .column {
