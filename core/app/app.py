@@ -12,14 +12,15 @@ helbreder = Flask(__name__)
 
 @helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
+    global button_clicked
     module = modules_buttonized()
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
-    user_pass = 'user:pass'
-    global butt_clicked
+    username = 'username'
+    password = 'password'
     if request.method == 'POST':
-        action, target, user_pass = collect_data()
-    return render_template('index.html', module = module, action = action, target = target, butt_clicked = butt_clicked, user_pass = user_pass)
+        action, target, username, password = collect_data()
+    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, username = username, password = password)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
