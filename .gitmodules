@@ -1,0 +1,3 @@
+[submodule "curl_converter"]
+	path = curl_converter
+	url = https://github.com/curlconverter/curlconverter.git
