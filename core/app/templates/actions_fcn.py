@@ -3,7 +3,7 @@ from templates.list_modifications import *
 from templates.modules_fcn import *
 
 def actions(module):    
-    file = open("/helbreder/app/doc/possibilities.yml")
+    file = open("D:/helbreder/core/app/doc/possibilities.yml")
     data = yaml.safe_load(file)
     actions_list = list(data['modules'][module]['actions'])
     return actions_list
