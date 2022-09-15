@@ -4,11 +4,8 @@ from templates.list_modifications import *
 def modules():
     file = open("/helbreder/app/doc/possibilities.yml")
     data = yaml.safe_load(file)
-    modules = []
     modules_list = list(data['modules'].keys())
-    for i in range (len(modules_list)):
-        modules.append(list(data['modules'].keys())[i])  
-    return modules
+    return modules_list
 
 def modules_buttonized():
     buttons = []
