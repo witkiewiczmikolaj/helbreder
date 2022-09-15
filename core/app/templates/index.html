@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Helbreder</title>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/github-dark.min.css') }}">
+        <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
     </head>
     <body>
         <h1>&#128137;</h1>
@@ -31,64 +32,39 @@
                 <input type="text" name="Username" placeholder="username">
                 <input type="text" name="Password" placeholder="password">
                 <br>
-                <input type="submit" name="Submit" value="Submit">
+                <input type="submit" name="Submit" value="Submit"/>
             </div>
-        </form>
         <br>
         <br>
         <div class="lang_picker">
-            <input class="shell_butt" type="image" src="../static/images/bash.png" onclick="showShell()"/>
-            <input class="python_butt" type="image" src="../static/images/python.png" onclick="showPython()"/>
+            <button id="shell_butt" type="submit" name="Shell" value="Shell"><img src="../static/images/bash.png"/></button>
+            <button id="python_butt" type="submit" name="Python" value="Python"><img src="../static/images/python.png"/></button>
+            <button id="javascript_butt" type="submit" name="Javascript" value="Javascript"><img src="../static/images/js.png"/></button>
+            <button id="node-axios_butt" type="submit" name="Node-axios" value="Node-axios"><img src="../static/images/node-js.png"/></button>
+            <button id="php_butt" type="submit" name="Php" value="Php"><img src="../static/images/php.png"/></button>
+            <button id="go_butt" type="submit" name="Go" value="Go"><img src="../static/images/go.png"/></button>
+            <button id="r_butt" type="submit" name="R" value="R"><img src="../static/images/r.png"/></button>
+            <button id="ruby_butt" type="submit" name="Ruby" value="Ruby"><img src="../static/images/ruby.png"/></button>
+            <button id="rust_butt" type="submit" name="Rust" value="Rust"><img src="../static/images/rust.png"/></button>
+            <button id="csharp_butt" type="submit" name="Csharp" value="Csharp"><img src="../static/images/csharp.png"/></button>
+            <button id="elixir_butt" type="submit" name="Elixir" value="Elixir"><img src="../static/images/elixir.png"/></button>
+            <button id="dart_butt" type="submit" name="Dart" value="Dart"><img src="../static/images/dart.png"/></button>
+            <button id="matlab_butt" type="submit" name="Matlab" value="Matlab"><img src="../static/images/matlab.png"/></button>
         </div>
+        </form>
         <br>
-        <div id="playgr_shell" style="display: block;" class="playground_shell">
-            <div class="code_mirror" id="shell">
-                <div class="cm-linerow"><span class="cm-lineNumber">1</span><span class="cm-builtin">curl&nbsp;</span><span class="cm-attribute">--request</span> POST \</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">2</span><span class="cm-builtin"></span><span class="cm-attribute">--url&nbsp;&nbsp;&nbsp;</span> http://helbreder_url/api/endpoint \</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">3</span><span class="cm-builtin"></span><span class="cm-attribute">--header&nbsp;</span><span class="cm-string"> 'Accept: application/json'</span> \</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">4</span><span class="cm-builtin"></span><span class="cm-attribute">--header&nbsp;</span><span class="cm-string"> 'Authorization: Basic {{ username }}{{ password }}'</span> \</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">5</span><span class="cm-builtin"></span><span class="cm-attribute">--header&nbsp;</span><span class="cm-string"> 'Content-Type: application/json'</span>\</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">6</span><span class="cm-builtin"></span><span class="cm-attribute">--data&nbsp;</span><span class="cm-string"> '{"namespace": "{{ button_clicked[0] }}", "action": "{{ button_clicked[1] }}", "target_name": "{{ button_clicked[2] }}", "target_kind": "${target}"}'</span></div>
+        <div style="display: block;" class="playground">
+            <div class="code_mirror" id="code">
+                <pre><code>{{ code }}</code></pre>
             </div>
             <div class="tooltip">
-                <input class="copy_butt" type="image" src="../static/images/copy.png" onclick="copy('shell')" onmouseout="tooltipReset()">
+                <input class="copy_butt" type="image" src="../static/images/copy.png" onclick="copy('code')" onmouseout="tooltipReset()">
                 <span class="tooltiptext" id="myTooltip">Copy</span>
             </div>
         </div>
-        <div id="playgr_python" style="display: none;" class="playground_python">
-            <div class="code_mirror" id="python">
-                <div class="cm-linerow"><span class="cm-lineNumber">1</span><span class="cm-attribute">import&nbsp;</span><span style="color:#f07178;">requests</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">2</span><span class="cm-builtin"></span><span class="cm-attribute"></span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">3</span><span class="cm-variable">headers</span> = {</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">4</span><span class="cm-builtin"></span><span class="cm-string">'Accept':&nbsp;</span><span class="cm-string"> 'application/json',</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">5</span><span class="cm-builtin"></span><span class="cm-string">'Authorization':&nbsp;</span><span class="cm-string"> "Basic {{ username }}{{ password }}",</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">6</span>}</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">7</span><span class="cm-builtin"></span><span class="cm-attribute"></span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">8</span><span class="cm-variable">json_data</span> = {</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">9</span><span class="cm-builtin"></span><span class="cm-string">'namespace':&nbsp;</span><span class="cm-string"> '{{ button_clicked[0] }}',</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">10</span><span class="cm-builtin"></span><span class="cm-string">'action':&nbsp;</span><span class="cm-string"> '{{ button_clicked[1] }}',</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">11</span><span class="cm-builtin"></span><span class="cm-string">'target_name':&nbsp;</span><span class="cm-string"> '{{ button_clicked[2] }}',</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">12</span><span class="cm-builtin"></span><span class="cm-string">'target_kind':&nbsp;</span><span class="cm-string"> '${target}',</span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">13</span>}</div>
-                <div class="cm-linerow"><span class="cm-lineNumber">14</span><span class="cm-builtin"></span><span class="cm-attribute"></span></div>
-                <div class="cm-linerow"><span class="cm-lineNumber">15</span><span class="cm-variable">response</span>=&nbsp;<span style="color:#f07178;">requests</span>.<span style="color:#C792EA;">post</span>('http://helbreder_url/api/endpoint', headers=headers, json=json_data)</div>
-            </div>
-            <div class="tooltip">
-                <input class="copy_butt" type="image" src="../static/images/copy.png" onclick="copy('python')" onmouseout="tooltipReset()">
-                <span class="tooltiptext" id="myTooltip1">Copy</span>
-            </div>
-        </div>
-        <script>
-            function showShell() {
-                document.getElementById('playgr_shell').style.display = "block";
-                document.getElementById('playgr_python').style.display = "none";
-            }
-
-            function showPython() {
-                document.getElementById('playgr_python').style.display = "block";
-                document.getElementById('playgr_shell').style.display = "none";
-            }
-            
+        <script src="../static/styles/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script>            
             function copy(id) {
                 var r = document.createRange();
                 r.selectNode(document.getElementById(id));

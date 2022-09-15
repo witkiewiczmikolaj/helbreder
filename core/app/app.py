@@ -16,11 +16,10 @@ def static_main():
     module = modules_buttonized()
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
-    username = 'username'
-    password = 'password'
+    code = 'Waiting for inputs'
     if request.method == 'POST':
-        action, target, username, password = collect_data()
-    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, username = username, password = password)
+        action, target, code = collect_data()
+    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, code = code)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
@@ -54,4 +53,3 @@ def k8s():
 
 if __name__ == "__main__":
     helbreder.run(debug=True)
-

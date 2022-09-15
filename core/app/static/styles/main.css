@@ -54,19 +54,85 @@ input:hover {
     cursor: pointer;
 }
 
-.shell_butt {
+button {
     background: none;
+    display: inline-block;
     width: 60px;
+    padding: 0;
     margin-left: 10px;
     margin-right: 10px;
+    vertical-align: top;
+    border: none;
 }
 
-.python_butt {
-    background: none;
+button:hover {
+    cursor: pointer;
+}
+
+#shell_butt img{
+    display: block;
     width: 70px;
-    height: 60px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+}
+
+#python_butt img{
+    display: block;
+    width: 90px;
+}
+
+#javascript_butt img{
+    display: block;
+    width: 70px;
+}
+
+#node-axios_butt img{
+    display: block;
+    width: 70px;
+}
+
+#php_butt img{
+    display: block;
+    width: 70px;
+}
+
+#go_butt img{
+    display: block;
+    width: 80px;
+}
+
+#r_butt img{
+    display: block;
+    width: 70px;
+}
+
+#ruby_butt img{
+    display: block;
+    width: 70px;
+}
+
+#rust_butt img{
+    display: block;
+    width: 70px;
+}
+
+#csharp_butt img{
+    display: block;
+    width: 70px;
+}
+
+#elixir_butt img{
+    display: block;
+    width: 70px;
+}
+
+#dart_butt img{
+    display: block;
+    width: 70px;
+}
+
+#matlab_butt img{
+    display: block;
+    width: 70px;
 }
 
 .copy_butt {
@@ -119,27 +185,17 @@ input:hover {
     box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
 }
 
-.playground_shell {
-    background: #242e34;
+.playground {
+    background: #0d1117;
     color-scheme: dark;
     border-radius: 20px;
-    width: 40%;
-    height: 160px;
-    margin-left: 30%;
+    width: 50%;
+    height: 380px;
+    margin-left: 25%;
     line-height: 150%;
 }
 
-.playground_python {
-    background: #242e34;
-    color-scheme: dark;
-    border-radius: 20px;
-    width: 40%;
-    height: 375px;
-    margin-left: 30%;
-    line-height: 150%;
-}
-
-.playground_shell input, .playground_python input {
+.playground input {
     margin-left: 0%;
 }
 
