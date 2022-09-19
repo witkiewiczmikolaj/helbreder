@@ -10,9 +10,8 @@ button_clicked = ["*module*", "*action*", "*target*", "*username*", "*password*"
 
 def collect_data():
     global button_clicked
-    file = open("D:/helbreder/core/app/doc/languages.yml")
-    languages = yaml.safe_load(file)
-    
+    languages = open_lang()
+
     for module in range (len(modules())):
         
         if request.form.get(f'{modules()[module].title()}') == f'{modules()[module].title()}':

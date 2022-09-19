@@ -3,10 +3,14 @@ from flask import request
 from templates.curl_to_code import *
 from templates.post import button_clicked
 
-def lang_gen():
-    global button_clicked
+def open_lang():
     file = open("D:/helbreder/core/app/doc/languages.yml")
     languages = yaml.safe_load(file)
+    return languages
+
+def lang_gen():
+    global button_clicked
+    languages = open_lang()
     data = '{"namespace": "' + f'{button_clicked[0]}' + '", "action": "' + f'{button_clicked[1]}' + '", "target_name": "' + f'{button_clicked[2]}' + '", "target_kind": "target_kind"}'
     curl = "curl --request POST \ --url http://helbreder_url/api/endpoint \ --header 'Accept: application/json' \ --header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ --header 'Content-Type: application/json'\ --data '" + f'{data}' + "'"
     action = '<h3>Waiting for module</h3>'
@@ -19,3 +23,11 @@ def lang_gen():
             code = curl_code
 
     return action, target, code
+
+def lang_buttonized():
+    languages = open_lang()
+    langs = []
+    for lang in languages:
+        langs.append('<button id="' + lang.lower() + '_butt" type="submit" name="' + lang + '" value="' + lang + '"><img src="../static/images/' + lang.lower() + '.png"/></button>')
+    langs = ' '.join(langs)    
+    return langs
