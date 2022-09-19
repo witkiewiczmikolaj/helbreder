@@ -37,19 +37,7 @@
         <br>
         <br>
         <div class="lang_picker">
-            <button id="shell_butt" type="submit" name="Shell" value="Shell"><img src="../static/images/bash.png"/></button>
-            <button id="python_butt" type="submit" name="Python" value="Python"><img src="../static/images/python.png"/></button>
-            <button id="javascript_butt" type="submit" name="Javascript" value="Javascript"><img src="../static/images/js.png"/></button>
-            <button id="node-axios_butt" type="submit" name="Node-axios" value="Node-axios"><img src="../static/images/node-js.png"/></button>
-            <button id="php_butt" type="submit" name="Php" value="Php"><img src="../static/images/php.png"/></button>
-            <button id="go_butt" type="submit" name="Go" value="Go"><img src="../static/images/go.png"/></button>
-            <button id="r_butt" type="submit" name="R" value="R"><img src="../static/images/r.png"/></button>
-            <button id="ruby_butt" type="submit" name="Ruby" value="Ruby"><img src="../static/images/ruby.png"/></button>
-            <button id="rust_butt" type="submit" name="Rust" value="Rust"><img src="../static/images/rust.png"/></button>
-            <button id="csharp_butt" type="submit" name="Csharp" value="Csharp"><img src="../static/images/csharp.png"/></button>
-            <button id="elixir_butt" type="submit" name="Elixir" value="Elixir"><img src="../static/images/elixir.png"/></button>
-            <button id="dart_butt" type="submit" name="Dart" value="Dart"><img src="../static/images/dart.png"/></button>
-            <button id="matlab_butt" type="submit" name="Matlab" value="Matlab"><img src="../static/images/matlab.png"/></button>
+            {{ languages | safe }}
         </div>
         </form>
         <br>
