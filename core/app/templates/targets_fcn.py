@@ -3,7 +3,7 @@ from templates.list_modifications import *
 from templates.modules_fcn import *
 
 def targets(module):
-    file = open("D:/helbreder/core/app/doc/possibilities.yml")
+    file = open("/helbreder/app/doc/possibilities.yml")
     data = yaml.safe_load(file)
     targets_list = list(data['modules'][module]['targets'])
     return targets_list
