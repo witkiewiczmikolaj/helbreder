@@ -3,10 +3,12 @@ import base64
 
 button_clicked = ["*module*", "*action*", "*target*", "*username*", "*password*"]
 
-def encode():
-    rq = request.form.get
-    username = base64.b64encode(rq("Username").encode("utf-8"))
-    password = base64.b64encode(rq("Password").encode("utf-8"))
+def encode(item):
+    return base64.b64encode(request.form.get(item).encode("utf-8"))
+
+def get_user_pass():
+    username = encode("Username")
+    password = encode("Password")
     return username, password
 
 def user_pass():
@@ -14,5 +16,5 @@ def user_pass():
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
     code = 'Waiting for inputs'
-    button_clicked[3], button_clicked[4] = encode()
+    button_clicked[3], button_clicked[4] = get_user_pass()
     return action, target, code, button_clicked
