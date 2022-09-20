@@ -11,11 +11,10 @@ def get_user_pass():
     password = encode("Password")
     return username, password
 
-def user_pass_target():
+def user_pass():
     global button_clicked
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
     code = 'Waiting for inputs'
     button_clicked[3], button_clicked[4] = get_user_pass()
-    button_clicked[5] = request.form.get("Target_name")
     return action, target, code, button_clicked
