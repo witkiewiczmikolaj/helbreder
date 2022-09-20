@@ -29,7 +29,10 @@ h1 {
 
 .user {
     text-align: center;
-    padding-top: 4em;
+}
+
+.target {
+    text-align: center;
 }
 
 .lang_picker {
@@ -73,66 +76,101 @@ button:hover {
     display: block;
     width: 70px;
     margin-left: 15px;
+    transition-duration: 0.1s;
+}
+
+#shell_butt img:hover, 
+#javascript_butt img:hover, 
+#node-axios_butt img:hover, 
+#php_butt img:hover, 
+#matlab_butt img:hover, 
+#dart_butt img:hover,
+#elixir_butt img:hover, 
+#csharp_butt img:hover, 
+#rust_butt img:hover,
+#ruby_butt img:hover,
+#r_butt img:hover{
+    width: 80px;
 }
 
 #python_butt img{
     display: block;
     width: 90px;
+    transition-duration: 0.1s;
+}
+
+#python_butt img:hover{
+    width: 100px;
 }
 
 #javascript_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #node-axios_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #php_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #go_butt img{
     display: block;
     width: 80px;
+    transition-duration: 0.1s;
+}
+
+#go_butt img:hover{
+    width: 90px;
 }
 
 #r_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #ruby_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #rust_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #csharp_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #elixir_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #dart_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 #matlab_butt img{
     display: block;
     width: 70px;
+    transition-duration: 0.1s;
 }
 
 .copy_butt {
