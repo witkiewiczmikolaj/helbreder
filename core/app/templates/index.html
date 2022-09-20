@@ -45,38 +45,21 @@
         </div>
         </form>
         <br>
-        <div style="display: block;" class="playground">
-            <div class="code_mirror" id="code">
-                <pre><code>{{ code }}</code></pre>
-            </div>
-            <div class="tooltip">
-                <input class="copy_butt" type="image" src="../static/images/copy.png" onclick="copy('code')" onmouseout="tooltipReset()">
-                <span class="tooltiptext" id="myTooltip">Copy</span>
-            </div>
-        </div>
-        <script src="../static/styles/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script>            
-            function copy(id) {
-                var r = document.createRange();
-                r.selectNode(document.getElementById(id));
-                window.getSelection().removeAllRanges();
-                window.getSelection().addRange(r);
-                document.execCommand('copy');
-                window.getSelection().removeAllRanges();
-
-                var tooltip = document.getElementById("myTooltip");
-                tooltip.innerHTML = "Copied!";
-                var tooltip1 = document.getElementById("myTooltip1");
-                tooltip1.innerHTML = "Copied!";
-            }
-
-            function tooltipReset() {
-                var tooltip = document.getElementById("myTooltip");
-                tooltip.innerHTML = "Copy";
-                var tooltip1 = document.getElementById("myTooltip1");
-                tooltip1.innerHTML = "Copy";
-            }
+        <div id="code"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $("button").mouseup(function(){
+                var code = $(this).val();
+                $.ajax({
+                    url: "/code",
+                    type: "get",
+                    data: {code: code},
+                    success: function(response) {
+                        $("#code").html(response);
+                    },
+                    });
+                });
         </script>
+        
     </body>
 </html>
