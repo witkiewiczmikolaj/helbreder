@@ -12,20 +12,25 @@ button_clicked = ["*module*", "*action*", "*target*", "*username*", "*password*"
 
 def collect_data():
     global button_clicked
-    languages = get_lang_sql()
-    rq = request.form.get
+    try:
+        languages = get_lang_sql()
+    except psycopg2.errors.UndefinedTable:
+        cur.execute("ROLLBACK")
+        create_table()
+        languages = get_lang_sql()
+        print('Helbreder started with an empty languages table, please fill it in.')
     
     try:
         action, target, code, button_clicked = action_target()
     except UnboundLocalError:
         pass
     
-    if rq("Submit") == "Submit":
+    if request.form.get("Submit") == "Submit":
         action, target, code, button_clicked = user_pass()
         button_clicked[5] = request.form.get("Target_name")
 
     for lang in languages:
-        if rq(lang) == lang:
+        if request.form.get(lang) == lang:
             action, target, code = lang_gen()
 
     return action, target, code
