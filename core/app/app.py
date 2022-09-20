@@ -7,7 +7,6 @@ from modules.postgresql import *
 
 from templates.modules_fcn import *
 from templates.post import *
-from templates.languages import *
 
 helbreder = Flask(__name__)
 

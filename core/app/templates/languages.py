@@ -6,7 +6,15 @@ from templates.post import button_clicked
 
 def lang_gen():
     global button_clicked
-    languages = get_lang_sql()
+
+    try:
+        languages = get_lang_sql()
+    except psycopg2.errors.UndefinedTable:
+        cur.execute("ROLLBACK")
+        create_table()
+        languages = get_lang_sql()
+        print('Helbreder started with an empty languages table, please fill it in.')  
+
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
     data = {}
@@ -35,7 +43,14 @@ def lang_gen():
     return action, target, code
 
 def lang_buttonized():
-    languages = get_lang_sql()
+    try:
+        languages = get_lang_sql()
+    except psycopg2.errors.UndefinedTable:
+        cur.execute("ROLLBACK")
+        create_table()
+        languages = get_lang_sql()
+        print('Helbreder started with an empty languages table, please fill it in.')  
+
     langs = []
     for lang in languages:
         langs.append('<button id="' + lang.lower() + '_butt" type="submit" name="' + lang + '" value="' + lang + '"><img src="../static/images/' + lang.lower() + '.png"/></button>')
