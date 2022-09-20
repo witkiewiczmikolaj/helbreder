@@ -3,13 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Helbreder</title>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/github-dark.min.css') }}">
+        <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
     </head>
     <body>
         <h1>&#128137;</h1>
         <br>
-        <div class="row">
-            <form action="/" method="post">
+        <form action="/" method="post">
+            <div class="row">
                 <div class="column">
                     <p>Choose a module:</p>
                     <br>
@@ -22,15 +23,43 @@
                 </div>
                 <div class="column">
                     <p>Choose a target:</p>
-                    <br>
+                    <br>    
                     {{ target | safe }}
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="target">
+                <p>Target name:</p>
+                <input type="text" name="Target_name" placeholder="target name">
+            </div>
+            <div class="user">
+                <p>Authentication:</p>
+                <input type="text" name="Username" placeholder="username">
+                <input type="text" name="Password" placeholder="password">
+                <br>
+                <input type="submit" name="Submit" value="Submit"/>
+            </div>
         <br>
-        <!-- WIP
-            <div class="summary">
-            <p>I welcome you {{ module }} and I'm gonna do to you {{ action }} on your {{ target }}</p>
-        </div>-->
+        <br>
+        <div class="lang_picker">
+            {{ languages | safe }}
+        </div>
+        </form>
+        <br>
+        <div id="code"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $("button").mouseup(function(){
+                var code = $(this).val();
+                $.ajax({
+                    url: "/code",
+                    type: "get",
+                    data: {code: code},
+                    success: function(response) {
+                        $("#code").html(response);
+                    },
+                    });
+                });
+        </script>
+        
     </body>
 </html>

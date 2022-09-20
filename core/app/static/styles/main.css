@@ -19,13 +19,25 @@ h1 {
     content: "";
     display: table;
     clear: both;
-  }
+}
   
 .column {
     float: left;
     width: 33.33%;
     text-align: center;
-  }
+}
+
+.user {
+    text-align: center;
+}
+
+.target {
+    text-align: center;
+}
+
+.lang_picker {
+    text-align: center;
+}
 
 input {
     background-color: rgb(108, 106, 106);
@@ -42,9 +54,158 @@ input {
 }
 
 input:hover {
-    border: 2px;
-    border-color: rgb(209, 206, 206);
     cursor: pointer;
+}
+
+button {
+    background: none;
+    display: inline-block;
+    width: 60px;
+    padding: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: top;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#shell_butt img{
+    display: block;
+    width: 70px;
+    margin-left: 15px;
+    transition-duration: 0.1s;
+}
+
+#shell_butt img:hover, 
+#javascript_butt img:hover, 
+#node-axios_butt img:hover, 
+#php_butt img:hover, 
+#matlab_butt img:hover, 
+#dart_butt img:hover,
+#elixir_butt img:hover, 
+#csharp_butt img:hover, 
+#rust_butt img:hover,
+#ruby_butt img:hover,
+#r_butt img:hover{
+    width: 80px;
+}
+
+#python_butt img{
+    display: block;
+    width: 90px;
+    transition-duration: 0.1s;
+}
+
+#python_butt img:hover{
+    width: 100px;
+}
+
+#javascript_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#node-axios_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#php_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#go_butt img{
+    display: block;
+    width: 80px;
+    transition-duration: 0.1s;
+}
+
+#go_butt img:hover{
+    width: 90px;
+}
+
+#r_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#ruby_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#rust_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#csharp_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#elixir_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#dart_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+#matlab_butt img{
+    display: block;
+    width: 70px;
+    transition-duration: 0.1s;
+}
+
+.copy_butt {
+    background: none;
+    width: 30px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+  
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 70px;
+    background-color: rgb(108, 106, 106);
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.lang_butt:focus {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
 }
 
 .target_butt:focus {
@@ -62,12 +223,86 @@ input:hover {
     box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
 }
 
-.value_label {
-    align-items: center;
+.playground {
+    background: #0d1117;
+    color-scheme: dark;
+    border-radius: 20px;
+    width: 50%;
+    height: 380px;
+    margin-left: 25%;
+    line-height: 150%;
+}
+
+.playground input {
+    margin-left: 0%;
+}
+
+.code_mirror {
+    overflow: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    height: 100%;
+    font-size: 12px;
+    width: 100%;
+    color: white;
+    position: relative;
+    direction: ltr;
+}
+
+.cm-linerow {
+    text-indent: 0;
+    position: relative;
+}
+
+.cm-lineNumber, .cm-builtin, .cm-attribute, .cm-string, .cm-variable {
+    color: #adaacc;
+    min-width: 30px;    
+    display: inline-block;
+    padding: 0 6px 0 10px;
+    right: auto;
+    text-align: right;
+}
+
+.cm-lineNumber {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cm-builtin {
+    color: #FFCB6B;
+}
+
+.cm-attribute {
+    color: #C792EA;
+}
+
+.cm-string {
+    color: #C3E88D;
+}
+
+.cm-variable {
+    color: #f07178;
+}
+
+::placeholder { 
+    color: white;
+    opacity: 0.5; 
+}
+  
+:-ms-input-placeholder { 
+    color: white;
+}
+  
+::-ms-input-placeholder {
+    color: white;
 }
 
 @media screen and (max-width: 600px) {
     .column {
       width: 100%;
     }
-  }
+}
