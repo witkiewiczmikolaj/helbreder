@@ -1,4 +1,5 @@
 from flask import request
+import json
 from templates.curl_to_code import *
 from templates.sql import *
 from templates.post import button_clicked
@@ -8,10 +9,22 @@ def lang_gen():
     languages = get_lang_sql()
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
+    data = {}
 
-    data = '{"namespace": "' + f'{button_clicked[0]}' + '", "action": "' + f'{button_clicked[1]}' + '", "target_name": "' + f'{button_clicked[5]}' + '", "target_kind": "' + f'{button_clicked[2]}' + '"}'
-    curl = "curl --request POST \ --url http://helbreder_url/api/endpoint \ --header 'Accept: application/json' \ --header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ --header 'Content-Type: application/json'\ --data '" + f'{data}' + "'"
-    curl_code = "curl    --request POST \ \n\t--url http://helbreder_url/api/endpoint \ \n\t--header 'Accept: application/json' \ \n\t--header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ \n\t--header 'Content-Type: application/json'\ \n\t--data '" + f'{data}' + "'"
+    if button_clicked[0] == "Kubernetes":
+        data['namespace'] = button_clicked[0]
+        data['action'] = button_clicked[1]
+        data['target_name'] = button_clicked[5]
+        data['target_kind'] = button_clicked[2]
+        data_json = json.dumps(data)
+    else:
+        data['action'] = button_clicked[1]
+        data['target_name'] = button_clicked[5]
+        data['target_kind'] = button_clicked[2]
+        data_json = json.dumps(data)
+        
+    curl = "curl --request POST \ --url http://helbreder_url/api/endpoint \ --header 'Accept: application/json' \ --header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ --header 'Content-Type: application/json'\ --data '" + f'{data_json}' + "'"
+    curl_code = "curl    --request POST \ \n\t--url http://helbreder_url/api/endpoint \ \n\t--header 'Accept: application/json' \ \n\t--header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ \n\t--header 'Content-Type: application/json'\ \n\t--data '" + f'{data_json}' + "'"
     
     for lang in languages:
         if request.form.get(lang) == lang:
