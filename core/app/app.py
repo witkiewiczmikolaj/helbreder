@@ -12,12 +12,19 @@ helbreder = Flask(__name__)
 
 @helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
+    global button_clicked
     module = modules_buttonized()
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
+    languages = lang_buttonized()
     if request.method == 'POST':
-        action, target = action_target()
-    return render_template('index.html', module = module, action = action, target = target)
+        action, target = collect_data()
+    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
+
+@helbreder.route('/code')
+def code_outcome(): 
+    code = lang_gen(request.args.get('code'))
+    return render_template('code.html', code = code)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
@@ -51,4 +58,3 @@ def k8s():
 
 if __name__ == "__main__":
     helbreder.run(debug=True)
-
