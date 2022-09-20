@@ -3,7 +3,7 @@ from templates.modules_fcn import *
 from templates.actions_fcn import *
 from templates.targets_fcn import *
 from templates.curl_to_code import *
-from templates.user_pass_target import *
+from templates.user_pass import *
 from templates.languages import *
 from templates.action_target import *
 from templates.sql import *
@@ -21,7 +21,8 @@ def collect_data():
         pass
     
     if rq("Submit") == "Submit":
-        action, target, code, button_clicked = user_pass_target()
+        action, target, code, button_clicked = user_pass()
+        button_clicked[5] = request.form.get("Target_name")
 
     for lang in languages:
         if rq(lang) == lang:
