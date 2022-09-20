@@ -16,11 +16,15 @@ def static_main():
     module = modules_buttonized()
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
-    code = 'Waiting for inputs'
     languages = lang_buttonized()
     if request.method == 'POST':
-        action, target, code = collect_data()
-    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, code = code, languages = languages)
+        action, target = collect_data()
+    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
+
+@helbreder.route('/code')
+def code_outcome(): 
+    code = lang_gen(request.args.get('code'))
+    return render_template('code.html', code = code)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required

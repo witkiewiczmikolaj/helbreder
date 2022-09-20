@@ -6,7 +6,6 @@ from templates.post import button_clicked
 
 def action_target():
     global button_clicked
-    code = 'Waiting for inputs'
     rq = request.form.get
 
     for module in range (len(modules())):
@@ -14,22 +13,22 @@ def action_target():
                 action = actions_buttonized(actions(modules()[module]))
                 target = targets_buttonized(targets(modules()[module]))
                 button_clicked[0] = rq(f'{modules()[module].title()}')
-                return action, target, code, button_clicked
+                return action, target, button_clicked
                 
             for act in range (len(actions(modules()[module]))):
                 if rq(f'{actions(modules()[module])[act].title()}') == f'{actions(modules()[module])[act].title()}':
                     action = actions_buttonized(actions(modules()[module]))
                     target = targets_buttonized(targets(modules()[module]))
                     button_clicked[1] = rq(f'{actions(modules()[module])[act].title()}')
-                    return action, target, code, button_clicked
+                    return action, target, button_clicked
             
             for targ in range (len(targets(modules()[module]))):
                 if rq(f'{targets(modules()[module])[targ].title()}') == f'{targets(modules()[module])[targ].title()}':
                     action = actions_buttonized(actions(modules()[module]))
                     target = targets_buttonized(targets(modules()[module]))
                     button_clicked[2] = rq(f'{targets(modules()[module])[targ].title()}')
-                    return action, target, code, button_clicked
+                    return action, target, button_clicked
                     
-    return action, target, code, button_clicked
+    return action, target, button_clicked
 
     
