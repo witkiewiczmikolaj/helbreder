@@ -12,5 +12,5 @@ def get_lang_sql():
 
 def create_table(table_name, columns):
     columns = re.sub(r"'|:|{|}", "", str(columns))
-    cur.execute(f'''CREATE TABLE IF NOT EXISTS {table_name}({columns})''')
+    cur.execute(f"CREATE TABLE IF NOT EXISTS {table_name}({columns})")
     c.commit()
