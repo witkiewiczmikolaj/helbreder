@@ -13,6 +13,10 @@ spec:
         app: helbreder
     spec:
       containers:
+      - name: nginx
+        image: wiktorkisielewski/helbreder:helbreder:alpha_0.3.0
+        ports:
+        - containerPort: 5000
         - env:
           - name: POSTGRES_IP
             valueFrom:
@@ -39,7 +43,3 @@ spec:
               configMapKeyRef:
                 key: POSTGRES_PORT
                 name: env
-          name: nginx
-          image: wiktorkisielewski/helbreder:alpha_0.3.4
-          ports:
-          - containerPort: 5000
