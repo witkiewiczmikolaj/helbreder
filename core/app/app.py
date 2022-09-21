@@ -31,7 +31,7 @@ def code_outcome():
 @auth.login_required
 def api_base():
     data = request.json
-    print(data)
+    save_api_request({request.authorization.username}, 'api', data)
     return "Hi!"
 
 @helbreder.route('/api/k8s',methods=['POST'])
