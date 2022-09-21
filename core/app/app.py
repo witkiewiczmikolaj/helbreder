@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask,request,json,render_template
+from flask import Flask,request,json,render_template,abort
 from basic_auth import *
 
 from modules.kubernetes import *
@@ -22,8 +22,11 @@ def static_main():
     return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
 @helbreder.route('/code')
-def code_outcome(): 
-    code = lang_gen(request.args.get('code'))
+def code_outcome():
+    try:
+        code = lang_gen(request.args.get('code'))
+    except:
+        abort(403)
     return render_template('code.html', code = code)
 
 @helbreder.route('/api',methods=['POST'])

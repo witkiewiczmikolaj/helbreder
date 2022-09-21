@@ -11,7 +11,7 @@ def targets(module):
 def targets_buttonized(targets_list):
     buttons = []
     for i in range (len(targets_list)):
-        buttons.append('<input class="target_butt" type="submit" ' + 'name="' + targets_list[i].title() + '" value="' + targets_list[i].title() + '">')
+        buttons.append('<label class="container">' + targets_list[i].title() + '<input class="target_butt" type="radio" ' + 'name="targets" value="' + targets_list[i].title() + '"><span class="checkmark"></span></label>')
     buttons = list_insert(buttons, '<br>') 
     buttons = ' '.join(buttons)    
     return buttons
