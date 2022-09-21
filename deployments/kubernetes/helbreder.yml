@@ -17,3 +17,29 @@ spec:
         image: wiktorkisielewski/helbreder:helbreder:alpha_0.3.0
         ports:
         - containerPort: 5000
+        - env:
+          - name: POSTGRES_IP
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_IP
+                name: env
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_PASSWORD
+                name: env
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_USER
+                name: env
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: env
+          - name: POSTGRES_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_PORT
+                name: env
