@@ -1,6 +1,5 @@
 body {
-    background: rgb(26,26,26);
-    background: radial-gradient(circle, rgb(209, 206, 206) 0%, rgb(108, 106, 106) 100%);
+    background: rgb(215, 214, 214);
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -49,8 +48,8 @@ input {
     display: inline-block;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 8px;
     margin-bottom: 10px;
+    box-shadow: 5px 5px rgb(46, 45, 45);
 }
 
 input:hover {
@@ -212,14 +211,9 @@ button:hover {
     opacity: 1;
 }
 
-.lang_butt:focus {
-    transform: scale(0.98);
-    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
-}
-
 .target_butt:focus, .module_butt:focus, .action_butt:focus {
-    transform: scale(0.98);
-    box-shadow: 3px 2px 22px 1px rgb(20, 240, 0);
+    transform: scale(0.95);
+    box-shadow: 3px 2px 22px 1px rgb(98, 100, 98);
 }
 
 .playground {
@@ -267,7 +261,7 @@ button:hover {
     display: inline-block;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 8px;
+    box-shadow: 5px 5px rgb(46, 45, 45);
   }
   
   .container input {
