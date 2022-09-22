@@ -7,6 +7,7 @@ from modules.postgresql import *
 
 from templates.modules_fcn import *
 from templates.post import *
+from templates.log_collector import *
 
 helbreder = Flask(__name__)
 
@@ -30,7 +31,7 @@ def code_outcome():
 @auth.login_required
 def api_base():
     data = request.json
-    print(data)
+    save_api_request({request.authorization.username}, 'api', data)
     return "Hi!"
 
 @helbreder.route('/api/k8s',methods=['POST'])
@@ -54,6 +55,7 @@ def k8s():
     for t_name in names:
         eval(func)(ns, t_name, t_kind)
 
+    save_api_request({request.authorization.username}, 'k8s', data)
     return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
 
 if __name__ == "__main__":
