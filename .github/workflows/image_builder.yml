@@ -26,18 +26,3 @@ jobs:
           tags: |
             wiktorkisielewski/${{ github.event.head_commit.message }}
           push: true
-      - name: k8s manifest update
-        run: |
-          sed -i 's|image: wiktorkisielewski/helbreder:.*|image: wiktorkisielewski/helbreder:${{ github.event.head_commit.message }}|g' \
-          ./deployments/kubernetes/helbreder.yml
-      - name: commit
-        run: |
-          git config --local user.name "wiktorkisielewski"
-          git add ./deployments/kubernetes/helbreder.yml
-          git commit -m "${{ github.event.head_commit.message }} - auto"
-      - name: push
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          force: false
-  
