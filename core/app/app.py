@@ -21,11 +21,11 @@ def static_main():
         action, target = collect_data()
     return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
-@helbreder.route('/code')
+@helbreder.route('/code', methods=['GET'])
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
-    except:
+    except AttributeError:
         abort(403)
     return render_template('code.html', code = code)
 
