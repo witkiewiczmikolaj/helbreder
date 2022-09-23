@@ -29,7 +29,7 @@ def static_main():
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
-    except:
+    except AttributeError:
         abort(500)
     return render_template('code.html', code = code)
 
