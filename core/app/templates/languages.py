@@ -33,7 +33,7 @@ def lang_buttonized():
         languages = get_lang_sql()
     except psycopg2.errors.UndefinedTable:
         cur.execute("ROLLBACK")
-        create_table()
+        create_table(table_name='LANGUAGES', columns={"id": "int", "name": "varchar(255)"})
         languages = get_lang_sql()
         print('Helbreder started with an empty languages table, please fill it in.')  
 
