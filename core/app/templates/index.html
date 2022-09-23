@@ -50,9 +50,12 @@
         <script>
             $("button").mouseup(function(){
                 var code = $(this).val();
+                var username = process.env.AUTH_USER_CODE;
+                var password = process.env.AUTH_PASSWORD_CODE;
                 $.ajax({
                     url: "/code",
                     type: "get",
+                    headers:{"Authorization": "Basic " + btoa(username + ":" + password)},
                     data: {code: code},
                     success: function(response) {
                         $("#code").html(response);
