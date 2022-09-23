@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask,request,json,render_template
+from flask import Flask,request,json,render_template,abort
 from basic_auth import *
 
 from modules.kubernetes import *
@@ -19,12 +19,19 @@ def static_main():
     target = '<h3>Waiting for module</h3>'
     languages = lang_buttonized()
     if request.method == 'POST':
-        action, target = collect_data()
+        try:
+            action, target = collect_data()
+        except KeyError:
+            print('Choose action and target_kind first!')
     return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
-@helbreder.route('/code')
-def code_outcome(): 
-    code = lang_gen(request.args.get('code'))
+@helbreder.route('/code', methods=['GET'])
+@auth.login_required
+def code_outcome():
+    try:
+        code = lang_gen(request.args.get('code'))
+    except AttributeError:
+        abort(500)
     return render_template('code.html', code = code)
 
 @helbreder.route('/api',methods=['POST'])

@@ -11,7 +11,7 @@ def actions(module):
 def actions_buttonized(action_list):
     buttons = []
     for i in range (len(action_list)):
-        buttons.append('<input class="action_butt" type="submit" ' + 'name="' + action_list[i].title() + '" value="' + action_list[i].title() + '">')
+        buttons.append('<label class="container">' + action_list[i].title() + '<input class="action_butt" type="radio" ' + 'name="actions" value="' + action_list[i].title() + '"><span class="checkmark"></span></label>')
     buttons = list_insert(buttons, '<br>') 
     buttons = ' '.join(buttons)    
     return buttons
