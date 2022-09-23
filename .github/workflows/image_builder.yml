@@ -26,4 +26,3 @@ jobs:
           tags: |
             wiktorkisielewski/${{ github.event.head_commit.message }}
           push: true
-  
