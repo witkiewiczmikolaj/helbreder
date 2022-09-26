@@ -78,11 +78,6 @@ spec:
               configMapKeyRef:
                 key: POSTGRES_USER
                 name: psql_module_env
-          - name: MODULE_POSTGRES_DB
-            valueFrom:
-              configMapKeyRef:
-                key: POSTGRES_DB
-                name: psql_module_env
           - name: MODULE_POSTGRES_PORT
             valueFrom:
               configMapKeyRef:
