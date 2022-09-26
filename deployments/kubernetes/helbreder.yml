@@ -63,3 +63,28 @@ spec:
               configMapKeyRef:
                 key: AUTH_PASSWORD_CODE
                 name: env
+          - name: MODULE_POSTGRES_IP
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_IP
+                name: psql_module_env
+          - name: MODULE_POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_PASSWORD
+                name: psql_module_env
+          - name: MODULE_POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_USER
+                name: psql_module_env
+          - name: MODULE_POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: psql_module_env
+          - name: MODULE_POSTGRES_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_PORT
+                name: psql_module_env
