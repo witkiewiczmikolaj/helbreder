@@ -6,6 +6,7 @@ from modules.kubernetes import *
 from modules.postgresql import *
 
 from templates.modules_fcn import *
+from templates.api_safety import *
 from templates.post import *
 from templates.log_collector import *
 
@@ -46,39 +47,45 @@ def api_base():
 def k8s():
     data = request.get_json()
 
-    ns = data["namespace"]
-    action = data["action"]
-    t_name = data["target_name"]
-    t_kind = data["target_kind"]
+    if validate_request('kubernetes', data):
+        ns = data["namespace"]
+        action = data["action"]
+        t_name = data["target_name"]
+        t_kind = data["target_kind"]
 
-    if t_name.endswith('*'):
-        t_name = t_name.replace('*', '')
-        names = find_(ns, t_name, t_kind)
+        if t_name.endswith('*'):
+            t_name = t_name.replace('*', '')
+            names = find_(ns, t_name, t_kind)
+        else:
+            names = [t_name]
+
+        func = str(action + '_')
+
+        for t_name in names:
+            eval(func)(ns, t_name, t_kind)
+
+        save_api_request({request.authorization.username}, 'k8s', data)
+        return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
     else:
-        names = [t_name]
+        abort(501)
 
-    func = str(action + '_')
-
-    for t_name in names:
-        eval(func)(ns, t_name, t_kind)
-
-    save_api_request({request.authorization.username}, 'k8s', data)
-    return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
-
-@helbreder.route('/api/k8s',methods=['POST'])
+@helbreder.route('/api/psql',methods=['POST'])
 @auth.login_required
-def postgresql():
+def psql():
     data = request.get_json()
 
-    action = data["action"]
-    t_name = data["target_name"]
-    t_kind = data["target_kind"]
+    if validate_request('postgresql', data):
+        action = data["action"]
+        t_name = data["target_name"]
+        t_kind = data["target_kind"]
 
-    func = str(action + '_')
-    eval(func)(t_name, t_kind)
+        func = str(action + '_')
+        eval(func)(t_name, t_kind)
 
-    save_api_request({request.authorization.username}, 'postgresql', data)
-    return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
+        save_api_request({request.authorization.username}, 'postgresql', data)
+        return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
+    else:
+        abort(501)
 
 if __name__ == "__main__":
     helbreder.run(debug=True)
