@@ -19,9 +19,7 @@ modules:
       - ubuntu2
   postgresql:
     actions:
-      - 'drop database'
-      - 'drop connections'
+      - drop
     targets:
-      - host
       - database
-      - cluster
+      - connections
