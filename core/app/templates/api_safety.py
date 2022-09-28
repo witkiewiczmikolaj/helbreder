@@ -1,9 +1,9 @@
-from templates.modules_fcn import *
+from templates.actions_fcn import *
 
 def validate_request(module, data):
-    actions = allowed_actions(module)
+    action_list = actions(module)
 
-    if data["action"] in actions:
+    if data["action"] in action_list:
         return True
     else:
         print('ILLEGAL/UNSUPPORTED OPERATION WAS REQUESTED!')
