@@ -3,7 +3,6 @@ import re
 from templates.psql import *
 
 def get_lang_sql():
-    cur.execute("ROLLBACK")
     cur.execute('''SELECT name FROM LANGUAGES''')
     lang = cur.fetchall()
     languages = []
