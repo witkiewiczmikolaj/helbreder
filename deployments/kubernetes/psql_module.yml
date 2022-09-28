@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  POSTGRES_IP: <>
+  POSTGRES_PASSWORD: <>
+  POSTGRES_USER: <>
+  POSTGRES_PORT: <>
+kind: ConfigMap
+metadata:
+  name: psql-module-env
+  namespace: <>

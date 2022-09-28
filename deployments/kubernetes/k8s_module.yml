@@ -1,0 +1,8 @@
+apiVersion: v1
+  data:
+    KUBE_CONFIG: |-
+      <content>
+  kind: ConfigMap
+  metadata:
+    name: module_env
+    namespace: <namespace>
