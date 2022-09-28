@@ -10,12 +10,6 @@ def modules():
         modules.append(list(data['modules'].keys())[i])  
     return modules
 
-def allowed_actions(module):
-    file = open("/helbreder/app/doc/possibilities.yml")
-    data = yaml.safe_load(file)
-    
-    return data['modules'][module]['actions']
-
 def modules_buttonized():
     buttons = []
     for i in range (len(modules())):
