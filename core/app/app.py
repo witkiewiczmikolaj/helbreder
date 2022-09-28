@@ -65,5 +65,20 @@ def k8s():
     save_api_request({request.authorization.username}, 'k8s', data)
     return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
 
+@helbreder.route('/api/k8s',methods=['POST'])
+@auth.login_required
+def postgresql():
+    data = request.get_json()
+
+    action = data["action"]
+    t_name = data["target_name"]
+    t_kind = data["target_kind"]
+
+    func = str(action + '_')
+    eval(func)(t_name, t_kind)
+
+    save_api_request({request.authorization.username}, 'postgresql', data)
+    return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
+
 if __name__ == "__main__":
     helbreder.run(debug=True)
