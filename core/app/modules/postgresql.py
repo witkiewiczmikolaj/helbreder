@@ -19,3 +19,8 @@ def drop_connections_(psql_db):
         WHERE pg_stat_activity.datname = '{psql_db}'
         AND pid <> pg_backend_pid();''')
     c.commit()
+
+def drop_database_(psql_db):
+    c, cur = psql_connect_('template1')
+    cur.execute(f'DROP DATABASE {psql_db};')
+    c.commit()
