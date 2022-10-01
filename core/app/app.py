@@ -39,7 +39,7 @@ def code_outcome():
 @auth.login_required
 def api_base():
     data = request.json
-    save_api_request({request.authorization.username}, 'api', data)
+    save_api_request(request.authorization.username, 'api', data)
     return "Hi!"
 
 @helbreder.route('/api/k8s',methods=['POST'])
@@ -64,7 +64,7 @@ def k8s():
         for t_name in names:
             eval(func)(ns, t_name, t_kind)
 
-        save_api_request({request.authorization.username}, 'k8s', data)
+        save_api_request(request.authorization.username, 'k8s', data)
         return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
     else:
         abort(501)
@@ -82,7 +82,7 @@ def psql():
         func = str(action + '_')
         eval(func)(t_name, t_kind)
 
-        save_api_request({request.authorization.username}, 'postgresql', data)
+        save_api_request(request.authorization.username, 'postgresql', data)
         return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
     else:
         abort(501)
