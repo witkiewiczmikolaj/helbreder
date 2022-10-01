@@ -4,12 +4,12 @@ from flask_httpauth import HTTPBasicAuth
 
 user = os.environ.get('AUTH_USER')
 password = os.environ.get('AUTH_PASSWORD')
-user_code = os.environ.get('AUTH_USER_CODE') 
-password_code = os.environ.get('AUTH_PASSWORD_CODE')
+# user_code = os.environ.get('AUTH_USER_CODE')
+# password_code = os.environ.get('AUTH_PASSWORD_CODE')
 
 users = {
     user: generate_password_hash(password),
-    user_code: generate_password_hash(password_code)
+    # user_code: generate_password_hash(password_code)
 }
 
 auth = HTTPBasicAuth()
