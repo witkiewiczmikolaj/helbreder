@@ -8,7 +8,6 @@ from modules.postgresql import *
 from templates.modules_fcn import *
 from templates.api_safety import *
 from templates.post import *
-from templates.log_collector import *
 
 helbreder = Flask(__name__)
 
@@ -27,7 +26,7 @@ def static_main():
     return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
 @helbreder.route('/code', methods=['GET'])
-@auth.login_required
+@code_auth.login_required
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
@@ -38,14 +37,13 @@ def code_outcome():
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
 def api_base():
-    data = request.json
-    save_api_request({request.authorization.username}, 'api', data)
+    data = new_request(request.get_json(), 'api')
     return "Hi!"
 
 @helbreder.route('/api/k8s',methods=['POST'])
 @auth.login_required
 def k8s():
-    data = request.get_json()
+    data = new_request(request.get_json(), 'k8s')
 
     if validate_request('kubernetes', data):
         ns = data["namespace"]
@@ -64,7 +62,6 @@ def k8s():
         for t_name in names:
             eval(func)(ns, t_name, t_kind)
 
-        save_api_request({request.authorization.username}, 'k8s', data)
         return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind}/{t_name}\n"
     else:
         abort(501)
@@ -72,7 +69,7 @@ def k8s():
 @helbreder.route('/api/psql',methods=['POST'])
 @auth.login_required
 def psql():
-    data = request.get_json()
+    data = new_request(request.get_json(), 'psql')
 
     if validate_request('postgresql', data):
         action = data["action"]
@@ -82,7 +79,6 @@ def psql():
         func = str(action + '_')
         eval(func)(t_name, t_kind)
 
-        save_api_request({request.authorization.username}, 'postgresql', data)
         return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
     else:
         abort(501)
