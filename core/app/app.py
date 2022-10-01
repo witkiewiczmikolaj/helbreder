@@ -27,7 +27,7 @@ def static_main():
     return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
 @helbreder.route('/code', methods=['GET'])
-@auth.login_required
+@code_auth.login_required
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
