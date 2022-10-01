@@ -37,13 +37,13 @@ def code_outcome():
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
 def api_base():
-    data = new_request(data, 'api')
+    data = new_request(request.get_json(), 'api')
     return "Hi!"
 
 @helbreder.route('/api/k8s',methods=['POST'])
 @auth.login_required
 def k8s():
-    data = new_request(data, 'k8s')
+    data = new_request(request.get_json(), 'k8s')
 
     if validate_request('kubernetes', data):
         ns = data["namespace"]
@@ -69,7 +69,7 @@ def k8s():
 @helbreder.route('/api/psql',methods=['POST'])
 @auth.login_required
 def psql():
-    data = new_request(data, 'psql')
+    data = new_request(request.get_json(), 'psql')
 
     if validate_request('postgresql', data):
         action = data["action"]
