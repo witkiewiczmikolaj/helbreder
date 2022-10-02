@@ -31,6 +31,7 @@ def static_main():
 def code_outcome():
     print('CODE HIT', file=sys.stderr)
     print(request.environ, file=sys.stderr)
+    #'REMOTE_ADDR': '10.42.0.144'
     try:
         code = lang_gen(request.args.get('code'))
         return render_template('code.html', code = code)
