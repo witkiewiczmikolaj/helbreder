@@ -1,7 +1,6 @@
 import datetime
 from flask import Flask,request,json,render_template,abort
 from basic_auth import *
-import sys
 
 from modules.kubernetes import *
 from modules.postgresql import *
