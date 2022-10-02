@@ -54,16 +54,6 @@ spec:
               configMapKeyRef:
                 key: AUTH_PASSWORD
                 name: env
-          - name: AUTH_USER_CODE
-            valueFrom:
-              configMapKeyRef:
-                key: AUTH_USER_CODE
-                name: env
-          - name: AUTH_PASSWORD_CODE
-            valueFrom:
-              configMapKeyRef:
-                key: AUTH_PASSWORD_CODE
-                name: env
           - name: MODULE_POSTGRES_IP
             valueFrom:
               configMapKeyRef:
