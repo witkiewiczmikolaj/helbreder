@@ -1,6 +1,7 @@
 import datetime
 from flask import Flask,request,json,render_template,abort
 from basic_auth import *
+import sys
 
 from modules.kubernetes import *
 from modules.postgresql import *
@@ -28,8 +29,8 @@ def static_main():
 @helbreder.route('/code', methods=['GET'])
 @auth.login_required
 def code_outcome():
-    print('CODE HIT')
-    print(request.environ)
+    print('CODE HIT', file=sys.stderr)
+    print(request.environ, file=sys.stderr)
     try:
         code = lang_gen(request.args.get('code'))
         return render_template('code.html', code = code)
