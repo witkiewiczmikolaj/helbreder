@@ -146,10 +146,6 @@ button:hover {
     transition-duration: 0.1s;
 }
 
-.btn-toggle img{
-    width: 40px;
-}
-
 #shell_butt img:hover, 
 #javascript_butt img:hover, 
 #node-axios_butt img:hover, 
