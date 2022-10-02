@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helbreder
+  namespace: helbreder
 spec:
   selector:
     matchLabels:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: wiktorkisielewski/helbreder:alpha_0.4.5
+        image: wiktorkisielewski/helbreder:alpha_0.5.3
         ports:
           - containerPort: 5000
         env:
