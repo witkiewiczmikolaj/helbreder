@@ -28,12 +28,13 @@ def static_main():
 @helbreder.route('/code', methods=['GET'])
 @auth.login_required
 def code_outcome():
+    print('CODE HIT')
     print(request.environ)
     try:
         code = lang_gen(request.args.get('code'))
+        return render_template('code.html', code = code)
     except AttributeError:
         abort(500)
-    return render_template('code.html', code = code)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
