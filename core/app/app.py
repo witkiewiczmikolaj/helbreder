@@ -26,13 +26,13 @@ def static_main():
     return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
 @helbreder.route('/code', methods=['GET'])
-@code_auth.login_required
+@auth.login_required
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
+        return render_template('code.html', code = code)
     except AttributeError:
         abort(500)
-    return render_template('code.html', code = code)
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
