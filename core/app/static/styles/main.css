@@ -22,6 +22,9 @@ body {
 	border-radius: 50px;
 	overflow: hidden;
 	cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .radio-btn .radio-inner {
@@ -66,7 +69,14 @@ h3 {
 	color: var(--text-color);
 }
 
-h1 {
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.syringe {
 	text-align: center;
 	font-size: 70px;
 }
@@ -274,6 +284,13 @@ img {
 	transform: scale(0.95);
 	box-shadow: 3px 2px 22px 1px rgb(98, 100, 98);
 }
+
+.target_butt:hover,
+.module_butt:hover,
+.action_butt:hover {
+	transform: scale(1.1);
+}
+
 
 .playground {
 	background: #0d1117;
