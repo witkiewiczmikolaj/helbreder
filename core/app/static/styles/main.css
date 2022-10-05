@@ -106,7 +106,7 @@ input {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
-    box-shadow: 5px 5px rgb(46, 45, 45);
+    box-shadow: 5px 5px 5px rgb(46, 45, 45);
 }
 
 input:hover {
@@ -265,9 +265,14 @@ img {
     opacity: 1;
 }
 
-.target_butt:focus, .module_butt:focus, .action_butt:focus {
-    transform: scale(0.95);
-    box-shadow: 3px 2px 22px 1px rgb(98, 100, 98);
+input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="radio"]:checked {
+    transform: scale(1.1);
 }
 
 .playground {
@@ -315,7 +320,7 @@ img {
     display: inline-block;
     font-size: 16px;
     font-weight: 600;
-    box-shadow: 5px 5px rgb(46, 45, 45);
+    box-shadow: 5px 5px 5px rgb(46, 45, 45);
   }
   
   .container input {
