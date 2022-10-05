@@ -23,8 +23,8 @@ body {
 	overflow: hidden;
 	cursor: pointer;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 10px;
 }
 
 .radio-btn .radio-inner {
@@ -71,6 +71,7 @@ h3 {
 
 header {
     position: fixed;
+    opacity: 1;
     top: 0;
     left: 0;
     right: 0;
@@ -79,11 +80,11 @@ header {
 .syringe {
 	text-align: center;
 	font-size: 70px;
+    margin: 0 auto;
 }
 
 .main-form {
     margin: 20px auto;
-    border: 3px solid black;
 }
 
 .row::after {
