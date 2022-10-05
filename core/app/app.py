@@ -23,14 +23,14 @@ def static_main():
             action, target = collect_data()
         except KeyError:
             print('Choose action and target_kind first!')
-    return render_template('index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
+    return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
 
 @helbreder.route('/code', methods=['GET'])
 @auth.login_required
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
-        return render_template('code.html', code = code)
+        return render_template('html/code.html', code = code)
     except AttributeError:
         abort(500)
 
