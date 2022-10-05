@@ -65,11 +65,13 @@
          if (localStorage.getItem("darkmode") === 'true'){
              $(".radio-inner").toggleClass("active");
              $("body").toggleClass("dark-theme");
+             $("header").toggleClass("dark-theme");
          }
          $(document).ready(function (){
              $(".radio-btn").click(function (){
                  $(".radio-inner").toggleClass("active");
-                 $("body").toggleClass("dark-theme");   
+                 $("body").toggleClass("dark-theme");
+                 $("header").toggleClass("dark-theme");   
                  let active = $("body").hasClass("dark-theme");
                  localStorage.setItem("darkmode", active);
              });
