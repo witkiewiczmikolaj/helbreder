@@ -10,9 +10,9 @@ modules:
       - statefull_set
   server:
     actions:
-      - reboot
-      - reboot1
-      - reebot2
+      - CPU
+      - RAM
+      - Reebot
     targets:
       - ubuntu
       - ubuntu1

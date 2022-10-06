@@ -39,6 +39,20 @@ def api_base():
     data = new_request(request.get_json(), 'api')
     return "Hi!"
 
+@helbreder.route('/api/server',methods=['POST'])
+@auth.login_required
+def server():
+    data = new_request(request.get_json(), 'server')
+
+    if validate_request('server', data):
+        action = data["action"]
+        t_name = data["target_name"]
+        t_kind = data["target_kind"]
+        func = str(action + '_')
+        return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
+    else:
+        abort(501)
+
 @helbreder.route('/api/k8s',methods=['POST'])
 @auth.login_required
 def k8s():
