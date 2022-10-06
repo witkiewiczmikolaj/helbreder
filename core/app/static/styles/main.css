@@ -1,378 +1,401 @@
 body {
-    --background-color: rgb(215, 214, 214);
-    --text-color: black;
-    
+	--background-color: rgb(215, 214, 214);
+	--text-color: black;
 }
 
 body.dark-theme {
-    --text-color: rgb(215, 214, 214);
-    --background-color: black;
+	--text-color: rgb(215, 214, 214);
+	--background-color: black;
 }
 
 body {
-    background: var(--background-color);
-    text-align: left;
-    font-family: Arial, Helvetica, sans-serif;
+	background: var(--background-color);
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .radio-btn {
-    width: 50px;
-    height: 25px;
-    padding: 10px;
-    background-color: #27173a;
-    border-radius: 50px;
-    overflow: hidden;
-    cursor: pointer;
+	width: 50px;
+	height: 25px;
+	padding: 10px;
+	background-color: #27173a;
+	border-radius: 50px;
+	overflow: hidden;
+	cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
 }
 
 .radio-btn .radio-inner {
-    position: relative;
-    width: 25px;
-    height: 25px;
-    background-color: #ffc207;
-    border-radius: 50%;
-    transition: all 0.1s;
+	position: relative;
+	width: 25px;
+	height: 25px;
+	background-color: #ffc207;
+	border-radius: 50%;
+	transition: all 0.1s;
 }
 
 .radio-btn .radio-inner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -60%;
-    width: 100%;
-    height: 100%;
-    background-color: #27173a;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: all 0.1s;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -60%;
+	width: 100%;
+	height: 100%;
+	background-color: #27173a;
+	border-radius: 50%;
+	transform: scale(0);
+	transition: all 0.1s;
 }
 
 .radio-btn .radio-inner.active {
-    transform: translateX(25px);
+	transform: translateX(25px);
 }
 
 .radio-btn .radio-inner.active::before {
-    left: -10px;
-    transform: scale(1);
+	left: -10px;
+	transform: scale(1);
 }
 
 p {
-    font-weight: 600;
-    font-size: 30px;
-    color: var(--text-color);
+	font-weight: 600;
+	font-size: 30px;
+	color: var(--text-color);
+    margin: 5px 0;
 }
 
 h3 {
-    font-weight: 600;
-    color: var(--text-color);
+	font-weight: 600;
+	color: var(--text-color);
 }
 
-h1 {
-    text-align: center;
-    font-size: 70px;
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.syringe {
+	text-align: center;
+	font-size: 70px;
+    margin: 0 auto;
+    text-shadow: 5px 5px 5px rgb(46, 45, 45);
+}
+
+.main-form {
+    margin: 100px 0 0 0;
 }
 
 .row::after {
-    content: "";
-    display: table;
-    clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
-  
+
 .column {
-    float: left;
-    width: 33.33%;
-    text-align: center;
+	float: left;
+	width: 33.33%;
+	text-align: center;
 }
 
 .user {
-    text-align: center;
+	text-align: center;
 }
 
 .target {
-    text-align: center;
+	text-align: center;
 }
 
 .lang_picker {
-    text-align: center;
+	text-align: center;
 }
 
 input {
-    background-color: rgb(108, 106, 106);
-    border: none;
-    color: white;
-    padding: 15px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    box-shadow: 5px 5px rgb(46, 45, 45);
+	background-color: rgb(108, 106, 106);
+	border: none;
+	color: white;
+	padding: 15px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	box-shadow: 5px 5px 5px rgb(46, 45, 45);
 }
 
 input:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 label {
-    font-size: 16px;
-    font-weight: 600;
+	font-size: 16px;
+	font-weight: 600;
 }
 
-label:hover{
-    cursor: pointer;
-}
-
-button {
-    background: none;
-    display: inline-block;
-    width: 60px;
-    padding: 0;
-    margin-left: 10px;
-    margin-right: 10px;
-    vertical-align: top;
-    border: none;
+label:hover {
+	cursor: pointer;
 }
 
 button:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
-#shell_butt img{
-    display: block;
-    width: 70px;
-    margin-left: 15px;
-    transition-duration: 0.1s;
+#shell_butt img {
+	display: block;
+	width: 70px;
+	margin-left: 15px;
+	transition-duration: 0.1s;
 }
 
-#shell_butt img:hover, 
-#javascript_butt img:hover, 
-#node-axios_butt img:hover, 
-#php_butt img:hover, 
-#matlab_butt img:hover, 
-#dart_butt img:hover,
-#elixir_butt img:hover, 
-#csharp_butt img:hover, 
-#rust_butt img:hover,
-#ruby_butt img:hover,
-#r_butt img:hover{
-    width: 80px;
+.language_logo {
+	background: none;
+	display: inline-block;
+	width: 60px;
+	padding: 0;
+	margin: 10px;
+	vertical-align: top;
+	border: none;
 }
 
-#python_butt img{
-    display: block;
-    width: 90px;
-    transition-duration: 0.1s;
+.language_logo:hover {
+	transform: scale(1.2);
+	transition-duration: 0.1s;
 }
 
-#python_butt img:hover{
-    width: 100px;
+img {
+	max-width: 100%;
+	max-height: 100%;
 }
 
-#javascript_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#python_butt img {
+	display: block;
+	width: 90px;
+	transition-duration: 0.1s;
 }
 
-#node-axios_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#python_butt img:hover {
+	width: 100px;
 }
 
-#php_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#javascript_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#go_butt img{
-    display: block;
-    width: 80px;
-    transition-duration: 0.1s;
+#node-axios_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#go_butt img:hover{
-    width: 90px;
+#php_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#r_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#go_butt img {
+	display: block;
+	width: 80px;
+	transition-duration: 0.1s;
 }
 
-#ruby_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#go_butt img:hover {
+	width: 90px;
 }
 
-#rust_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#r_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#csharp_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#ruby_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#elixir_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#rust_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#dart_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#csharp_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
-#matlab_butt img{
-    display: block;
-    width: 70px;
-    transition-duration: 0.1s;
+#elixir_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
+}
+
+#dart_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
+}
+
+#matlab_butt img {
+	display: block;
+	width: 70px;
+	transition-duration: 0.1s;
 }
 
 .copy_butt {
-    background: none;
-    width: 30px;
+	background: none;
+	width: 30px;
 }
 
 .tooltip {
-    position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 }
-  
+
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 70px;
-    background-color: rgb(108, 106, 106);
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 7px;
-    position: absolute;
-    z-index: 1;
-    margin-top: 10px;
-    opacity: 0;
-    transition: opacity 0.3s;
+	visibility: hidden;
+	width: 70px;
+	background-color: rgb(108, 106, 106);
+	color: white;
+	text-align: center;
+	border-radius: 6px;
+	padding: 7px;
+	position: absolute;
+	z-index: 1;
+	margin-top: 10px;
+	opacity: 0;
+	transition: opacity 0.3s;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+	visibility: visible;
+	opacity: 1;
 }
 
-.target_butt:focus, .module_butt:focus, .action_butt:focus {
-    transform: scale(0.95);
-    box-shadow: 3px 2px 22px 1px rgb(98, 100, 98);
+.target_butt:focus,
+.module_butt:focus,
+.action_butt:focus {
+	transform: scale(0.95);
+	box-shadow: 3px 2px 22px 1px rgb(98, 100, 98);
 }
+
+.target_butt:hover,
+.module_butt:hover,
+.action_butt:hover {
+	transform: scale(1.1);
+    transition: 0.1s;
+}
+
 
 .playground {
-    background: #0d1117;
-    color-scheme: dark;
-    border-radius: 20px;
-    width: 50%;
-    height: 380px;
-    margin-left: 25%;
-    line-height: 150%;
+	background: #0d1117;
+	color-scheme: dark;
+	border-radius: 20px;
+	width: 50%;
+	height: 380px;
+	margin-left: 25%;
+	line-height: 150%;
 }
 
 .playground input {
-    margin-left: 0%;
+	margin-left: 0%;
 }
 
 .code_mirror {
-    overflow: auto;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    height: 100%;
-    font-size: 12px;
-    width: 100%;
-    color: white;
-    position: relative;
-    direction: ltr;
+	overflow: auto;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	height: 100%;
+	font-size: 12px;
+	width: 100%;
+	color: white;
+	position: relative;
+	direction: ltr;
 }
 
 .container {
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: rgb(108, 106, 106);
-    border: none;
-    color: white;
-    padding: 15px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    box-shadow: 5px 5px rgb(46, 45, 45);
-  }
-  
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 10px;
-    width: 10px;
-    background-color: #eee;
-    border-radius: 50%;
-    margin-right: 30px;
-  }
-  
-  .container:hover input ~ .checkmark {
-    background-color: #8fc8f6;
-  }
-  
-  .container input:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-
-::placeholder { 
-    color: white;
-    opacity: 0.5; 
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: rgb(108, 106, 106);
+	border: none;
+	color: white;
+	padding: 15px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600;
+	box-shadow: 5px 5px 5px rgb(46, 45, 45);
 }
-  
-:-ms-input-placeholder { 
-    color: white;
+
+.container:hover {
+	transform: scale(1.1);
+	transition-duration: 0.1s;
 }
-  
+
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 10px;
+	width: 10px;
+	background-color: #eee;
+	border-radius: 50%;
+	margin-right: 30px;
+}
+
+.container:hover input~.checkmark {
+	background-color: #8fc8f6;
+}
+
+.container input:checked~.checkmark {
+	background-color: #2196F3;
+}
+
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+::placeholder {
+	color: white;
+	opacity: 0.5;
+}
+
+:-ms-input-placeholder {
+	color: white;
+}
+
 ::-ms-input-placeholder {
-    color: white;
+	color: white;
 }
 
 @media screen and (max-width: 600px) {
-    .column {
-      width: 100%;
-    }
+	.column {
+		width: 100%;
+	}
 }
-
-
-  

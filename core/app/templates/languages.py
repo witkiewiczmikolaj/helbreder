@@ -39,6 +39,6 @@ def lang_buttonized():
 
     langs = []
     for lang in languages:
-        langs.append('<button id="' + lang.lower() + '_butt" type="button" value="' + lang + '"><img src="../static/images/' + lang.lower() + '.png"/></button>')
+        langs.append('<button class="language_logo" id="' + lang.lower() + '_butt" type="button" value="' + lang + '"><img src="../static/images/' + lang.lower() + '.png"/></button>')
     langs = ' '.join(langs)    
     return langs
