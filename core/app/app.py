@@ -4,6 +4,7 @@ from basic_auth import *
 
 from modules.kubernetes import *
 from modules.postgresql import *
+from modules.server import *
 
 from templates.modules_fcn import *
 from templates.api_safety import *
@@ -46,10 +47,16 @@ def server():
 
     if validate_request('server', data):
         action = data["action"]
-        t_name = data["target_name"]
         t_kind = data["target_kind"]
-        func = str(action + '_')
-        return f"[{datetime.datetime.now()}] action: {func.replace('_','')} on {t_kind} {t_name}\n"
+        if t_kind == 'Ubuntu':
+            ip = os.environ.get('SERVER_IP')
+        if action == 'CPU':
+            response = server_info_cpu(os.environ.get('RSA_KEY'), os.environ.get('RSA_PASSWORD'), ip)
+        elif action == 'RAM':
+            response = server_info_ram(os.environ.get('RSA_KEY'), os.environ.get('RSA_PASSWORD'), ip)
+        elif action == 'Reboot':
+            response = 'rebooted'
+        return response
     else:
         abort(501)
 
