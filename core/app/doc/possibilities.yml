@@ -10,12 +10,12 @@ modules:
       - statefull_set
   server:
     actions:
+      - Get_stats
+      - Reboot
+      - Reebot1
+    targets:
       - CPU
       - RAM
-      - Reebot
-    targets:
-      - ubuntu
-      - ubuntu1
       - ubuntu2
   postgresql:
     actions:

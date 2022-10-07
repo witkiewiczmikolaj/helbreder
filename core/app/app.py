@@ -47,16 +47,10 @@ def server():
 
     if validate_request('server', data):
         action = data["action"]
+        t_name = data["target_name"]
         t_kind = data["target_kind"]
-        if t_kind == 'Ubuntu':
-            ip = os.environ.get('SERVER_IP')
-        if action == 'CPU':
-            response = server_info_cpu(os.environ.get('RSA_KEY'), os.environ.get('RSA_PASSWORD'), ip)
-        elif action == 'RAM':
-            response = server_info_ram(os.environ.get('RSA_KEY'), os.environ.get('RSA_PASSWORD'), ip)
-        elif action == 'Reboot':
-            response = 'rebooted'
-        return response
+        
+        return server_response(action, t_kind, t_name)
     else:
         abort(501)
 
