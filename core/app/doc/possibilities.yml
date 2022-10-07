@@ -16,7 +16,7 @@ modules:
     targets:
       - CPU
       - RAM
-      - ubuntu2
+      - Memory
   postgresql:
     actions:
       - drop
