@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: wiktorkisielewski/helbreder:alpha_0.5.8
+        image: wiktorkisielewski/helbreder:alpha_0.6.5
         ports:
           - containerPort: 5000
         env:
@@ -53,6 +53,16 @@ spec:
             valueFrom:
               configMapKeyRef:
                 key: AUTH_PASSWORD
+                name: env
+          - name: RSA_KEY
+            valueFrom:
+              configMapKeyRef:
+                key: RSA_KEY
+                name: env
+          - name: RSA_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: RSA_PASSWORD
                 name: env
           - name: MODULE_POSTGRES_IP
             valueFrom:
