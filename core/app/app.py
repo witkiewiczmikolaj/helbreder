@@ -47,11 +47,13 @@ def server():
 
     if validate_request('server', data):
         action = data["action"]
-        t_name = data["target_name"]
+        ip = data["IP"]
         t_kind = data["target_kind"]
-        user = 'root' #placeholder
+        user = data["target_name"]#'root'
+        cpu_num = data["resource_type"]
+        
         func = str(action + '_' + t_kind)
-        server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user)
+        server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), ip, user, cpu_num)
         return server_response
     else:
         abort(501)

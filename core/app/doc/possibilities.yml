@@ -14,8 +14,6 @@ modules:
       - Reboot
     targets:
       - CPU
-      - CPU0
-      - CPU1
       - RAM
       - Primary_hard_drive_memory
       - None

@@ -41,43 +41,24 @@ def server_info_calculation_mem(mem):
     mem = mem.split()
     return mem[8], mem[9], mem[10]
 
-def Get_stats_CPU(rsa_key, rsa_password, ip, user):
+def Get_stats_CPU(rsa_key, rsa_password, ip, user, cpu_num):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
-    stat_prev = execute_command(client, 'cat /proc/stat')
-    time.sleep(1)
-    stat = execute_command(client, 'cat /proc/stat')
+    if cpu_num == 0:
+        stat_prev = execute_command(client, 'cat /proc/stat')
+        time.sleep(1)
+        stat = execute_command(client, 'cat /proc/stat')
+    else:
+        stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
+        time.sleep(1)
+        stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
 
     client.close()
     
     cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
     return "CPU USAGE: " + cpu_usage + "%"
 
-def Get_stats_CPU0(rsa_key, rsa_password, ip, user):
-    client = server_connect(rsa_key, rsa_password, ip, user)
-
-    stat_prev = execute_command(client, 'cat /proc/stat | grep cpu0')
-    time.sleep(1)
-    stat = execute_command(client, 'cat /proc/stat | grep cpu0')
-
-    client.close()
-    
-    cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
-    return "CPU USAGE: " + cpu_usage + "%"
-
-def Get_stats_CPU1(rsa_key, rsa_password, ip, user):
-    client = server_connect(rsa_key, rsa_password, ip, user)
-
-    stat_prev = execute_command(client, 'cat /proc/stat | grep cpu1')
-    time.sleep(1)
-    stat = execute_command(client, 'cat /proc/stat | grep cpu1')
-
-    client.close()
-    
-    cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
-    return "CPU USAGE: " + cpu_usage + "%"
-
-def Get_stats_RAM(rsa_key, rsa_password, ip, user):
+def Get_stats_RAM(rsa_key, rsa_password, ip, user, temp):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     ram = execute_command(client, 'free -h')
@@ -87,7 +68,7 @@ def Get_stats_RAM(rsa_key, rsa_password, ip, user):
     free_ram = server_info_calculation_ram(ram)
     return "FREE RAM: " + free_ram
 
-def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user):
+def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user, temp):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     mem = execute_command(client, 'df /')
@@ -97,7 +78,7 @@ def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user):
     total, used, free = server_info_calculation_mem(mem)
     return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
-def Reboot_(rsa_key, rsa_password, ip, user):
+def Reboot_(rsa_key, rsa_password, ip, user, temp):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     reboot = execute_command(client, '/sbin/reboot')
