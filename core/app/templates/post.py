@@ -1,3 +1,4 @@
+from audioop import add
 from flask import request
 from templates.modules_fcn import *
 from templates.actions_fcn import *
@@ -14,7 +15,7 @@ def collect_data():
     global button_clicked
         
     try:
-        action, target, button_clicked = action_target()
+        action, target, button_clicked, additional = action_target()
     except UnboundLocalError:
         pass
     
@@ -22,4 +23,4 @@ def collect_data():
         action, target, button_clicked = user_pass()
         button_clicked[5] = request.form.get("Target_name")
 
-    return action, target
+    return action, target, additional

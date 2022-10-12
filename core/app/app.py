@@ -19,12 +19,13 @@ def static_main():
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
     languages = lang_buttonized()
+    additional = '<h3>Waiting for module</h3>'
     if request.method == 'POST':
         try:
-            action, target = collect_data()
+            action, target, additional = collect_data()
         except KeyError:
             print('Choose action and target_kind first!')
-    return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
+    return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages, additional = additional)
 
 @helbreder.route('/code', methods=['GET'])
 def code_outcome():
