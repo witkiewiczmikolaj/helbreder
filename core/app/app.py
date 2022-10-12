@@ -50,8 +50,9 @@ def server():
         t_name = data["target_name"]
         t_kind = data["target_kind"]
         user = 'root' #placeholder
-
-        return server_response(action, t_kind, t_name, user)
+        func = str(action + '_' + t_kind)
+        server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user)
+        return server_response
     else:
         abort(501)
 

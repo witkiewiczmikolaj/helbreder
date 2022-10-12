@@ -17,7 +17,7 @@ modules:
       - CPU0
       - CPU1
       - RAM
-      - Primary hard drive memory
+      - Primary_hard_drive_memory
       - None
   postgresql:
     actions:

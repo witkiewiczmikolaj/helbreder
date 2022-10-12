@@ -1,6 +1,5 @@
 from paramiko import SSHClient, AutoAddPolicy
 import paramiko
-import os
 import time
 
 def server_connect(rsa_key, rsa_password, ip, user):
@@ -42,62 +41,67 @@ def server_info_calculation_mem(mem):
     mem = mem.split()
     return mem[8], mem[9], mem[10]
 
-def server_info_cpu(rsa_key, rsa_password, ip, user, cpu_num):
+def Get_stats_CPU(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
-    if cpu_num == 0:
-        stat_prev = execute_command(client, 'cat /proc/stat')
-        time.sleep(1)
-        stat = execute_command(client, 'cat /proc/stat')
-    else:
-        num = cpu_num - 1
-        stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{num}')
-        time.sleep(1)
-        stat = execute_command(client, f'cat /proc/stat | grep cpu{num}')
+    stat_prev = execute_command(client, 'cat /proc/stat')
+    time.sleep(1)
+    stat = execute_command(client, 'cat /proc/stat')
 
     client.close()
     
-    return server_info_calculation_cpu(stat, stat_prev)
+    cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
+    return "CPU USAGE: " + cpu_usage + "%"
 
-def server_info_ram(rsa_key, rsa_password, ip, user):
+def Get_stats_CPU0(rsa_key, rsa_password, ip, user):
+    client = server_connect(rsa_key, rsa_password, ip, user)
+
+    stat_prev = execute_command(client, 'cat /proc/stat | grep cpu0')
+    time.sleep(1)
+    stat = execute_command(client, 'cat /proc/stat | grep cpu0')
+
+    client.close()
+    
+    cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
+    return "CPU USAGE: " + cpu_usage + "%"
+
+def Get_stats_CPU1(rsa_key, rsa_password, ip, user):
+    client = server_connect(rsa_key, rsa_password, ip, user)
+
+    stat_prev = execute_command(client, 'cat /proc/stat | grep cpu1')
+    time.sleep(1)
+    stat = execute_command(client, 'cat /proc/stat | grep cpu1')
+
+    client.close()
+    
+    cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
+    return "CPU USAGE: " + cpu_usage + "%"
+
+def Get_stats_RAM(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     ram = execute_command(client, 'free -h')
     
     client.close()
-    
-    return server_info_calculation_ram(ram)
 
-def server_info_mem(rsa_key, rsa_password, ip, user):
+    free_ram = server_info_calculation_ram(ram)
+    return "FREE RAM: " + free_ram
+
+def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     mem = execute_command(client, 'df /')
     
     client.close()
     
-    return server_info_calculation_mem(mem)
+    total, used, free = server_info_calculation_mem(mem)
+    return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
-def server_reboot(rsa_key, rsa_password, ip, user):
+def Reboot_(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     reboot = execute_command(client, '/sbin/reboot')
     
     client.close()
     
-    return reboot
-
-def server_response(action, t_kind, t_name, user):
-    if action == 'Get_stats' and t_kind == 'CPU':
-        response = "CPU USAGE: " + str(server_info_cpu(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user, 0)) + "%"
-    elif action == 'Get_stats' and t_kind == 'CPU0':
-        response = "CPU USAGE: " + str(server_info_cpu(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user, 1)) + "%"
-    elif action == 'Get_stats' and t_kind == 'CPU1':
-        response = "CPU USAGE: " + str(server_info_cpu(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user, 2)) + "%"
-    elif action == 'Get_stats' and t_kind == 'RAM':
-        response = "FREE RAM: " + server_info_ram(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user)
-    elif action == 'Get_stats' and t_kind == 'Primary hard drive memory':
-        total, used, free = server_info_mem(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user)
-        response = "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
-    elif action == 'Reboot':
-        response = "Server rebooted! " + server_reboot(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), t_name, user)
-    return response
+    return "Server received a command to be rebooted. 'Is the server down?' you may ask. Idk man ping it or sth and see for yourself."
