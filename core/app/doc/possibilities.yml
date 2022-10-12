@@ -12,11 +12,11 @@ modules:
     actions:
       - Get_stats
       - Reboot
-      - Reebot1
     targets:
       - CPU
       - RAM
       - Memory
+      - None
   postgresql:
     actions:
       - drop
