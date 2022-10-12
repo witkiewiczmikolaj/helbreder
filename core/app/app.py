@@ -49,8 +49,9 @@ def server():
         action = data["action"]
         t_name = data["target_name"]
         t_kind = data["target_kind"]
-        
-        return server_response(action, t_kind, t_name)
+        user = 'root' #placeholder
+
+        return server_response(action, t_kind, t_name, user)
     else:
         abort(501)
 

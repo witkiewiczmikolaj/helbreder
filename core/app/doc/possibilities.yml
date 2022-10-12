@@ -14,8 +14,10 @@ modules:
       - Reboot
     targets:
       - CPU
+      - CPU0
+      - CPU1
       - RAM
-      - Memory
+      - Primary hard drive memory
       - None
   postgresql:
     actions:
