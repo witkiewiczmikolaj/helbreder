@@ -1,3 +1,4 @@
+from urllib import response
 from paramiko import SSHClient, AutoAddPolicy
 import paramiko
 import time
@@ -44,20 +45,24 @@ def server_info_calculation_mem(mem):
 
 def Get_stats_CPU(rsa_key, rsa_password, ip, user, cpu_num):
     client = server_connect(rsa_key, rsa_password, ip, user)
+    nproc = int(execute_command(client, 'nproc'))
 
-    if cpu_num == 0:
+    if cpu_num == "" or cpu_num == "all":
         stat_prev = execute_command(client, 'cat /proc/stat')
         time.sleep(1)
         stat = execute_command(client, 'cat /proc/stat')
-    else:
+        usage = "CPU USAGE: " + str(server_info_calculation_cpu(stat, stat_prev)) + "%"
+    elif cpu_num.isdigit() and int(cpu_num) < nproc:
         stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
         time.sleep(1)
         stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
+        usage = "CPU USAGE: " + str(server_info_calculation_cpu(stat, stat_prev)) + "%"
+    else:
+        usage = "Resource type exceeds cpu number used by the server, or you passed wrong argument!"
 
     client.close()
     
-    cpu_usage = str(server_info_calculation_cpu(stat, stat_prev))
-    return "CPU USAGE: " + cpu_usage + "%"
+    return usage
 
 def Get_stats_RAM(rsa_key, rsa_password, ip, user, temp):
     client = server_connect(rsa_key, rsa_password, ip, user)
