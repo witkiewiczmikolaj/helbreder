@@ -1,4 +1,3 @@
-from urllib import response
 from paramiko import SSHClient, AutoAddPolicy
 import paramiko
 import time
