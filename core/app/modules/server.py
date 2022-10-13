@@ -78,7 +78,7 @@ def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user, temp):
     total, used, free = server_info_calculation_mem(mem)
     return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
-def Reboot_(rsa_key, rsa_password, ip, user, temp):
+def Reboot_None(rsa_key, rsa_password, ip, user, temp):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     reboot = execute_command(client, '/sbin/reboot')

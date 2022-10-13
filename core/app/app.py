@@ -48,9 +48,9 @@ def server():
 
     if validate_request('server', data):
         action = data["action"]
-        ip = data["IP"]
+        user = data["user"]
         t_kind = data["target_kind"]
-        user = data["target_name"]#'root'
+        ip = data["IP"]
         cpu_num = data["resource_type"]
         
         func = str(action + '_' + t_kind)
