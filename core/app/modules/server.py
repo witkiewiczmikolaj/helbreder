@@ -1,6 +1,7 @@
 from paramiko import SSHClient, AutoAddPolicy
 import paramiko
 import time
+import os
 
 def server_connect(rsa_key, rsa_password, ip, user):
     k = paramiko.RSAKey.from_private_key_file(f'{rsa_key}', f'{rsa_password}')
@@ -84,5 +85,9 @@ def Reboot_None(rsa_key, rsa_password, ip, user, temp):
     reboot = execute_command(client, '/sbin/reboot')
     
     client.close()
-    
-    return "Server received a command to be rebooted. 'Is the server down?' you may ask. Idk man ping it or sth and see for yourself."
+
+    response = 1
+    while(response != 0):
+        response = os.system("ping " + ip)
+
+    return "Server " + ip + " rebooted successfully!"
