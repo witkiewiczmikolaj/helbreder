@@ -5,6 +5,7 @@ from basic_auth import *
 from modules.kubernetes import *
 from modules.postgresql import *
 from modules.server import *
+from modules.arguments import *
 
 from templates.modules_fcn import *
 from templates.api_safety import *
@@ -50,13 +51,10 @@ def server():
         action = data["action"]
         t_kind = data["target_kind"]
         
-        arguments = [os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD')]
-        for i in data:
-            if data[i] != "":
-                arguments.append(data[i])
+        args = [os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD')] + arguments(data)
 
         func = str(action + '_' + t_kind)
-        server_response = eval(func)(arguments)
+        server_response = eval(func)(args)
        
         return server_response
     else:
