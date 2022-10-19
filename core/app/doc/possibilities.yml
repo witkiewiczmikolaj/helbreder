@@ -15,7 +15,7 @@ modules:
     targets:
       - CPU
       - RAM
-      - Primary_hard_drive_memory
+      - Memory_main
       - None
   postgresql:
     actions:

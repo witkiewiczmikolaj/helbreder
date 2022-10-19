@@ -54,7 +54,10 @@ def server():
         cpu_num = data["resource_type"]
         
         func = str(action + '_' + t_kind)
-        server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), ip, user, cpu_num)
+        if func == "Get_stats_CPU":
+            server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), ip, user, cpu_num)
+        else:
+            server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), ip, user)
         return server_response
     else:
         abort(501)

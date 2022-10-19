@@ -19,7 +19,17 @@ def execute_command(client, command):
 def server_info_calculation_cpu(stat, stat_prev):
     stat = [int(x) for x in stat.split()[1:11]]
     stat_prev = [int(x) for x in stat_prev.split()[1:11]]
-    
+    # /proc/stat returns info about how much time CPU 
+    # needed to do some actions so we have to calculate 
+    # all of them and compare the change between current
+    # one and previous one
+
+    # First we add the idle times for previous and current readings
+    # Then we do the same for non idle times
+    # We subject previous times from current ones
+    # At last by dividing the total times minus idle by total time we 
+    # get percentage use of CPU
+
     PrevIdle = stat_prev[3] + stat_prev[4]
     Idle = stat[3] + stat[4]
 
@@ -31,7 +41,7 @@ def server_info_calculation_cpu(stat, stat_prev):
     totald = Total - PrevTotal
     idled = Idle - PrevIdle
 
-    cpu_load = round((totald - idled)/totald * 100, 2)
+    cpu_load = round((totald - idled)/totald * 100, 10)
     return cpu_load
 
 def server_info_calculation_ram(ram):
@@ -63,7 +73,7 @@ def Get_stats_CPU(rsa_key, rsa_password, ip, user, cpu_num):
     
     return usage
 
-def Get_stats_RAM(rsa_key, rsa_password, ip, user, temp):
+def Get_stats_RAM(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     ram = execute_command(client, 'free -h')
@@ -73,7 +83,7 @@ def Get_stats_RAM(rsa_key, rsa_password, ip, user, temp):
     free_ram = server_info_calculation_ram(ram)
     return "FREE RAM: " + free_ram
 
-def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user, temp):
+def Get_stats_Memory_main(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     mem = execute_command(client, 'df /')
@@ -83,7 +93,7 @@ def Get_stats_Primary_hard_drive_memory(rsa_key, rsa_password, ip, user, temp):
     total, used, free = server_info_calculation_mem(mem)
     return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
-def Reboot_None(rsa_key, rsa_password, ip, user, temp):
+def Reboot_None(rsa_key, rsa_password, ip, user):
     client = server_connect(rsa_key, rsa_password, ip, user)
 
     reboot = execute_command(client, '/sbin/reboot')
