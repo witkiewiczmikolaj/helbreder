@@ -99,7 +99,7 @@ def Get_stats_Memory_main(arguments):
     return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
 def Reboot_None(arguments):
-    ip = arguments[2]
+    ip = arguments[5]
     client = server_connect(arguments)
 
     reboot = execute_command(client, '/sbin/reboot')
@@ -108,6 +108,13 @@ def Reboot_None(arguments):
 
     response = 1
     while(response != 0):
-        response = os.system("ping " + ip)
-
-    return "Server " + ip + " rebooted successfully!"
+        try:
+            client = server_connect(arguments)
+            uptime = execute_command(client, 'uptime')
+            client.close()
+            response = 0
+        except:
+            pass
+        time.sleep(1)
+            
+    return "Server " + ip + " rebooted successfully!" + "Uptime: " + uptime
