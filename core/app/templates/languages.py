@@ -18,11 +18,10 @@ def lang_gen(lang):
         data['target_kind'] = button_clicked[2]
         data_json = json.dumps(data)
         
-    curl = "curl --request POST \ --url http://helbreder_url/api/endpoint \ --header 'Accept: application/json' \ --header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ --header 'Content-Type: application/json'\ --data '" + f'{data_json}' + "'"
-    curl_code = "curl    --request POST \ \n\t--url http://helbreder_url/api/endpoint \ \n\t--header 'Accept: application/json' \ \n\t--header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' \ \n\t--header 'Content-Type: application/json'\ \n\t--data '" + f'{data_json}' + "'"
+    curl = "curl --request POST --url http://helbreder_url/api/endpoint --header 'Accept: application/json' --header 'Authorization: Basic " + f'{button_clicked[3]}' + f'{button_clicked[4]}' + "' --header 'Content-Type: application/json' --data '" + f'{data_json}' + "'"
     
     if lang == 'Shell':
-        code = curl_code
+        code = curl
     else:
         code = curl_to_code(curl, lang.lower())
     
