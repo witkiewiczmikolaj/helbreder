@@ -3,7 +3,11 @@ import paramiko
 import time
 import os
 
-def server_connect(rsa_key, rsa_password, ip, user):
+def server_connect(arguments):
+    rsa_key = arguments[0]
+    rsa_password = arguments[1]
+    ip = arguments[5]
+    user = arguments[3]
     k = paramiko.RSAKey.from_private_key_file(f'{rsa_key}', f'{rsa_password}')
     client = SSHClient()
     client.set_missing_host_key_policy(AutoAddPolicy())
@@ -52,11 +56,12 @@ def server_info_calculation_mem(mem):
     mem = mem.split()
     return mem[8], mem[9], mem[10]
 
-def Get_stats_CPU(rsa_key, rsa_password, ip, user, cpu_num):
-    client = server_connect(rsa_key, rsa_password, ip, user)
+def Get_stats_CPU(arguments):
+    cpu_num = arguments[6]
+    client = server_connect(arguments)
     nproc = int(execute_command(client, 'nproc'))
 
-    if cpu_num == "" or cpu_num == "all":
+    if cpu_num == "all":
         stat_prev = execute_command(client, 'cat /proc/stat')
         time.sleep(1)
         stat = execute_command(client, 'cat /proc/stat')
@@ -73,8 +78,8 @@ def Get_stats_CPU(rsa_key, rsa_password, ip, user, cpu_num):
     
     return usage
 
-def Get_stats_RAM(rsa_key, rsa_password, ip, user):
-    client = server_connect(rsa_key, rsa_password, ip, user)
+def Get_stats_RAM(arguments):
+    client = server_connect(arguments)
 
     ram = execute_command(client, 'free -h')
     
@@ -83,8 +88,8 @@ def Get_stats_RAM(rsa_key, rsa_password, ip, user):
     free_ram = server_info_calculation_ram(ram)
     return "FREE RAM: " + free_ram
 
-def Get_stats_Memory_main(rsa_key, rsa_password, ip, user):
-    client = server_connect(rsa_key, rsa_password, ip, user)
+def Get_stats_Memory_main(arguments):
+    client = server_connect(arguments)
 
     mem = execute_command(client, 'df /')
     
@@ -93,8 +98,9 @@ def Get_stats_Memory_main(rsa_key, rsa_password, ip, user):
     total, used, free = server_info_calculation_mem(mem)
     return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
-def Reboot_None(rsa_key, rsa_password, ip, user):
-    client = server_connect(rsa_key, rsa_password, ip, user)
+def Reboot_None(arguments):
+    ip = arguments[2]
+    client = server_connect(arguments)
 
     reboot = execute_command(client, '/sbin/reboot')
     

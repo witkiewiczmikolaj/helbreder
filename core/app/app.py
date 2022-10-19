@@ -48,16 +48,16 @@ def server():
 
     if validate_request('server', data):
         action = data["action"]
-        user = data["user"]
         t_kind = data["target_kind"]
-        ip = data["IP"]
-        cpu_num = data["resource_type"]
         
+        arguments = [os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD')]
+        for i in data:
+            if data[i] != "":
+                arguments.append(data[i])
+
         func = str(action + '_' + t_kind)
-        if func == "Get_stats_CPU":
-            server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), ip, user, cpu_num)
-        else:
-            server_response = eval(func)(os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD'), ip, user)
+        server_response = eval(func)(arguments)
+       
         return server_response
     else:
         abort(501)
