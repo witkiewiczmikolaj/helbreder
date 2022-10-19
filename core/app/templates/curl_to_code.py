@@ -2,4 +2,5 @@ import subprocess
 import sys
 
 def curl_to_code(command, language):
-    return subprocess.run(['curlconverter', '--language', str(language + ' ' + command)], text=True, capture_output=True).stdout
+    curl_conversion = ['curlconverter', '--language', language, command]
+    return subprocess.check_output(curl_conversion)
