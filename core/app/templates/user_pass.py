@@ -7,9 +7,10 @@ def encode(item):
     return base64.b64encode(request.form.get(item).encode("utf-8"))
 
 def get_user_pass():
-    username = encode("Username")
-    password = encode("Password")
-    return username, password
+    #no encoding since it may be sant in plain text before the url
+    # username = encode("Username")
+    # password = encode("Password")
+    return 'username', 'password'
 
 def user_pass():
     global button_clicked
