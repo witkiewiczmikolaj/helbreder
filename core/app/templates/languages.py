@@ -20,7 +20,7 @@ def lang_gen(lang):
         
     helbreder_url = 'helbreder.online' #this should be parametrized in the future, ideally as an input from user
 
-    curl = f'''curl -X -H "Content-Type: application/json" -d '{str(data_json)}' POST http://{button_clicked[3]}:{button_clicked[4]}@{helbreder_url}/api/{button_clicked[0]}'''
+    curl = f'''curl -X POST -H "Content-Type: application/json" -d '{str(data_json)}' http://{button_clicked[3]}:{button_clicked[4]}@{helbreder_url}/api/{button_clicked[0]}'''
     
     if lang == 'Shell':
         code = curl
