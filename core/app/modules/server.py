@@ -2,6 +2,7 @@ from paramiko import SSHClient, AutoAddPolicy
 import paramiko
 import time
 import os
+import threading
 
 def server_connect(arguments):
     rsa_key = arguments[0]
@@ -98,15 +99,9 @@ def Get_stats_Memory_main(arguments):
     total, used, free = server_info_calculation_mem(mem)
     return "Total memory: " + total + " Kb\nUsed memory: " + used + " Kb\nFree memory: " + free + " Kb"
 
-def Reboot_None(arguments):
-    ip = arguments[5]
-    client = server_connect(arguments)
-
-    reboot = execute_command(client, '/sbin/reboot')
-    
-    client.close()
-
+def uptime_loop(arguments):
     response = 1
+    global uptime
     while(response != 0):
         try:
             client = server_connect(arguments)
@@ -115,6 +110,17 @@ def Reboot_None(arguments):
             response = 0
         except:
             pass
-        time.sleep(1)
+        time.sleep(10)
+
+def Reboot_None(arguments):
+    ip = arguments[5]
+    client = server_connect(arguments)
+
+    execute_command(client, '/sbin/reboot')
+    
+    client.close()
+
+    uptime_thread = threading.Thread(target=uptime_loop(arguments))
+    uptime_thread.start()
             
-    return "Server " + ip + " rebooted successfully!" + "Uptime: " + uptime
+    return "Server " + ip + " rebooted successfully!\n" + "Uptime: " + uptime
