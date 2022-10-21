@@ -4,6 +4,8 @@ from basic_auth import *
 
 from modules.kubernetes import *
 from modules.postgresql import *
+from modules.server import *
+from modules.arguments import *
 
 from templates.modules_fcn import *
 from templates.api_safety import *
@@ -18,12 +20,13 @@ def static_main():
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
     languages = lang_buttonized()
+    additional = '<h3>Waiting for module</h3>'
     if request.method == 'POST':
         try:
-            action, target = collect_data()
+            action, target, additional = collect_data()
         except KeyError:
             print('Choose action and target_kind first!')
-    return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages)
+    return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages, additional = additional)
 
 @helbreder.route('/code', methods=['GET'])
 def code_outcome():
@@ -38,6 +41,24 @@ def code_outcome():
 def api_base():
     data = new_request(request.get_json(), 'api')
     return "Hi!"
+
+@helbreder.route('/api/server',methods=['POST'])
+@auth.login_required
+def server():
+    data = new_request(request.get_json(), 'server')
+
+    if validate_request('server', data):
+        action = data["action"]
+        t_kind = data["target_kind"]
+        
+        args = [os.environ.get('RSA_PRIVATE_KEY_FILE_PATH'), os.environ.get('RSA_PASSWORD')] + arguments(data)
+
+        func = str(action + '_' + t_kind)
+        server_response = eval(func)(args)
+       
+        return server_response
+    else:
+        abort(501)
 
 @helbreder.route('/api/k8s',methods=['POST'])
 @auth.login_required

@@ -176,10 +176,6 @@ img {
 	transition-duration: 0.1s;
 }
 
-#python_butt img:hover {
-	width: 100px;
-}
-
 #javascript_butt img {
 	display: block;
 	width: 70px;
@@ -201,11 +197,8 @@ img {
 #go_butt img {
 	display: block;
 	width: 80px;
+	transform: scale(1.5);
 	transition-duration: 0.1s;
-}
-
-#go_butt img:hover {
-	width: 90px;
 }
 
 #r_butt img {
