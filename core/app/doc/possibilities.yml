@@ -2,8 +2,6 @@ modules:
   kubernetes:
     actions:
       - delete
-      - delete1
-      - delete2
     targets:
       - pod
       - deployment
