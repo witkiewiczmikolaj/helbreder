@@ -10,13 +10,13 @@ modules:
       - statefull_set
   server:
     actions:
-      - reboot
-      - reboot1
-      - reebot2
+      - Get_stats
+      - Reboot
     targets:
-      - ubuntu
-      - ubuntu1
-      - ubuntu2
+      - CPU
+      - RAM
+      - Memory_main
+      - None
   postgresql:
     actions:
       - drop
