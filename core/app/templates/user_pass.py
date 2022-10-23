@@ -17,5 +17,5 @@ def user_pass():
     action = '<h3>Waiting for module</h3>'
     target = '<h3>Waiting for module</h3>'
     additional = '<h3>Waiting for module</h3>'
-    button_clicked[3], button_clicked[4] = get_user_pass()
+    username, pasword = button_clicked[3], button_clicked[4]
     return action, target, button_clicked, additional
