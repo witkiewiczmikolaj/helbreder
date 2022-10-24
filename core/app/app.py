@@ -42,7 +42,7 @@ def login():
 
 @helbreder.route('/signup')
 def signup():
-    return 'Signup'
+    return render_template('html/signup.html')
 
 @helbreder.route('/logout')
 def logout():
