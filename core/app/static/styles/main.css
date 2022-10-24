@@ -67,6 +67,12 @@ body {
 	padding: 10px;
 }
 
+a {
+	color: var(--text-color);
+	text-decoration: none;
+	font-weight: 600;
+}
+
 p {
 	font-weight: 600;
 	font-size: 30px;
@@ -106,6 +112,12 @@ header {
 .column {
 	float: left;
 	width: 33.33%;
+	text-align: center;
+}
+
+.column-center {
+	padding-top: 10%;
+	width: 100%;
 	text-align: center;
 }
 

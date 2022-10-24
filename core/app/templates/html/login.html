@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Login</title>
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+   </head>
+   <body>
+    <header>
+        <div class="radio-btn">
+            <div class="radio-inner"></div>
+        </div>
+        <nav class="navbar">
+           <a href="{{ url_for('static_main') }}" class="navbar-item">Home</a>
+           <a href="{{ url_for('login') }}" class="navbar-item">Login</a>
+           <a href="{{ url_for('signup') }}" class="navbar-item">Sign Up</a>
+           <a href="{{ url_for('logout') }}" class="navbar-item">Logout</a>
+        </nav>
+        <p class="syringe">&#128137;</p>
+    </header>
+    <br>
+    <div class="column-center">
+        <h1>Login</h3>
+        <div>
+            <form method="POST" action="/login">
+                <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+                <br>
+                <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                <br>
+                <input type="checkbox" name="remember">
+                Remember me
+                <br>
+                <input type="submit" class="button" name="Login" value="Login"></input>
+            </form>
+        </div>
+    </div>
+    </body>
+</html>

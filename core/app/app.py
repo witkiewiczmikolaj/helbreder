@@ -38,7 +38,7 @@ def code_outcome():
 
 @helbreder.route('/login')
 def login():
-    return 'Login'
+    return render_template('html/login.html')
 
 @helbreder.route('/signup')
 def signup():
