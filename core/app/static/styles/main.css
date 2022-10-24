@@ -58,6 +58,15 @@ body {
 	transform: scale(1);
 }
 
+.navbar {
+	text-align: right;
+	font-size: 30px;
+}
+
+.navbar-item {
+	padding: 10px;
+}
+
 p {
 	font-weight: 600;
 	font-size: 30px;

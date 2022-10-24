@@ -36,6 +36,18 @@ def code_outcome():
     except AttributeError:
         abort(500)
 
+@helbreder.route('/login')
+def login():
+    return 'Login'
+
+@helbreder.route('/signup')
+def signup():
+    return 'Signup'
+
+@helbreder.route('/logout')
+def logout():
+    return 'Logout'
+
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
 def api_base():
