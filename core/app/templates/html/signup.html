@@ -21,6 +21,14 @@
     <br>
     <div class="column-center">
         <h1>Sign Up</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <h3> {{ message }} </h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <br>
         <form method="POST" action="/signup">
             <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
             <br>

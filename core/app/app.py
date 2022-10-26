@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask,request,json,render_template,abort
+from flask import Flask,request,json,render_template,abort,redirect
 from basic_auth import *
 
 from modules.kubernetes import *
@@ -12,6 +12,7 @@ from templates.api_safety import *
 from templates.post import *
 
 helbreder = Flask(__name__)
+helbreder.secret_key = os.environ.get('SECRET_KEY')
 
 @helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
@@ -40,8 +41,11 @@ def code_outcome():
 def login():
     return render_template('html/login.html')
 
-@helbreder.route('/signup')
+@helbreder.route('/signup',methods=['GET', 'POST'])
 def signup():
+    if request.method == 'POST':
+        sign_up()
+
     return render_template('html/signup.html')
 
 @helbreder.route('/logout')
