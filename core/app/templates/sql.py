@@ -27,19 +27,34 @@ def email_check(email):
         return True
     return False
 
-def add_account(email, name, password):
+def username_check(username):
+    cur.execute('''SELECT username FROM ACCOUNTS''')
+    username_sql = cur.fetchall()
+    usernames = []
+    for i in range (len(username_sql)):
+        usernames.append(''.join(username_sql[i]))
+    if username in usernames:
+        return True
+    return False
+
+def add_account(email, username, password):
     user_id = random.randint(0,1000000)
     time = datetime.now()
-    cur.execute(f"INSERT INTO ACCOUNTS (user_id, username, password, email, created_on, last_login) VALUES ({user_id}, '{name}', '{password}', '{email}', '{time.isoformat()}', '{time.isoformat()}');")
+    cur.execute(f"INSERT INTO ACCOUNTS (user_id, username, password, email, created_on, last_login) VALUES ({user_id}, '{username}', '{password}', '{email}', '{time.isoformat()}', '{time.isoformat()}');")
     c.commit()
 
 def sign_up():
     email = request.form.get('email')
-    name = request.form.get('name')
+    username = request.form.get('username')
     password = request.form.get('password')
     if email_check(email):
         flash('You already have an account!')
+    elif username_check(username):
+        flash('Username already exists!')
     else:
-        add_account(email, name, password)
-        flash('Succesfully created an account!')
-    
+        try:
+            add_account(email, username, password)
+            flash('Succesfully created an account!')
+        except:
+            flash('Something went wrong!')
+        
