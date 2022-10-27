@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 import random
-from flask import request, flash
+from flask import request, flash, redirect, url_for, render_template
 from templates.psql import *
 from hashlib import sha256
 
@@ -77,9 +77,11 @@ def log_in():
     password = request.form.get('password')
     if not email_check(email):
         flash('Please sign up first!')
+        return render_template('html/login.html')
     else:
         password_hash = hash_password(password)
         if check_pass(email, password_hash):
-            flash('Successfully loged in!')
+            return redirect(url_for('static_main'))
         else:
             flash('Wrong password!')
+            return render_template('html/login.html')

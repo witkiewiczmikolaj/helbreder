@@ -37,11 +37,14 @@ def code_outcome():
     except AttributeError:
         abort(500)
 
-@helbreder.route('/login',methods=['GET', 'POST'])
+@helbreder.route('/login')
 def login():
-    if request.method == 'POST':
-        log_in()
     return render_template('html/login.html')
+
+@helbreder.route('/login',methods=['GET', 'POST'])
+def login_post():
+    if request.method == 'POST':
+        return log_in()
 
 @helbreder.route('/signup',methods=['GET', 'POST'])
 def signup():
