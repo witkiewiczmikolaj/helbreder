@@ -1,9 +1,12 @@
 import json
+from flask import request
 from templates.curl_to_code import *
 from templates.sql import *
 from templates.post import button_clicked
 
 def lang_gen(lang):
+    username = request.form['username']
+
     data = {}
 
     if button_clicked[0] == "Kubernetes":
@@ -20,7 +23,7 @@ def lang_gen(lang):
         
     helbreder_url = 'helbreder.online' #this should be parametrized in the future, ideally as an input from user
 
-    curl = f'''curl -X POST -H "Content-Type: application/json" -d '{str(data_json)}' http://{button_clicked[3]}:{button_clicked[4]}@{helbreder_url}/api/{button_clicked[0]}'''
+    curl = f'''curl -X POST -H "Content-Type: application/json" -d '{str(data_json)}' http://{username}:{button_clicked[4]}@{helbreder_url}/api/{button_clicked[0]}'''
     
     if lang == 'Shell':
         code = curl
