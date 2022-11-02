@@ -7,7 +7,8 @@ from templates.psql import *
 from hashlib import sha256
 
 class User(flask_login.UserMixin):
-    pass
+    def __init__(self, name):
+        self.name = name
 
 def get_lang_sql():
     cur.execute('''SELECT name FROM LANGUAGES''')
@@ -25,6 +26,11 @@ def create_table(table_name, columns):
 def get_emails():
     cur.execute('''SELECT email FROM ACCOUNTS''')
     return cur.fetchall()
+
+def get_name(email):
+    cur.execute(f"SELECT username FROM ACCOUNTS WHERE email = '{email}'")
+    name = cur.fetchall()
+    return name[0][0]
 
 def email_check(email):
     cur.execute('''SELECT email FROM ACCOUNTS''')
@@ -89,7 +95,7 @@ def log_in():
     else:
         password_hash = hash_password(password)
         if check_pass(email, password_hash):
-            user = User()
+            user = User(get_name(email))
             user.id = email
             flask_login.login_user(user)
             return redirect(url_for('static_main'))

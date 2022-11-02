@@ -23,7 +23,7 @@ def user_loader(email):
     if not email_check(email):
         return
 
-    user = User()
+    user = User(get_name(email))
     user.id = email
     return user
 
@@ -33,7 +33,7 @@ def request_loader(request):
     if not email_check(email):
         return
 
-    user = User()
+    user = User(get_name(email))
     user.id = email
     return user
 

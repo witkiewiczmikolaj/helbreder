@@ -12,6 +12,9 @@
                 <div class="radio-inner"></div>
             </div>
             <nav class="navbar">
+               {% if current_user.is_authenticated %}
+                  Logged in as: {{ current_user.name }}!
+               {% endif %}
                <a href="{{ url_for('static_main') }}" class="navbar-item">Home</a>
                <a href="{{ url_for('login') }}" class="navbar-item">Login</a>
                <a href="{{ url_for('signup') }}" class="navbar-item">Sign Up</a>
