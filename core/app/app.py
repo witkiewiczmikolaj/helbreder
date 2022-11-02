@@ -80,7 +80,8 @@ def signup():
 @flask_login.login_required
 def logout():
     flask_login.logout_user()
-    return 'Logged out'
+    flash('Logged out')
+    return redirect(url_for('static_main'))
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required
