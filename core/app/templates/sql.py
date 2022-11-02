@@ -23,10 +23,6 @@ def create_table(table_name, columns):
     cur.execute(f"CREATE TABLE IF NOT EXISTS {table_name}({columns})")
     c.commit()
 
-def get_emails():
-    cur.execute('''SELECT email FROM ACCOUNTS''')
-    return cur.fetchall()
-
 def get_name(email):
     cur.execute(f"SELECT username FROM ACCOUNTS WHERE email = '{email}'")
     name = cur.fetchall()
@@ -34,7 +30,7 @@ def get_name(email):
 
 def email_check(email):
     cur.execute('''SELECT email FROM ACCOUNTS''')
-    emails_sql = get_emails()
+    emails_sql = cur.fetchall()
     emails = []
     for i in range (len(emails_sql)):
         emails.append(''.join(emails_sql[i]))

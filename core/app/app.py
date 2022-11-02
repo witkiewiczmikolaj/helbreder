@@ -73,7 +73,6 @@ def login_post():
 def signup():
     if request.method == 'POST':
         sign_up()
-
     return render_template('html/signup.html')
 
 @helbreder.route('/logout')
