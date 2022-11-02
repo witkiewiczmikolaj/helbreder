@@ -89,6 +89,7 @@ def sign_up():
 def log_in():
     email = request.form.get('email')
     password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
     if not email_check(email):
         flash('Please sign up first!')
         return render_template('html/login.html')
@@ -97,7 +98,7 @@ def log_in():
         if check_pass(email, password_hash):
             user = User(get_name(email))
             user.id = email
-            flask_login.login_user(user)
+            flask_login.login_user(user, remember=remember)
             return redirect(url_for('static_main'))
         else:
             flash('Wrong password!')
