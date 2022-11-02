@@ -1,5 +1,6 @@
 import datetime
-from flask import Flask,request,json,render_template,abort,redirect
+import flask_login
+from flask import Flask,request,json,render_template,abort
 from basic_auth import *
 
 from modules.kubernetes import *
@@ -13,6 +14,28 @@ from templates.post import *
 
 helbreder = Flask(__name__)
 helbreder.secret_key = os.environ.get('SECRET_KEY')
+
+login_manager = flask_login.LoginManager()
+login_manager.init_app(helbreder)
+
+@login_manager.user_loader
+def user_loader(email):
+    if not email_check(email):
+        return
+
+    user = User()
+    user.id = email
+    return user
+
+@login_manager.request_loader
+def request_loader(request):
+    email = request.form.get('email')
+    if not email_check(email):
+        return
+
+    user = User()
+    user.id = email
+    return user
 
 @helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
@@ -54,8 +77,10 @@ def signup():
     return render_template('html/signup.html')
 
 @helbreder.route('/logout')
+@flask_login.login_required
 def logout():
-    return 'Logout'
+    flask_login.logout_user()
+    return 'Logged out'
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required

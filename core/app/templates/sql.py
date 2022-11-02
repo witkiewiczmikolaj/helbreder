@@ -1,9 +1,13 @@
 import re
 from datetime import datetime
 import random
+import flask_login
 from flask import request, flash, redirect, url_for, render_template
 from templates.psql import *
 from hashlib import sha256
+
+class User(flask_login.UserMixin):
+    pass
 
 def get_lang_sql():
     cur.execute('''SELECT name FROM LANGUAGES''')
@@ -18,9 +22,13 @@ def create_table(table_name, columns):
     cur.execute(f"CREATE TABLE IF NOT EXISTS {table_name}({columns})")
     c.commit()
 
+def get_emails():
+    cur.execute('''SELECT email FROM ACCOUNTS''')
+    return cur.fetchall()
+
 def email_check(email):
     cur.execute('''SELECT email FROM ACCOUNTS''')
-    emails_sql = cur.fetchall()
+    emails_sql = get_emails()
     emails = []
     for i in range (len(emails_sql)):
         emails.append(''.join(emails_sql[i]))
@@ -81,6 +89,9 @@ def log_in():
     else:
         password_hash = hash_password(password)
         if check_pass(email, password_hash):
+            user = User()
+            user.id = email
+            flask_login.login_user(user)
             return redirect(url_for('static_main'))
         else:
             flash('Wrong password!')
