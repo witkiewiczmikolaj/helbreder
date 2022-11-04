@@ -1,6 +1,4 @@
 import re
-from datetime import datetime
-import random
 import flask_login
 from flask import request, flash, redirect, url_for, render_template
 from templates.psql import *
@@ -24,29 +22,26 @@ def create_table(table_name, columns):
     c.commit()
 
 def get_name(email):
-    cur.execute(f"SELECT username FROM ACCOUNTS WHERE email = '{email}'")
-    name = cur.fetchall()
-    return name[0][0]
+    cur.execute(f"SELECT username FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
+    name = cur.fetchone()
+    return name[0]
 
 def email_check(email):
-    cur.execute('''SELECT email FROM ACCOUNTS''')
-    emails_sql = cur.fetchall()
-    emails = []
-    for i in range (len(emails_sql)):
-        emails.append(''.join(emails_sql[i]))
-    if email in emails:
+    try:
+        cur.execute(f"SELECT email FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
+        emails_sql = cur.fetchone()
+        if not emails_sql:
+            return False
         return True
-    return False
-
+    except:
+        return False
+   
 def username_check(username):
-    cur.execute('''SELECT username FROM ACCOUNTS''')
-    username_sql = cur.fetchall()
-    usernames = []
-    for i in range (len(username_sql)):
-        usernames.append(''.join(username_sql[i]))
-    if username in usernames:
-        return True
-    return False
+    cur.execute(f"SELECT username FROM ACCOUNTS_ONLINE WHERE username = '{username}'")
+    username_sql = cur.fetchone()
+    if not username_sql:
+        return False
+    return True
 
 def hash_password(password):
     h = sha256()
@@ -54,14 +49,12 @@ def hash_password(password):
     return h.hexdigest()
 
 def add_account(email, username, password):
-    user_id = random.randint(0,1000000)
-    time = datetime.now()
     password_hash = hash_password(password)
-    cur.execute(f"INSERT INTO ACCOUNTS (user_id, username, password, email, created_on, last_login) VALUES ({user_id}, '{username}', '{password_hash}', '{email}', '{time.isoformat()}', '{time.isoformat()}');")
+    cur.execute(f"INSERT INTO ACCOUNTS_ONLINE (username, password, email) VALUES ('{username}', '{password_hash}', '{email}');")
     c.commit()
 
 def check_pass(email, password_hash):
-    cur.execute(f"SELECT password FROM ACCOUNTS WHERE email = '{email}'")
+    cur.execute(f"SELECT password FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
     password = cur.fetchall()
     if password[0][0] == password_hash:
         return True
@@ -75,6 +68,8 @@ def sign_up():
         flash('You already have an account!')
     elif username_check(username):
         flash('Username already exists!')
+    elif len(password) < 8:
+        flash('Password needs to be at least 8 characters long!')
     else:
         try:
             add_account(email, username, password)

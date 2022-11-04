@@ -13,12 +13,12 @@
             </div>
             <nav class="navbar">
                {% if current_user.is_authenticated %}
-                  Logged in as: {{ current_user.name }}!
+                <a>Logged in as: {{ current_user.name }}!</a>
                {% endif %}
                {% with messages = get_flashed_messages() %}
                   {% if messages %}
                      {% for message in messages %}
-                        {{ message }}
+                        <a>{{ message }}</a>
                      {% endfor %}
                   {% endif %}
                {% endwith %}
