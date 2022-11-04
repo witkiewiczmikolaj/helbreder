@@ -25,7 +25,7 @@
     </header>
     <br>
     <div class="column-center">
-        <h1>Sign Up</h1>
+        <p>Sign Up</p>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -44,5 +44,20 @@
             <input type="submit" class="button" name="Sign Up" value="Sign Up"></input>
         </form>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        if (localStorage.getItem("darkmode") === 'true'){
+            $(".radio-inner").toggleClass("active");
+            $("body").toggleClass("dark-theme");
+        }
+        $(document).ready(function (){
+            $(".radio-btn").click(function (){
+                $(".radio-inner").toggleClass("active");
+                $("body").toggleClass("dark-theme");
+                let active = $("body").hasClass("dark-theme");
+                localStorage.setItem("darkmode", active);
+            });
+        });
+     </script>
     </body>
 </html>

@@ -25,7 +25,7 @@
     </header>
     <br>
     <div class="column-center">
-        <h1>Login</h1>
+        <p>Login</p>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -33,18 +33,32 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <div>
-            <form method="POST" action="/login">
-                <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-                <br>
-                <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                <br>
-                <input type="checkbox" name="remember">
-                Remember me
-                <br>
-                <input type="submit" class="button" name="Login" value="Login"></input>
-            </form>
-        </div>
+        <br>
+        <form method="POST" action="/login">
+            <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+            <br>
+            <input class="input is-large" type="password" name="password" placeholder="Your Password">
+            <br>
+            <input type="checkbox" name="remember">
+            Remember me
+            <br>
+            <input type="submit" class="button" name="Login" value="Login"></input>
+        </form>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        if (localStorage.getItem("darkmode") === 'true'){
+            $(".radio-inner").toggleClass("active");
+            $("body").toggleClass("dark-theme");
+        }
+        $(document).ready(function (){
+            $(".radio-btn").click(function (){
+                $(".radio-inner").toggleClass("active");
+                $("body").toggleClass("dark-theme");
+                let active = $("body").hasClass("dark-theme");
+                localStorage.setItem("darkmode", active);
+            });
+        });
+     </script>
     </body>
 </html>
