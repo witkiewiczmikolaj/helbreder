@@ -11,6 +11,7 @@ from modules.arguments import *
 from templates.modules_fcn import *
 from templates.api_safety import *
 from templates.post import *
+from templates.accounts import *
 
 helbreder = Flask(__name__)
 helbreder.secret_key = os.environ.get('SECRET_KEY')
