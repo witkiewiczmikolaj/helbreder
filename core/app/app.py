@@ -75,9 +75,8 @@ def login():
 def signup():
     if request.method == 'POST':
         sign_up()
-        form = request.form.to_dict()
-        email_address = form["email"]
-        password = form["password"]
+        email_address = request.args.get("email")
+        password = request.args.get("password")
         token = jwt.encode(
             {
                 "email_address": email_address,
@@ -93,6 +92,10 @@ def signup():
             }
         )
     return render_template('html/signup.html')
+
+@helbreder.route("/verify-email/<token>")
+def verify_email():
+    verified()
 
 @helbreder.route('/logout')
 @flask_login.login_required

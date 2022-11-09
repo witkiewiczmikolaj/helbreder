@@ -36,8 +36,15 @@ def hash_password(password):
 
 def add_account(email, username, password):
     password_hash = hash_password(password)
-    cur.execute(f"INSERT INTO ACCOUNTS_ONLINE (username, password, email) VALUES ('{username}', '{password_hash}', '{email}');")
+    cur.execute(f"INSERT INTO ACCOUNTS_ONLINE (username, password, email, verified) VALUES ('{username}', '{password_hash}', '{email}', FALSE);")
     c.commit()
+
+def verified():
+    email = request.form.get('email')
+    cur.execute(f"UPDATE ACCOUNTS_ONLINE SET verified = TRUE WHERE email = '{email}';")
+    c.commit()
+    flash('Thank you! Now you can log in.')
+    return render_template('html/login.html')
 
 def check_pass(email, password_hash):
     cur.execute(f"SELECT password FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
