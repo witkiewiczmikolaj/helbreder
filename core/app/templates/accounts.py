@@ -59,7 +59,7 @@ def sign_up():
     else:
         try:
             add_account(email, username, password)
-            flash('Succesfully created an account!')
+            flash('Please check your email and click the link to verify!')
         except:
             flash('Something went wrong!')
 

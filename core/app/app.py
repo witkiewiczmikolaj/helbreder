@@ -1,6 +1,8 @@
 import datetime
 import flask_login
+import jwt
 from flask import Flask,request,json,render_template,abort
+from flask_redmail import RedMail
 from basic_auth import *
 
 from modules.kubernetes import *
@@ -18,6 +20,8 @@ helbreder.secret_key = os.environ.get('SECRET_KEY')
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(helbreder)
+
+email = RedMail(helbreder)
 
 @login_manager.user_loader
 def user_loader(email):
@@ -71,6 +75,23 @@ def login():
 def signup():
     if request.method == 'POST':
         sign_up()
+        form = request.form.to_dict()
+        email_address = form["email"]
+        password = form["password"]
+        token = jwt.encode(
+            {
+                "email_address": email_address,
+                "password": password,
+            }, os.environ.get('SECRET_KEY')
+        )
+        email.send(
+            subject = "Verify email",
+            receivers = email_address,
+            html_template = "html/verify_email.html",
+            body_params={
+                "token": token
+            }
+        )
     return render_template('html/signup.html')
 
 @helbreder.route('/logout')
