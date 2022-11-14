@@ -1,8 +1,6 @@
 import datetime
 import flask_login
-import jwt
 from flask import Flask,request,json,render_template,abort
-from redmail import gmail
 from basic_auth import *
 
 from modules.kubernetes import *
@@ -20,9 +18,6 @@ helbreder.secret_key = os.environ.get('SECRET_KEY')
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(helbreder)
-
-gmail.user_name = os.environ.get('EMAIL')
-gmail.password = os.environ.get('EMAIL_PASSWORD')
 
 @login_manager.user_loader
 def user_loader(email):
@@ -76,33 +71,12 @@ def login():
 def signup():
     if request.method == 'POST':
         sign_up()
-        email_address = request.args.get("email")
-        password = request.args.get("password")
-        token = jwt.encode(
-            {
-                "email_address": email_address,
-                "password": password,
-            }, os.environ.get('SECRET_KEY')
-        )
-        gmail.send(
-            subject = "Verify email",
-            receivers = email_address,
-            html = """<h1>Hi,</h1>
-                    <p>
-                        in order to use our services, please click the link below:
-                        <br>
-                        <a href={{ token }}>verify email</a>
-                    </p>
-                    <p>If you did not create an account, you may ignore this message.</p>""",
-            body_params = {
-                "token": token
-            }
-        )
     return render_template('html/signup.html')
 
 @helbreder.route("/verify-email/<token>")
-def verify_email():
-    verified()
+def verify_email(token):
+    verified(token)
+    return render_template('html/login.html')
 
 @helbreder.route('/logout')
 @flask_login.login_required

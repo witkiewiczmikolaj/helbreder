@@ -1,7 +1,12 @@
 import flask_login
+import jwt
+from redmail import gmail
 from flask import request, flash, redirect, url_for, render_template
 from templates.psql import *
 from hashlib import sha256
+
+gmail.user_name = os.environ.get('EMAIL')
+gmail.password = os.environ.get('EMAIL_PASSWORD')
 
 class User(flask_login.UserMixin):
     def __init__(self, name):
@@ -39,12 +44,15 @@ def add_account(email, username, password):
     cur.execute(f"INSERT INTO ACCOUNTS_ONLINE (username, password, email, verified) VALUES ('{username}', '{password_hash}', '{email}', FALSE);")
     c.commit()
 
-def verified():
-    email = request.form.get('email')
-    cur.execute(f"UPDATE ACCOUNTS_ONLINE SET verified = TRUE WHERE email = '{email}';")
-    c.commit()
-    flash('Thank you! Now you can log in.')
-    return render_template('html/login.html')
+def verified(token):
+    data = jwt.decode(token, os.environ.get["SECRET_KEY"], algorithms=['HS256'])
+    email = data["email_address"]
+    try:
+        cur.execute(f"UPDATE ACCOUNTS_ONLINE SET verified = TRUE WHERE email = '{email}';")
+        c.commit()
+        flash('Thank you! Now you can log in.')
+    except:
+        flash('Something went wrong!')
 
 def check_pass(email, password_hash):
     cur.execute(f"SELECT password FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
@@ -52,6 +60,28 @@ def check_pass(email, password_hash):
     if password[0][0] == password_hash:
         return True
     return False
+
+def send_email(email, password):
+    token = jwt.encode(
+        {
+            "email_address": email,
+            "password": password,
+        }, os.environ.get('SECRET_KEY')
+    )
+    gmail.send(
+        subject = "Verify email",
+        receivers = email,
+        html = """<h1>Hi,</h1>
+                <p>
+                    in order to use our services, please click the link below:
+                    <br>
+                    helbreder.online/verify-email/{{token}}
+                </p>
+                <p>If you did not create an account, you may ignore this message.</p>""",
+        body_params = {
+            "token": token
+        }
+    )
 
 def sign_up():
     email = request.form.get('email')
@@ -64,6 +94,7 @@ def sign_up():
     elif len(password) < 8:
         flash('Password needs to be at least 8 characters long!')
     else:
+        send_email(email, password)
         try:
             add_account(email, username, password)
             flash('Please check your email and click the link to verify!')
