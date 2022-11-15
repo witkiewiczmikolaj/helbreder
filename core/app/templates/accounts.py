@@ -75,7 +75,7 @@ def send_email(email, password):
                 <p>
                     in order to use our services, please click the link below:
                     <br>
-                    helbreder.online/verify-email/{{token}}
+                    <a href="https://helbreder.online/verify-email/{{token}}">Verify email</a>
                 </p>
                 <p>If you did not create an account, you may ignore this message.</p>""",
         body_params = {
@@ -94,9 +94,9 @@ def sign_up():
     elif len(password) < 8:
         flash('Password needs to be at least 8 characters long!')
     else:
-        send_email(email, password)
         try:
             add_account(email, username, password)
+            send_email(email, password)
             flash('Please check your email and click the link to verify!')
         except:
             flash('Something went wrong!')
