@@ -73,9 +73,13 @@ def signup():
         sign_up()
     return render_template('html/signup.html')
 
-@helbreder.route("/verify-email/<token>")
+@helbreder.route("/verify-email/<token>",methods=['GET'])
 def verify_email(token):
-    verified(token)
+    try:
+        verify(token)
+    except jwt.exceptions.DecodeError:
+        flash('Wrong link!')
+        return redirect(url_for('login'))
     return render_template('html/login.html')
 
 @helbreder.route('/logout')

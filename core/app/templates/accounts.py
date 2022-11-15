@@ -44,7 +44,7 @@ def add_account(email, username, password):
     cur.execute(f"INSERT INTO ACCOUNTS_ONLINE (username, password, email, verified) VALUES ('{username}', '{password_hash}', '{email}', FALSE);")
     c.commit()
 
-def verified(token):
+def verify(token):
     data = jwt.decode(token, os.environ.get["SECRET_KEY"], algorithms=['HS256'])
     email = data["email_address"]
     try:
@@ -53,6 +53,11 @@ def verified(token):
         flash('Thank you! Now you can log in.')
     except:
         flash('Something went wrong!')
+
+def verified(email):
+    cur.execute(f"SELECT verified FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
+    is_verified = cur.fetchone()
+    return is_verified[0]
 
 def check_pass(email, password_hash):
     cur.execute(f"SELECT password FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
@@ -107,6 +112,9 @@ def log_in():
     remember = True if request.form.get('remember') else False
     if not email_check(email):
         flash('Please sign up first!')
+        return render_template('html/login.html')
+    elif not verified(email):
+        flash('Please verify your email first!')
         return render_template('html/login.html')
     else:
         password_hash = hash_password(password)
