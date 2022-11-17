@@ -81,6 +81,11 @@ p {
     margin: 5px 0;
 }
 
+b {
+	font-weight: 600;
+	color: var(--text-color);
+}
+
 h3 {
 	font-weight: 600;
 	color: var(--text-color);

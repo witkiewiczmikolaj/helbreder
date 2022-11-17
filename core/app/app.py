@@ -79,7 +79,6 @@ def verify_email(token):
         verify(token)
     except jwt.exceptions.DecodeError:
         flash('Wrong link!')
-        return redirect(url_for('login'))
     return render_template('html/login.html')
 
 @helbreder.route('/logout')

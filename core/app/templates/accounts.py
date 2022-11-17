@@ -45,7 +45,7 @@ def add_account(email, username, password):
     c.commit()
 
 def verify(token):
-    data = jwt.decode(token, os.environ.get["SECRET_KEY"], algorithms=['HS256'])
+    data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
     email = data["email_address"]
     try:
         cur.execute(f"UPDATE ACCOUNTS_ONLINE SET verified = TRUE WHERE email = '{email}';")
