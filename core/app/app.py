@@ -81,6 +81,14 @@ def verify_email(token):
         flash('Wrong link!')
     return render_template('html/login.html')
 
+@helbreder.route("/delete-account/<token>",methods=['GET'])
+def delete_account(token):
+    try:
+        delete_email(token)
+    except jwt.exceptions.DecodeError:
+        flash('Wrong link!')
+    return render_template('html/signup.html')
+
 @helbreder.route('/logout')
 @flask_login.login_required
 def logout():

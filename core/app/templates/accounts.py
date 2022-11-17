@@ -54,6 +54,16 @@ def verify(token):
     except:
         flash('Something went wrong!')
 
+def delete_email(token):
+    data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
+    email = data["email_address"]
+    try:
+        cur.execute(f"DELETE FROM ACCOUNTS_ONLINE WHERE email = '{email}';")
+        c.commit()
+        flash('Thank you! Your account has been deleted.')
+    except:
+        flash('Something went wrong!')
+
 def verified(email):
     cur.execute(f"SELECT verified FROM ACCOUNTS_ONLINE WHERE email = '{email}'")
     is_verified = cur.fetchone()
@@ -66,23 +76,25 @@ def check_pass(email, password_hash):
         return True
     return False
 
-def send_email(email, password):
+def send_email(email):
     token = jwt.encode(
         {
             "email_address": email,
-            "password": password,
         }, os.environ.get('SECRET_KEY')
     )
     gmail.send(
         subject = "Verify email",
         receivers = email,
         html = """<h1>Hi,</h1>
-                <p>
-                    in order to use our services, please click the link below:
-                    <br>
-                    <a href="https://helbreder.online/verify-email/{{token}}">Verify email</a>
+                <p>in order to use our services, please click the link below:
+                <br>
+                <a href="https://helbreder.online/verify-email/{{token}}">Verify email</a>
                 </p>
-                <p>If you did not create an account, you may ignore this message.</p>""",
+                <p>If you did not create an account, you may delete your account by clicking in the link below:
+                <br>
+                <a href="https://helbreder.online/delete-account/{{token}}">Delete account</a>
+                </p>
+                """,
         body_params = {
             "token": token
         }
@@ -101,7 +113,7 @@ def sign_up():
     else:
         try:
             add_account(email, username, password)
-            send_email(email, password)
+            send_email(email)
             flash('Please check your email and click the link to verify!')
         except:
             flash('Something went wrong!')
