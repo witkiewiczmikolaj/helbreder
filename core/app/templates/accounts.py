@@ -44,9 +44,11 @@ def add_account(email, username, password):
     cur.execute(f"INSERT INTO ACCOUNTS_ONLINE (username, password, email, verified) VALUES ('{username}', '{password_hash}', '{email}', FALSE);")
     c.commit()
 
-def verify(token):
+def decode_email(token):
     data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
-    email = data["email_address"]
+    return data["email_address"]
+
+def verify(email):
     try:
         cur.execute(f"UPDATE ACCOUNTS_ONLINE SET verified = TRUE WHERE email = '{email}';")
         c.commit()
@@ -54,9 +56,7 @@ def verify(token):
     except:
         flash('Something went wrong!')
 
-def delete_email(token):
-    data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
-    email = data["email_address"]
+def delete_email(email):
     try:
         cur.execute(f"DELETE FROM ACCOUNTS_ONLINE WHERE email = '{email}';")
         c.commit()

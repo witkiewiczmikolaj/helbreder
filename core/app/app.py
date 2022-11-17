@@ -75,18 +75,26 @@ def signup():
 
 @helbreder.route("/verify-email/<token>",methods=['GET'])
 def verify_email(token):
-    try:
-        verify(token)
-    except jwt.exceptions.DecodeError:
-        flash('Wrong link!')
+    email = decode_email(token)
+    if email_check(email) and not verified(email):
+        try:
+            verify(email)
+        except jwt.exceptions.DecodeError:
+            flash('Wrong link!')
+    else:
+        flash('You are already verified or you deleted your account earlier!')
     return render_template('html/login.html')
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
 def delete_account(token):
-    try:
-        delete_email(token)
-    except jwt.exceptions.DecodeError:
-        flash('Wrong link!')
+    email = decode_email(token)
+    if email_check(email):
+        try:
+            delete_email(email)
+        except jwt.exceptions.DecodeError:
+            flash('Wrong link!')
+    else:
+        flash('There is no account assigned to this email!')
     return render_template('html/signup.html')
 
 @helbreder.route('/logout')
