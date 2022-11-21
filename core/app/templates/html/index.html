@@ -11,7 +11,28 @@
             <div class="radio-btn">
                 <div class="radio-inner"></div>
             </div>
-            <p class="syringe">&#128137;</p>
+            <nav class="navbar">
+               {% if current_user.is_authenticated %}
+                <a>Logged in as: {{ current_user.name }}!</a>
+               {% endif %}
+               {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                     {% for message in messages %}
+                        <a>{{ message }}</a>
+                     {% endfor %}
+                  {% endif %}
+               {% endwith %}
+               {% if not current_user.is_authenticated %}
+               <a href="{{ url_for('login') }}" class="navbar-item">Login</a>
+               <a href="{{ url_for('signup') }}" class="navbar-item">Sign Up</a>
+               {% endif %}
+               {% if current_user.is_authenticated %}
+                  <a href="{{ url_for('logout') }}" class="navbar-item">Logout</a>
+               {% endif %}
+            </nav>
+            <center>
+               <a class="syringe">&#128137;</a>
+            </center>
         </header>
       <br>
       <form action="/" method="post">

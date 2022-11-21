@@ -1,4 +1,5 @@
 import datetime
+import flask_login
 from flask import Flask,request,json,render_template,abort
 from basic_auth import *
 
@@ -10,8 +11,32 @@ from modules.arguments import *
 from templates.modules_fcn import *
 from templates.api_safety import *
 from templates.post import *
+from templates.accounts import *
 
 helbreder = Flask(__name__)
+helbreder.secret_key = os.environ.get('SECRET_KEY')
+
+login_manager = flask_login.LoginManager()
+login_manager.init_app(helbreder)
+
+@login_manager.user_loader
+def user_loader(email):
+    if not email_check(email):
+        return
+
+    user = User(get_name(email))
+    user.id = email
+    return user
+
+@login_manager.request_loader
+def request_loader(request):
+    email = request.form.get('email')
+    if not email_check(email):
+        return
+
+    user = User(get_name(email))
+    user.id = email
+    return user
 
 @helbreder.route('/', methods=['GET', 'POST'])
 def static_main():
@@ -35,6 +60,49 @@ def code_outcome():
         return render_template('html/code.html', code = code)
     except AttributeError:
         abort(500)
+
+@helbreder.route('/login',methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return log_in()
+    return render_template('html/login.html')
+
+@helbreder.route('/signup',methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        sign_up()
+    return render_template('html/signup.html')
+
+@helbreder.route("/verify-email/<token>",methods=['GET'])
+def verify_email(token):
+    email = decode_email(token)
+    if email_check(email) and not verified(email):
+        try:
+            verify(email)
+        except jwt.exceptions.DecodeError:
+            flash('Wrong link!')
+    else:
+        flash('You are already verified or you deleted your account earlier!')
+    return render_template('html/login.html')
+
+@helbreder.route("/delete-account/<token>",methods=['GET'])
+def delete_account(token):
+    email = decode_email(token)
+    if email_check(email):
+        try:
+            delete_email(email)
+        except jwt.exceptions.DecodeError:
+            flash('Wrong link!')
+    else:
+        flash('There is no account assigned to this email!')
+    return render_template('html/signup.html')
+
+@helbreder.route('/logout')
+@flask_login.login_required
+def logout():
+    flask_login.logout_user()
+    flash('Logged out')
+    return redirect(url_for('static_main'))
 
 @helbreder.route('/api',methods=['POST'])
 @auth.login_required

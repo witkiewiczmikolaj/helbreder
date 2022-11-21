@@ -1,5 +1,4 @@
 import re
-
 from templates.psql import *
 
 def get_lang_sql():

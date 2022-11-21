@@ -66,6 +66,21 @@ spec:
               configMapKeyRef:
                 key: RSA_PASSWORD
                 name: env
+          - name: SECRET_KEY
+            valueFrom:
+              configMapKeyRef:
+                key: SECRET_KEY
+                name: env
+          - name: EMAIL
+            valueFrom:
+              configMapKeyRef:
+                key: EMAIL
+                name: env
+          - name: EMAIL_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: EMAIL_PASSWORD
+                name: env
           - name: MODULE_POSTGRES_IP
             valueFrom:
               configMapKeyRef:
