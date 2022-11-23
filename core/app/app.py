@@ -28,7 +28,7 @@ def static_main():
             print('Choose action and target_kind first!')
     return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages, additional = additional)
 
-@helbreder.route('/', methods=['POST'])
+@helbreder.route('/code', methods=['GET'])
 def code_outcome():
     try:
         code = lang_gen(request.args.get('code'))
