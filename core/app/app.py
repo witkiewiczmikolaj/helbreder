@@ -85,6 +85,11 @@ def verify_email(token):
         flash('You are already verified or you deleted your account earlier!')
     return render_template('html/login.html')
 
+@helbreder.route("/panel",methods=['GET'])
+def user_panel():
+    
+    return render_template('html/user_panel.html')
+
 @helbreder.route("/delete-account/<token>",methods=['GET'])
 def delete_account(token):
     email = decode_email(token)

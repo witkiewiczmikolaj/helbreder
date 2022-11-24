@@ -2,7 +2,7 @@
 <html>
    <head>
       <meta charset="UTF-8">
-      <title>Sign Up</title>
+      <title>Login</title>
       <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
    </head>
    <body>
@@ -13,10 +13,10 @@
         <nav class="navbar">
             {% if not current_user.is_authenticated %}
             <a href="{{ url_for('login') }}" class="navbar-item">Login</a>
-            <a class="navbar-item">Sign Up</a>
+            <a href="{{ url_for('signup') }}" class="navbar-item">Sign Up</a>
             {% endif %}
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('user_panel') }}" class="navbar-item">Panel</a>
+                <a class="navbar-item">Panel</a>
                 <a href="{{ url_for('logout') }}" class="navbar-item">Logout</a>
             {% endif %}
         </nav>
@@ -26,27 +26,8 @@
     </header>
     <br>
     <div class="column-center">
-        <p>Sign Up</p>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <h3> {{ message }} </h3>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <br>
-        <form method="POST" action="/signup">
-            <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-            <br>
-            <input class="input is-large" type="text" name="username" placeholder="Username" autofocus="">
-            <br>
-            <input class="input is-large" type="password" name="password" placeholder="Password">
-            <br>
-            <b>Password must be at least 8 characters long.</b>
-            <br>
-            <br>
-            <input type="submit" class="button" name="Sign Up" value="Sign Up"></input>
-        </form>
+        <p>Stats:</p>
+        
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
