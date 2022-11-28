@@ -12,6 +12,7 @@ from templates.modules_fcn import *
 from templates.api_safety import *
 from templates.post import *
 from templates.accounts import *
+from templates.user_panel import *
 
 helbreder = Flask(__name__)
 helbreder.secret_key = os.environ.get('SECRET_KEY')
@@ -85,9 +86,10 @@ def verify_email(token):
         flash('You are already verified or you deleted your account earlier!')
     return render_template('html/login.html')
 
-@helbreder.route("/panel",methods=['GET'])
+@helbreder.route("/panel",methods=['GET', 'POST'])
 def user_panel():
-    
+    if request.method == 'POST':
+        return cpu_usage()
     return render_template('html/user_panel.html')
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
