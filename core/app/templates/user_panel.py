@@ -4,8 +4,8 @@ from modules.server import *
 def cpu_usage():
     cpu_num = request.form.get('cpu_num')
     arguments = ['0','1','2','3','4','5']
-    arguments[0] = request.form.get('rsa_key')
-    arguments[1] = request.form.get('rsa_password')
+    arguments[0] = os.environ.get('RSA_PRIVATE_KEY_FILE_PATH')
+    arguments[1] = os.environ.get('RSA_PASSWORD')
     arguments[5] = request.form.get('ip')
     arguments[3] = request.form.get('user')
     client = server_connect(arguments)
