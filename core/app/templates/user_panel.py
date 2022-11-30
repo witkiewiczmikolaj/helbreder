@@ -33,3 +33,7 @@ def cpu_usage():
 def module_psql_add(name, module):
     cur.execute(f"UPDATE ACCOUNTS_2 SET {module} = {module} + 1 WHERE username = '{name}';")
     c.commit()
+
+def get_stats_module(name, module):
+    cur.execute(f"SELECT {module} FROM ACCOUNTS_2 WHERE username = '{name}'")
+    return cur.fetchone()[0]

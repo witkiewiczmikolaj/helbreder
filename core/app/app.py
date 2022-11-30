@@ -15,7 +15,7 @@ from templates.accounts import *
 from templates.user_panel import *
 
 helbreder = Flask(__name__)
-helbreder.secret_key = os.environ.get('SECRET_KEY')
+helbreder.secret_key = 'secret' #os.environ.get('SECRET_KEY')
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(helbreder)
@@ -91,11 +91,10 @@ def verify_email(token):
 
 @helbreder.route("/panel",methods=['GET', 'POST'])
 def user_panel():
-    #dummy numbers
-    requests = 0
-    kubernetes = 1
-    server = 2
-    postgresql = 3
+    kubernetes = get_stats_module(flask_login.current_user.name, 'kubernetes')
+    server = get_stats_module(flask_login.current_user.name, 'server')
+    postgresql = get_stats_module(flask_login.current_user.name, 'postgresql')
+    requests = kubernetes + server + postgresql
     if request.method == 'POST':
         return cpu_usage()
     return render_template('html/user_panel.html', requests = requests, kubernetes = kubernetes, server = server, postgresql = postgresql)
