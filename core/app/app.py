@@ -15,7 +15,7 @@ from templates.accounts import *
 from templates.user_panel import *
 
 helbreder = Flask(__name__)
-helbreder.secret_key = 'secret' #os.environ.get('SECRET_KEY')
+helbreder.secret_key = os.environ.get('SECRET_KEY')
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(helbreder)
