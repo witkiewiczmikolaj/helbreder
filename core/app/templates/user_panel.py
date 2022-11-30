@@ -1,5 +1,7 @@
 from flask import request
 from modules.server import *
+from templates.psql import *
+from templates.post import button_clicked
 
 def cpu_usage():
     cpu_num = request.form.get('cpu_num')
@@ -26,3 +28,8 @@ def cpu_usage():
     client.close()
     
     return usage
+
+def module_psql_add(name):
+    module = button_clicked[0]
+    cur.execute(f"UPDATE ACCOUNTS_ONLINE SET '{module}' = '{module}' + 1 WHERE username = '{name}';")
+    c.commit()

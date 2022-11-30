@@ -50,6 +50,9 @@ def static_main():
     if request.method == 'POST':
         try:
             action, target, additional = collect_data()
+            if flask_login.user_logged_in:
+                #find a way to get current user email here, check if user is logged in
+                module_psql_add(flask_login.current_user(__name__))
         except KeyError:
             print('Choose action and target_kind first!')
     return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages, additional = additional)
