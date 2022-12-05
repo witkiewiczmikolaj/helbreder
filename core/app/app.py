@@ -91,13 +91,10 @@ def verify_email(token):
 
 @helbreder.route("/panel",methods=['GET', 'POST'])
 def user_panel():
-    kubernetes = get_stats_module(flask_login.current_user.name, 'kubernetes')
-    server = get_stats_module(flask_login.current_user.name, 'server')
-    postgresql = get_stats_module(flask_login.current_user.name, 'postgresql')
-    requests = kubernetes + server + postgresql
+    stats_modules = get_stats_module_combined()
     if request.method == 'POST':
         return cpu_usage()
-    return render_template('html/user_panel.html', requests = requests, kubernetes = kubernetes, server = server, postgresql = postgresql)
+    return render_template('html/user_panel.html', stats_modules = stats_modules)
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
 def delete_account(token):

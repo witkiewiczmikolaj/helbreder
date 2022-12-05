@@ -1,14 +1,15 @@
+import flask_login
+import threading
 from flask import request
 from modules.server import *
 from templates.modules_fcn import *
 from templates.psql import *
-from templates.post import button_clicked
 
 def cpu_usage():
     cpu_num = request.form.get('cpu_num')
     arguments = ['0','1','2','3','4','5']
-    arguments[0] = os.environ.get('RSA_PRIVATE_KEY_FILE_PATH')
-    arguments[1] = os.environ.get('RSA_PASSWORD')
+    arguments[0] = request.form.get('rsa_key')
+    arguments[1] = request.form.get('rsa_password')
     arguments[5] = request.form.get('ip')
     arguments[3] = request.form.get('user')
     client = server_connect(arguments)
@@ -37,3 +38,14 @@ def module_psql_add(name, module):
 def get_stats_module(name, module):
     cur.execute(f"SELECT {module} FROM ACCOUNTS_2 WHERE username = '{name}'")
     return cur.fetchone()[0]
+
+def get_stats_module_combined():
+    stats_modules = []
+    all_modules = 0
+    for i in range (len(modules())):
+        stats_modules.append("<a>" + modules()[i].title() + ": " + str(get_stats_module(flask_login.current_user.name, modules()[i])) + "</a>")
+        all_modules += get_stats_module(flask_login.current_user.name, modules()[i])
+    all_modules = "<p>All requests: " + str(all_modules) + "</p>"
+    stats_modules.append(all_modules)
+    stats_modules = ' '.join(stats_modules)
+    return stats_modules

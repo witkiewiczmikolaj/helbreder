@@ -37,10 +37,7 @@
             <br>
             <input type="submit" class="button" name="Submit" value="Submit"></input>
         </form>
-        <p>All requests: {{ requests | safe }}</p>
-        <a>Kubernetes: {{ kubernetes | safe }}</a>
-        <a>Server: {{ server | safe }}</a>
-        <a>Postgresql: {{ postgresql | safe }}</a>
+        {{ stats_modules | safe }}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
