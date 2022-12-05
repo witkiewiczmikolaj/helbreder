@@ -46,10 +46,10 @@ def get_stats_module_combined():
     for i in range (len(modules())):
         values_modules.append(get_stats_module(flask_login.current_user.name, modules()[i]))
         all_modules += get_stats_module(flask_login.current_user.name, modules()[i])
-    values_modules = [100 - (x / all_modules * 100) for x in values_modules] 
+    values_modules = [(x / all_modules * 100) for x in values_modules] 
     
     for i in range (len(modules())):
-        stats_modules.append("<a>" + modules()[i].title() + ": " + str(get_stats_module(flask_login.current_user.name, modules()[i])) + " | " + str(round(values_modules[i],1)) + """%</a><div style="background-color:rgb(36, 36, 36); height: 100px; width: 10px;"><div style="background-color:rgb(238, 237, 237); height: """ + str(values_modules[i]) + """px;"></div></div>""")
+        stats_modules.append("<a>" + modules()[i].title() + ": " + str(get_stats_module(flask_login.current_user.name, modules()[i])) + " | " + str(round(values_modules[i],1)) + """%</a><div style="background-color:rgb(36, 36, 36); height: 10px; width: 100px;"><div style="background-color:rgb(238, 237, 237); height: 10px; float: left; width: """ + str(values_modules[i]) + """px;"></div></div>""")
         
     all_modules = "<p>All requests: " + str(all_modules) + "</p>"
     stats_modules.append(all_modules)
