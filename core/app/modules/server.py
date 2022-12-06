@@ -2,10 +2,18 @@ from paramiko import SSHClient, AutoAddPolicy, RSAKey
 import time
 import os
 import threading
+import io
 
 def server_connect(arguments):
     rsa_key, rsa_password, ip, user = arguments[0], arguments[1], arguments[5], arguments[3]
     k = RSAKey.from_private_key_file(f'{rsa_key}', f'{rsa_password}')
+    client = SSHClient()
+    client.set_missing_host_key_policy(AutoAddPolicy())
+    client.connect(f'{ip}', username=user, pkey=k)
+    return client
+
+def server_connect_rsa(rsa_key, rsa_password, ip, user):
+    k = RSAKey.from_private_key(io.StringIO(rsa_key), f'{rsa_password}')
     client = SSHClient()
     client.set_missing_host_key_policy(AutoAddPolicy())
     client.connect(f'{ip}', username=user, pkey=k)

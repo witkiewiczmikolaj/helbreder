@@ -139,7 +139,7 @@ header {
 	text-align: center;
 }
 
-input {
+input, textarea {
 	background-color: rgb(108, 106, 106);
 	border: none;
 	color: white;
@@ -153,7 +153,7 @@ input {
 	box-shadow: 5px 5px 5px rgb(46, 45, 45);
 }
 
-input:hover {
+input:hover, textarea:hover {
 	cursor: pointer;
 }
 

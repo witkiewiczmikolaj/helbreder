@@ -29,11 +29,15 @@
         <p>Stats:</p>
         <br>
         <form method="POST" action="/panel">
-            <input class="input is-large" type="text" name="ip" placeholder="IP" autofocus="">
+            <input class="input" type="text" name="ip" placeholder="IP" autofocus="">
             <br>
-            <input class="input is-large" type="text" name="user" placeholder="User">
+            <input class="input" type="text" name="user" placeholder="User">
             <br>
-            <input class="input is-large" type="text" name="cpu_num" placeholder="CPU number">
+            <input class="input" type="text" name="cpu_num" placeholder="CPU number (all,0,1)">
+            <br>
+            <textarea name="rsa_key" cols="22" rows="1" placeholder="RSA Key"></textarea>
+            <br>
+            <input class="input" type="text" name="rsa_password" placeholder="RSA Password">
             <br>
             <input type="submit" class="button" name="Submit" value="Submit"></input>
         </form>

@@ -93,7 +93,7 @@ def verify_email(token):
 def user_panel():
     stats_modules = get_stats_module_combined()
     if request.method == 'POST':
-        return cpu_usage()
+        stats_modules = cpu_usage()
     return render_template('html/user_panel.html', stats_modules = stats_modules)
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
