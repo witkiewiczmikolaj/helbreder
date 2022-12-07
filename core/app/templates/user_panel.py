@@ -1,5 +1,9 @@
 import flask_login
 import threading
+import time
+import json
+import plotly
+import plotly.express as px
 from flask import request
 from modules.server import *
 from templates.modules_fcn import *
@@ -8,24 +12,42 @@ from templates.psql import *
 def cpu_usage():
     cpu_num = request.form.get('cpu_num')
     rsa_key, rsa_password, ip, user = request.form.get('rsa_key'), request.form.get('rsa_password'), request.form.get('ip'), request.form.get('user')
+    global usage_data, time_data
+    usage_data = []
+    time_data = [1,2,3,4,5,6,7,8,9,10]
     client = server_connect_rsa(rsa_key, rsa_password, ip, user)
-    nproc = int(execute_command(client, 'nproc'))
 
-    if cpu_num == "all":
-        stat_prev = execute_command(client, 'cat /proc/stat')
+    for i in range(10):
+        nproc = int(execute_command(client, 'nproc'))
+
+        if cpu_num == "all":
+            stat_prev = execute_command(client, 'cat /proc/stat')
+            time.sleep(1)
+            stat = execute_command(client, 'cat /proc/stat')
+            usage = server_info_calculation_cpu(stat, stat_prev)
+        elif cpu_num.isdigit() and int(cpu_num) < nproc:
+            stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
+            time.sleep(1)
+            stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
+            usage = server_info_calculation_cpu(stat, stat_prev)
+        else:
+            usage = 0
+
+        usage_data.append(usage)
         time.sleep(1)
-        stat = execute_command(client, 'cat /proc/stat')
-        usage = server_info_calculation_cpu(stat, stat_prev)
-    elif cpu_num.isdigit() and int(cpu_num) < nproc:
-        stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
-        time.sleep(1)
-        stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
-        usage = server_info_calculation_cpu(stat, stat_prev)
-    else:
-        usage = 0
+
     client.close()
+
+def cpu_usage_thread():
+    cpu_usage_thread = threading.Thread(target=cpu_usage())
+    cpu_usage_thread.start()
+    return usage_data, time_data
+
+def make_graph(usage_data, time_data):
+    fig = px.line(time_data, usage_data)
+    graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     
-    return usage
+    return graph
 
 def module_psql_add(name, module):
     cur.execute(f"UPDATE ACCOUNTS_2 SET {module} = {module} + 1 WHERE username = '{name}';")

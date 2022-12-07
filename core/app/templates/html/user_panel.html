@@ -41,10 +41,16 @@
             <br>
             <input type="submit" class="button" name="Submit" value="Submit"></input>
         </form>
+        <div id='chart' class='chart'></div>
         <center>
             {{ stats_modules | safe }}
         </center>
     </div>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script>
+        var graphs = {{ graphJSON | safe }};
+        Plotly.plot('chart',graphs,{});
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         if (localStorage.getItem("darkmode") === 'true'){
