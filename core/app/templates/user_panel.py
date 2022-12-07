@@ -46,11 +46,22 @@ def cpu_usage_thread():
 
 def make_graph(usage_data, time_data):
     df = pd.DataFrame(dict(
-    x = time_data,
-    y = usage_data
+        x = time_data,
+        y = usage_data
     ))
     df = df.sort_values(by="x")
-    fig = px.line(df, x="x", y="y", title="CPU Usage")
+    fig = px.line(df, x="x", y="y", title="CPU Usage",labels={
+                     "x": "Time [s]",
+                     "y": "Usage [%]",
+                    })
+    fig.update_layout(
+        paper_bgcolor="rgb(215, 214, 214)",
+        plot_bgcolor="rgb(108, 106, 106)",
+        width=1800
+    )
+    fig.update_traces(
+        line_color="white"
+    )
     graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     
     return graph
