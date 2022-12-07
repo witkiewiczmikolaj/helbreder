@@ -4,6 +4,7 @@ import time
 import json
 import plotly
 import plotly.express as px
+import pandas as pd
 from flask import request
 from modules.server import *
 from templates.modules_fcn import *
@@ -44,7 +45,12 @@ def cpu_usage_thread():
     return usage_data, time_data
 
 def make_graph(usage_data, time_data):
-    fig = px.line(time_data, usage_data)
+    df = pd.DataFrame(dict(
+    x = time_data,
+    y = usage_data
+    ))
+    df = df.sort_values(by="x")
+    fig = px.line(df, x="x", y="y", title="CPU Usage")
     graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     
     return graph
