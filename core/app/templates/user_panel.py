@@ -10,26 +10,35 @@ from modules.server import *
 from templates.modules_fcn import *
 from templates.psql import *
 
-def cpu_usage():
-    cpu_num = request.form.get('cpu_num')
-    rsa_key, rsa_password, ip, user = request.form.get('rsa_key'), request.form.get('rsa_password'), request.form.get('ip'), request.form.get('user')
+def server_response():
+    arguments = ['1','2','3','4','5']
+    arguments[0] = request.form.get('cpu_num')
+    arguments[1], arguments[2], arguments[3], arguments[4] = request.form.get('rsa_key'), request.form.get('rsa_password'), request.form.get('ip'), request.form.get('user')
+    try:
+        client = server_connect_rsa(arguments[1], arguments[2], arguments[3], arguments[4])
+        response = True
+    except:
+        response = False
+    return response, arguments
+
+def cpu_usage(arguments):
     global usage_data, time_data
     usage_data = []
     time_data = [1,2,3,4,5,6,7,8,9,10]
-    client = server_connect_rsa(rsa_key, rsa_password, ip, user)
+    client = server_connect_rsa(arguments[1], arguments[2], arguments[3], arguments[4])
 
     for i in range(10):
         nproc = int(execute_command(client, 'nproc'))
 
-        if cpu_num == "all":
+        if arguments[0] == "all":
             stat_prev = execute_command(client, 'cat /proc/stat')
             time.sleep(1)
             stat = execute_command(client, 'cat /proc/stat')
             usage = server_info_calculation_cpu(stat, stat_prev)
-        elif cpu_num.isdigit() and int(cpu_num) < nproc:
-            stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
+        elif arguments[0].isdigit() and int(arguments[0]) < nproc:
+            stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{arguments[0]}')
             time.sleep(1)
-            stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
+            stat = execute_command(client, f'cat /proc/stat | grep cpu{arguments[0]}')
             usage = server_info_calculation_cpu(stat, stat_prev)
         else:
             usage = 0
@@ -39,31 +48,34 @@ def cpu_usage():
 
     client.close()
 
-def cpu_usage_thread():
-    cpu_usage_thread = threading.Thread(target=cpu_usage())
+def cpu_usage_thread(arguments):
+    cpu_usage_thread = threading.Thread(target=cpu_usage(arguments))
     cpu_usage_thread.start()
     return usage_data, time_data
 
 def make_graph(usage_data, time_data):
-    df = pd.DataFrame(dict(
-        x = time_data,
-        y = usage_data
-    ))
-    df = df.sort_values(by="x")
-    fig = px.line(df, x="x", y="y", title="CPU Usage",labels={
-                     "x": "Time [s]",
-                     "y": "Usage [%]",
-                    })
-    fig.update_layout(
-        paper_bgcolor="rgb(215, 214, 214)",
-        plot_bgcolor="rgb(108, 106, 106)",
-        width=1800
-    )
-    fig.update_traces(
-        line_color="white"
-    )
-    graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    
+    if usage_data == '' and time_data == '':
+        graph = ''
+    else:
+        df = pd.DataFrame(dict(
+            x = time_data,
+            y = usage_data
+        ))
+        df = df.sort_values(by="x")
+        fig = px.line(df, x="x", y="y", title="CPU Usage",labels={
+                        "x": "Time [s]",
+                        "y": "Usage [%]",
+                        })
+        fig.update_layout(
+            paper_bgcolor="rgb(215, 214, 214)",
+            plot_bgcolor="rgb(108, 106, 106)",
+            width=1800
+        )
+        fig.update_traces(
+            line_color="white"
+        )
+        graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        
     return graph
 
 def module_psql_add(name, module):

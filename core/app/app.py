@@ -92,10 +92,14 @@ def verify_email(token):
 @helbreder.route("/panel",methods=['GET', 'POST'])
 def user_panel():
     stats_modules = get_stats_module_combined()
-    graphJSON = ''
+    response = False
     if request.method == 'POST':
-        d1, d2 = cpu_usage_thread()
-        graphJSON = make_graph(d1,d2) 
+        response, arguments = server_response()
+    if response:
+        usage_data, time_data = cpu_usage_thread(arguments)
+        graphJSON = make_graph(usage_data, time_data) 
+    else:
+        graphJSON = ''
     return render_template('html/user_panel.html', stats_modules = stats_modules, graphJSON = graphJSON)
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
