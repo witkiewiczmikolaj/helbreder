@@ -91,16 +91,14 @@ def verify_email(token):
 
 @helbreder.route("/panel",methods=['GET', 'POST'])
 def user_panel():
-    stats_modules = get_stats_module_combined()
     response = False
+    usage_data, time_data = '', ''
     if request.method == 'POST':
         response, arguments = server_response()
     if response:
         usage_data, time_data = cpu_usage_thread(arguments)
-        graphJSON = make_graph(usage_data, time_data) 
-    else:
-        graphJSON = ''
-    return render_template('html/user_panel.html', stats_modules = stats_modules, graphJSON = graphJSON)
+    graphJSON = make_graph(usage_data, time_data) 
+    return render_template('html/user_panel.html', stats_modules = get_stats_module_combined(), graphJSON = graphJSON)
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
 def delete_account(token):

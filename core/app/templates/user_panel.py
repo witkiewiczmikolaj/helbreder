@@ -5,7 +5,8 @@ import json
 import plotly
 import plotly.express as px
 import pandas as pd
-from flask import request
+import paramiko
+from flask import request, flash
 from modules.server import *
 from templates.modules_fcn import *
 from templates.psql import *
@@ -17,7 +18,8 @@ def server_response():
     try:
         client = server_connect_rsa(arguments[1], arguments[2], arguments[3], arguments[4])
         response = True
-    except:
+    except paramiko.ssh_exception.SSHException:
+        flash('Something went wrong!')
         response = False
     return response, arguments
 

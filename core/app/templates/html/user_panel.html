@@ -42,6 +42,13 @@
             <input type="submit" class="button" name="Submit" value="Submit"></input>
         </form>
         <center>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3> {{ message }} </h3>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <div id='chart' class='chart'></div>
             {{ stats_modules | safe }}
         </center>
