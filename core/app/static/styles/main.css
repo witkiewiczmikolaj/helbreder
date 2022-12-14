@@ -414,6 +414,18 @@ img {
 	color: white;
 }
 
+div#loading {
+    width: 120px;
+    height: 150px;
+    display: none;
+    cursor: wait;
+}
+
+.animated-gif {
+	width: 120px;
+	height: auto;
+}
+
 @media screen and (max-width: 600px) {
 	.column {
 		width: 100%;
