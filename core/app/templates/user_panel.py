@@ -1,11 +1,11 @@
 import flask_login
 import threading
 import time
+import datetime
 import json
 import plotly
 import plotly.express as px
 import pandas as pd
-import paramiko
 from flask import request, flash
 from modules.server import *
 from templates.modules_fcn import *
@@ -16,7 +16,7 @@ def cpu_usage():
     rsa_key, rsa_password, ip, user = request.form.get('rsa_key'), request.form.get('rsa_password'), request.form.get('ip'), request.form.get('user')
     global usage_data, time_data
     usage_data = []
-    time_data = [1,2,3,4,5,6,7,8,9,10]
+    time_data = []
     client = server_connect_rsa(rsa_key, rsa_password, ip, user)
 
     for i in range(10):
@@ -34,8 +34,10 @@ def cpu_usage():
             usage = server_info_calculation_cpu(stat, stat_prev)
         else:
             usage = 0
-
+        currentDateAndTime = datetime.datetime.now()
+        currentTime = currentDateAndTime.strftime("%H:%M:%S")
         usage_data.append(usage)
+        time_data.append(currentTime)
         time.sleep(1)
 
     client.close()
@@ -52,7 +54,7 @@ def make_graph(usage_data, time_data):
     ))
     df = df.sort_values(by="x")
     fig = px.line(df, x="x", y="y", title="CPU Usage",labels={
-                     "x": "Time [s]",
+                     "x": "Time [H:M:S]",
                      "y": "Usage [%]",
                     })
     fig.update_layout(
