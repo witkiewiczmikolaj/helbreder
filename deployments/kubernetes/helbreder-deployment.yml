@@ -54,16 +54,16 @@ spec:
               configMapKeyRef:
                 key: AUTH_PASSWORD
                 name: env
-          - name: RSA_KEY
-            valueFrom:
-              configMapKeyRef:
-                key: RSA_KEY
-                name: env
-          - name: RSA_PASSWORD
-            valueFrom:
-              configMapKeyRef:
-                key: RSA_PASSWORD
-                name: env
+#           - name: RSA_KEY
+#             valueFrom:
+#               configMapKeyRef:
+#                 key: RSA_KEY
+#                 name: env
+#           - name: RSA_PASSWORD
+#             valueFrom:
+#               configMapKeyRef:
+#                 key: RSA_PASSWORD
+#                 name: env
           - name: SECRET_KEY
             valueFrom:
               configMapKeyRef:
