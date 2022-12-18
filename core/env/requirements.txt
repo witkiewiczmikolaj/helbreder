@@ -9,3 +9,4 @@ flask_redmail==0.3.0
 PyJWT==2.6.0
 numpy==1.23.5
 plotly==5.11.0
+pandas==1.5.2
