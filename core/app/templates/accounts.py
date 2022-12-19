@@ -1,5 +1,6 @@
 import flask_login
 import jwt
+from datetime import datetime, timezone
 from redmail import gmail
 from flask import request, flash, redirect, url_for, render_template
 from templates.psql import *
@@ -13,13 +14,13 @@ class User(flask_login.UserMixin):
         self.name = name
 
 def get_name(email):
-    cur.execute(f"SELECT username FROM ACCOUNTS_2 WHERE email = '{email}'")
+    cur.execute(f"SELECT username FROM ACCOUNTS WHERE email = '{email}'")
     name = cur.fetchone()
     return name[0]
 
 def email_check(email):
     try:
-        cur.execute(f"SELECT email FROM ACCOUNTS_2 WHERE email = '{email}'")
+        cur.execute(f"SELECT email FROM ACCOUNTS WHERE email = '{email}'")
         emails_sql = cur.fetchone()
         if not emails_sql:
             return False
@@ -28,7 +29,7 @@ def email_check(email):
         return False
    
 def username_check(username):
-    cur.execute(f"SELECT username FROM ACCOUNTS_2 WHERE username = '{username}'")
+    cur.execute(f"SELECT username FROM ACCOUNTS WHERE username = '{username}'")
     username_sql = cur.fetchone()
     if not username_sql:
         return False
@@ -41,8 +42,9 @@ def hash_password(password):
 
 def add_account(email, username, password):
     password_hash = hash_password(password)
+    dt = datetime.now(timezone.utc)
     # create a loop to insert modules from possibilities.yml
-    cur.execute(f"INSERT INTO ACCOUNTS_2 (username, password, email, verified, kubernetes, server, postgresql) VALUES ('{username}', '{password_hash}', '{email}', FALSE, 0, 0, 0);")
+    cur.execute(f"INSERT INTO ACCOUNTS (username, password, email, verified, kubernetes, server, postgresql, created_on) VALUES ('{username}', '{password_hash}', '{email}', FALSE, 0, 0, 0,'{dt}');")
     c.commit()
 
 def decode_email(token):
@@ -51,7 +53,7 @@ def decode_email(token):
 
 def verify(email):
     try:
-        cur.execute(f"UPDATE ACCOUNTS_2 SET verified = TRUE WHERE email = '{email}';")
+        cur.execute(f"UPDATE ACCOUNTS SET verified = TRUE WHERE email = '{email}';")
         c.commit()
         flash('Thank you! Now you can log in.')
     except:
@@ -59,19 +61,19 @@ def verify(email):
 
 def delete_email(email):
     try:
-        cur.execute(f"DELETE FROM ACCOUNTS_2 WHERE email = '{email}';")
+        cur.execute(f"DELETE FROM ACCOUNTS WHERE email = '{email}';")
         c.commit()
         flash('Thank you! Your account has been deleted.')
     except:
         flash('Something went wrong!')
 
 def verified(email):
-    cur.execute(f"SELECT verified FROM ACCOUNTS_2 WHERE email = '{email}'")
+    cur.execute(f"SELECT verified FROM ACCOUNTS WHERE email = '{email}'")
     is_verified = cur.fetchone()
     return is_verified[0]
 
 def check_pass(email, password_hash):
-    cur.execute(f"SELECT password FROM ACCOUNTS_2 WHERE email = '{email}'")
+    cur.execute(f"SELECT password FROM ACCOUNTS WHERE email = '{email}'")
     password = cur.fetchall()
     if password[0][0] == password_hash:
         return True

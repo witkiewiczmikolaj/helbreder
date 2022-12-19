@@ -1,5 +1,4 @@
 import flask_login
-import threading
 import time
 import datetime
 import json
@@ -12,9 +11,9 @@ from templates.modules_fcn import *
 from templates.psql import *
 
 def cpu_usage():
+    global usage_data, time_data
     cpu_num = request.form.get('cpu_num')
     rsa_key, rsa_password, ip, user = request.form.get('rsa_key'), request.form.get('rsa_password'), request.form.get('ip'), request.form.get('user')
-    global usage_data, time_data
     usage_data = []
     time_data = []
     client = server_connect_rsa(rsa_key, rsa_password, ip, user)
