@@ -19,20 +19,7 @@ def cpu_usage():
     client = server_connect_rsa(rsa_key, rsa_password, ip, user)
 
     for i in range(10):
-        nproc = int(execute_command(client, 'nproc'))
-
-        if cpu_num == "all":
-            stat_prev = execute_command(client, 'cat /proc/stat')
-            time.sleep(1)
-            stat = execute_command(client, 'cat /proc/stat')
-            usage = server_info_calculation_cpu(stat, stat_prev)
-        elif cpu_num.isdigit() and int(cpu_num) < nproc:
-            stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
-            time.sleep(1)
-            stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
-            usage = server_info_calculation_cpu(stat, stat_prev)
-        else:
-            usage = 0
+        usage = get_cpu_usage(client, cpu_num)
         currentDateAndTime = datetime.datetime.now()
         currentTime = currentDateAndTime.strftime("%H:%M:%S")
         usage_data.append(usage)
