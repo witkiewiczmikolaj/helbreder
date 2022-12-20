@@ -5,6 +5,7 @@ from redmail import gmail
 from flask import request, flash, redirect, url_for, render_template
 from templates.psql import *
 from hashlib import sha256
+from templates.modules_fcn import *
 
 gmail.user_name = os.environ.get('EMAIL')
 gmail.password = os.environ.get('EMAIL_PASSWORD')
@@ -43,8 +44,9 @@ def hash_password(password):
 def add_account(email, username, password):
     password_hash = hash_password(password)
     dt = datetime.now(timezone.utc)
-    # create a loop to insert modules from possibilities.yml
-    cur.execute(f"INSERT INTO ACCOUNTS (username, password, email, verified, kubernetes, server, postgresql, created_on) VALUES ('{username}', '{password_hash}', '{email}', FALSE, 0, 0, 0,'{dt}');")
+    modules_list = modules()
+    modules_list = ', '.join(modules_list)  
+    cur.execute(f"INSERT INTO ACCOUNTS (username, password, email, verified, {modules_list}, created_on) VALUES ('{username}', '{password_hash}', '{email}', FALSE, 0, 0, 0,'{dt}');")
     c.commit()
 
 def decode_email(token):
