@@ -56,11 +56,11 @@ def make_graph(usage_data, time_data):
     return graph
 
 def module_psql_add(name, module):
-    cur.execute(f"UPDATE ACCOUNTS_2 SET {module} = {module} + 1 WHERE username = '{name}';")
+    cur.execute(f"UPDATE ACCOUNTS SET {module} = {module} + 1 WHERE username = '{name}';")
     c.commit()
 
 def get_stats_module(name, module):
-    cur.execute(f"SELECT {module} FROM ACCOUNTS_2 WHERE username = '{name}'")
+    cur.execute(f"SELECT {module} FROM ACCOUNTS WHERE username = '{name}'")
     return cur.fetchone()[0]
 
 def get_stats_module_combined():
@@ -70,7 +70,10 @@ def get_stats_module_combined():
     for i in range (len(modules())):
         values_modules.append(get_stats_module(flask_login.current_user.name, modules()[i]))
         all_modules += get_stats_module(flask_login.current_user.name, modules()[i])
-    values_modules = [(x / all_modules * 100) for x in values_modules] 
+    try:
+        values_modules = [(x / all_modules * 100) for x in values_modules] 
+    except ZeroDivisionError:
+        values_modules = [0 for x in values_modules] 
     
     for i in range (len(modules())):
         stats_modules.append("<a>" + modules()[i].title() + ": " + str(get_stats_module(flask_login.current_user.name, modules()[i])) + " | " + str(round(values_modules[i],1)) + """%</a><div style="background-color:rgb(36, 36, 36); height: 10px; width: 100px;"><div style="background-color:rgb(238, 237, 237); height: 10px; float: left; width: """ + str(values_modules[i]) + """px;"></div></div>""")
