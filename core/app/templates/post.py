@@ -26,4 +26,4 @@ def collect_data():
         button_clicked[7] = request.form.get("IP")
         button_clicked[8] = request.form.get("Resource_type")
 
-    return action, target, additional
+    return action, target, additional, button_clicked

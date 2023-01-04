@@ -16,6 +16,7 @@
             <a href="{{ url_for('signup') }}" class="navbar-item">Sign Up</a>
             {% endif %}
             {% if current_user.is_authenticated %}
+                <a href="{{ url_for('user_panel') }}" class="navbar-item">Panel</a>
                 <a href="{{ url_for('logout') }}" class="navbar-item">Logout</a>
             {% endif %}
         </nav>

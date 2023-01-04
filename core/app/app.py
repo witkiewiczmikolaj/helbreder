@@ -12,6 +12,7 @@ from templates.modules_fcn import *
 from templates.api_safety import *
 from templates.post import *
 from templates.accounts import *
+from templates.user_panel import *
 
 helbreder = Flask(__name__)
 helbreder.secret_key = os.environ.get('SECRET_KEY')
@@ -48,7 +49,10 @@ def static_main():
     additional = '<h3>Waiting for module</h3>'
     if request.method == 'POST':
         try:
-            action, target, additional = collect_data()
+            action, target, additional, button_clicked = collect_data()
+            if flask_login.current_user.is_authenticated:
+                mod = request.form.get(button_clicked[0])
+                module_psql_add(flask_login.current_user.name, mod)
         except KeyError:
             print('Choose action and target_kind first!')
     return render_template('html/index.html', module = module, action = action, target = target, button_clicked = button_clicked, languages = languages, additional = additional)
@@ -84,6 +88,15 @@ def verify_email(token):
     else:
         flash('You are already verified or you deleted your account earlier!')
     return render_template('html/login.html')
+
+@helbreder.route("/panel",methods=['GET', 'POST'])
+def user_panel():
+    stats_modules = get_stats_module_combined()
+    graphJSON = ''
+    if request.method == 'POST':
+        usage_data, time_data = cpu_usage_thread()
+        graphJSON = make_graph(usage_data, time_data) 
+    return render_template('html/user_panel.html', stats_modules = stats_modules, graphJSON = graphJSON)
 
 @helbreder.route("/delete-account/<token>",methods=['GET'])
 def delete_account(token):

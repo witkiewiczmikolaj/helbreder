@@ -2,10 +2,18 @@ from paramiko import SSHClient, AutoAddPolicy, RSAKey
 import time
 import os
 import threading
+import io
 
 def server_connect(arguments):
     rsa_key, rsa_password, ip, user = arguments[0], arguments[1], arguments[5], arguments[3]
     k = RSAKey.from_private_key_file(f'{rsa_key}', f'{rsa_password}')
+    client = SSHClient()
+    client.set_missing_host_key_policy(AutoAddPolicy())
+    client.connect(f'{ip}', username=user, pkey=k)
+    return client
+
+def server_connect_rsa(rsa_key, rsa_password, ip, user):
+    k = RSAKey.from_private_key(io.StringIO(rsa_key), f'{rsa_password}')
     client = SSHClient()
     client.set_missing_host_key_policy(AutoAddPolicy())
     client.connect(f'{ip}', username=user, pkey=k)
@@ -53,24 +61,31 @@ def server_info_calculation_mem(mem):
     mem = mem.split()
     return mem[8], mem[9], mem[10]
 
-def Get_stats_CPU(arguments):
-    cpu_num = arguments[6]
-    client = server_connect(arguments)
+def get_cpu_usage(client, cpu_num):
     nproc = int(execute_command(client, 'nproc'))
-
     if cpu_num == "all":
         stat_prev = execute_command(client, 'cat /proc/stat')
         time.sleep(1)
         stat = execute_command(client, 'cat /proc/stat')
-        usage = "CPU USAGE: " + str(server_info_calculation_cpu(stat, stat_prev)) + "%"
+        usage = server_info_calculation_cpu(stat, stat_prev)
     elif cpu_num.isdigit() and int(cpu_num) < nproc:
         stat_prev = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
         time.sleep(1)
         stat = execute_command(client, f'cat /proc/stat | grep cpu{cpu_num}')
-        usage = "CPU USAGE: " + str(server_info_calculation_cpu(stat, stat_prev)) + "%"
+        usage = server_info_calculation_cpu(stat, stat_prev)
+    else:
+        usage = 0
+    return usage
+
+def Get_stats_CPU(arguments):
+    cpu_num = arguments[6]
+    client = server_connect(arguments)
+    usage = get_cpu_usage(client, cpu_num)
+    if usage != 0:
+        usage = "CPU USAGE: " + usage + "%"
     else:
         usage = "Resource type exceeds cpu number used by the server, or you passed wrong argument!"
-
+        
     client.close()
     
     return usage

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Login</title>
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+   </head>
+   <body>
+    <header>
+        <div class="radio-btn">
+            <div class="radio-inner"></div>
+        </div>
+        <nav class="navbar">
+            {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('login') }}" class="navbar-item">Login</a>
+            <a href="{{ url_for('signup') }}" class="navbar-item">Sign Up</a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+                <a class="navbar-item">Panel</a>
+                <a href="{{ url_for('logout') }}" class="navbar-item">Logout</a>
+            {% endif %}
+        </nav>
+        <center>
+            <a href="{{ url_for('static_main') }}" class="syringe">&#128137;</a>
+        </center>
+    </header>
+    <br>
+    <div class="column-center">
+        <p>Get CPU usage graph:</p>
+        <br>
+        <div id="content">
+            <form method="POST" action="/panel">
+                <input class="input" type="text" name="ip" placeholder="IP" autofocus="">
+                <br>
+                <input class="input" type="text" name="user" placeholder="User">
+                <br>
+                <input class="input" type="text" name="cpu_num" placeholder="CPU number (all,0,1)">
+                <br>
+                <textarea name="rsa_key" cols="22" rows="1" placeholder="RSA Key"></textarea>
+                <br>
+                <input class="input" type="text" name="rsa_password" placeholder="RSA Password">
+                <br>
+                <input type="submit" class="button" name="Submit" value="Submit" onclick="loading();"></input>
+            </form>
+        </div>
+        <center>
+            <div id="loading"><img class="animated-gif" src="/static/images/loadingimage.gif"></div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3> {{ message }} </h3>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div id='chart' class='chart'></div>
+            {{ stats_modules | safe }}
+        </center>
+    </div>
+    <script type="text/javascript">
+        function loading(){
+            $("#loading").show();
+            $("#content").hide();       
+        }
+    </script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script>
+        var graphs = {{ graphJSON | safe }};
+        Plotly.plot('chart',graphs,{});
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        if (localStorage.getItem("darkmode") === 'true'){
+            $(".radio-inner").toggleClass("active");
+            $("body").toggleClass("dark-theme");
+        }
+        $(document).ready(function (){
+            $(".radio-btn").click(function (){
+                $(".radio-inner").toggleClass("active");
+                $("body").toggleClass("dark-theme");
+                let active = $("body").hasClass("dark-theme");
+                localStorage.setItem("darkmode", active);
+            });
+        });
+     </script>
+    </body>
+</html>
