@@ -22,7 +22,7 @@ def lang_gen(lang):
     curl = f'''curl -X POST -H "Content-Type: application/json" -d '{str(data_json)}' http://{button_clicked[3]}:{button_clicked[4]}@{helbreder_url}/api/{button_clicked[0]}'''
     
     if lang == 'shell':
-        code = curl
+        code = f'''curl    -X POST \n\t -H "Content-Type: application/json" \n\t -d '{str(data_json)}' http://{button_clicked[3]}:{button_clicked[4]}@{helbreder_url}/api/{button_clicked[0]}'''
     else:
         code = curl_to_code(curl, lang.lower())
     
