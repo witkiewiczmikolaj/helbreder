@@ -19,6 +19,13 @@ def server_connect_rsa(rsa_key, rsa_password, ip, user):
     client.connect(f'{ip}', username=user, pkey=k)
     return client
 
+def server_connect_rsa_no_password(rsa_key, ip, user):
+    k = RSAKey.from_private_key(io.StringIO(rsa_key))
+    client = SSHClient()
+    client.set_missing_host_key_policy(AutoAddPolicy())
+    client.connect(f'{ip}', username=user, pkey=k)
+    return client
+
 def execute_command(client, command):
     exec = client.exec_command(f'{command}')
     response = exec[1].read().decode("utf8")

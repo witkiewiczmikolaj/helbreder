@@ -5,6 +5,7 @@ import json
 import plotly
 import plotly.express as px
 import pandas as pd
+import paramiko
 from flask import request, flash
 from modules.server import *
 from templates.modules_fcn import *
@@ -16,17 +17,27 @@ def cpu_usage():
     rsa_key, rsa_password, ip, user = request.form.get('rsa_key'), request.form.get('rsa_password'), request.form.get('ip'), request.form.get('user')
     usage_data = []
     time_data = []
-    client = server_connect_rsa(rsa_key, rsa_password, ip, user)
+    success = 1
+    try:
+        client = server_connect_rsa_no_password(rsa_key, ip, user)
+    except paramiko.ssh_exception.PasswordRequiredException:
+        try:
+            client = server_connect_rsa(rsa_key, rsa_password, ip, user)
+        except ValueError:
+            success = 0
+            flash('The RSA key file is encrypted so you must enter password!')
+    if success == 1:
+        for i in range(10):
+            usage = get_cpu_usage(client, cpu_num)
+            currentDateAndTime = datetime.datetime.now()
+            currentTime = currentDateAndTime.strftime("%H:%M:%S")
+            usage_data.append(usage)
+            time_data.append(currentTime)
+            time.sleep(1)
 
-    for i in range(10):
-        usage = get_cpu_usage(client, cpu_num)
-        currentDateAndTime = datetime.datetime.now()
-        currentTime = currentDateAndTime.strftime("%H:%M:%S")
-        usage_data.append(usage)
-        time_data.append(currentTime)
-        time.sleep(1)
-
-    client.close()
+        client.close()
+    else:
+        pass
 
 def cpu_usage_thread():
     cpu_usage_thread = threading.Thread(target=cpu_usage())
