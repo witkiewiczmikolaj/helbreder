@@ -4,55 +4,41 @@
 
 # Helbreader - API for self-healing software
 
+This is an REST API made for monitoring integration (webhooks mostly) in order to make self-healing operation simple.
+
+## Deployment
+
+It's an app made in Python 3 deployed as a docker image. It also uses basic HTML, CSS and Javascript. @wiktorkisielewski please provide some more info, thanks
+
+## Demo
+
 [helbreder.online](https://helbreder.online/)
 
-This is an REST API made for monitoring integration (webhooks mostly) in order to make self-healing operation simple
+Create an account by clicking the Sign up button and then click the link provided in an email sent to you to activate an account. You can then access your user panel where you can find some basic stats.
 
-[Docker image](https://hub.docker.com/repository/docker/wiktorkisielewski/helbreder)
+## Usage
 
-## How to run
+#what can you do
 
-### Authorization
+### Generaing API calls
 
+#how to use curlconverter
 
+### Supported modules
 
-### Production grade
-
-
-
-### Local / test enivronment (docker)
-
-`docker run -dt -p 80:5000 wiktorkisielewski/helbreder`
-
-for k8s connection add: 
-
-> `-v ~/.kube/config:/kube/config --env KUBECONFIG=/kube/config `
-
-### Kubernetes
-
-## Modules
-
-### Kubernetes 
+#### k8s
 
 The kubernetes module is based on [python kubernetes-client](https://github.com/kubernetes-client/python)
 
 #### Standard fields
 
-- `action` &#8594; [supported actions](#supported-actions)
+- `action`
 
-- `namespace` &#8594; [k8s docs](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+- `namespace`
 
-- `target_kind` &#8594; `pod | deployment | stateful_set`
+- `target_kind`
 
-- `target_name` &#8594; name of the target
-
-> Wildcard can be used at the end of the name
->
->`some_name*` - will match any object/s with name starting with "some_name"
-
-#### Supported actions
-
-- `delete` - removes an object from cluster, based on its name and declared namespace
+- `target_name`
 
 #### Example
 
@@ -70,3 +56,7 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
     ```
 
     > target endpoint: `http://$HELBREDER_URL:80/api/k8s`
+
+#### Server
+
+#### PSQL
