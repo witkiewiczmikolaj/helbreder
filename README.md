@@ -18,11 +18,11 @@ Create an account by clicking the Sign up button and then click the link provide
 
 ## Usage
 
-#what can you do
+With Helbreder you can create requests for modules in many different programming languages.
 
-### Generaing API calls
+### Generating API calls
 
-#how to use curlconverter
+First you need to choose a `module`. Then you can choose an `action` and `target kind` associated with choosen module. If necessary you can also add some `additional info`. Then you only have type in `username` and `password` for authentication. When done click on `Submit` and you are ready to see the results. Just click on any icon of choosen language and you should be able to see the request. You can easily copy the code by clicking copy icon below the code. You can also toggle night mode by clicking an icon in top left corner.
 
 ### Supported modules
 
@@ -32,13 +32,13 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
 
 #### Standard fields
 
-- `action`
+- `action` &#8594; `Delete`
 
 - `namespace`
 
-- `target_kind`
+- `target_kind` &#8594; `Pod | Deployment | Statefull_Set`
 
-- `target_name`
+- `target_name` &#8594; name of the target
 
 #### Example
 
@@ -59,4 +59,20 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
 
 #### Server
 
+#### Standard fields
+
+- `action` &#8594; `Reboot | Get_stats`
+
+- `target_kind` &#8594; `Cpu | Ram | Memory_Main | None`
+
+- `target_name` &#8594; `User | IP | Resource Type`
+
 #### PSQL
+
+#### Standard fields
+
+- `action` &#8594; `Drop`
+
+- `target_kind` &#8594; `Database | Connection`
+
+- `target_name` &#8594; name of the target
