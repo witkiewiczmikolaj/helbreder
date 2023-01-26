@@ -14,7 +14,7 @@ It's an app made in Python 3 deployed as a docker image. It also uses basic HTML
 
 [helbreder.online](https://helbreder.online/)
 
-Create an account by clicking the Sign up button and then click the link provided in an email sent to you to activate an account. You can then access your user panel where you can find some basic stats.
+Create an account by clicking the Sign up button and then click the link provided in an email sent to you to activate an account. You can then access your user panel where you can find some basic stats and you can generate the CPU usage graph of your server.
 
 ## Usage
 
@@ -55,7 +55,7 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
     }
     ```
 
-    > target endpoint: `http://$HELBREDER_URL:80/api/k8s`
+    > target endpoint: `http://helbreder.online/api/kubernetes`
 
 #### Server
 
@@ -67,6 +67,8 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
 
 - `target_name` &#8594; `User | IP | Resource Type`
 
+target endpoint: `http://helbreder.online/api/server`
+
 #### PSQL
 
 #### Standard fields
@@ -76,3 +78,5 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
 - `target_kind` &#8594; `Database | Connection`
 
 - `target_name` &#8594; name of the target
+
+target endpoint: `http://helbreder.online/api/postgresql`

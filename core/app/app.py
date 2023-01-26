@@ -141,7 +141,7 @@ def server():
     else:
         abort(501)
 
-@helbreder.route('/api/k8s',methods=['POST'])
+@helbreder.route('/api/kubernetes',methods=['POST'])
 @auth.login_required
 def k8s():
     data = new_request(request.get_json(), 'k8s')
@@ -167,7 +167,7 @@ def k8s():
     else:
         abort(501)
 
-@helbreder.route('/api/psql',methods=['POST'])
+@helbreder.route('/api/postgresql',methods=['POST'])
 @auth.login_required
 def psql():
     data = new_request(request.get_json(), 'psql')
