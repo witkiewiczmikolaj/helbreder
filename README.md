@@ -1,10 +1,10 @@
-[![Helbreder docker image](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml/badge.svg?branch=main)](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml)
-
-[Work in progress] 
-
 # Helbreader - API for self-healing software
 
 This is an REST API made for monitoring integration (webhooks mostly) in order to make self-healing operation simple.
+
+[![Helbreder docker image](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml/badge.svg?branch=main)](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml)
+
+[Version Alpha 0.8.1]
 
 ## Deployment
 
@@ -30,7 +30,7 @@ First you need to choose a `module`. Then you can choose an `action` and `target
 
 The kubernetes module is based on [python kubernetes-client](https://github.com/kubernetes-client/python)
 
-#### Standard fields
+#### Standard fields for k8s
 
 - `action` &#8594; `Delete`
 
@@ -59,7 +59,9 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
 
 #### Server
 
-#### Standard fields
+@wiktorkisielewski please add some info
+
+#### Standard fields for Server
 
 - `action` &#8594; `Reboot | Get_stats`
 
@@ -71,7 +73,9 @@ target endpoint: `http://helbreder.online/api/server`
 
 #### PSQL
 
-#### Standard fields
+@wiktorkisielewski please add some info
+
+#### Standard fields for PSQL
 
 - `action` &#8594; `Drop`
 
