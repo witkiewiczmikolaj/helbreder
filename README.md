@@ -1,58 +1,52 @@
+# Helbreader - API for self-healing software
+
+This is a flask application that supports REST API requests and is able to create them.
+
 [![Helbreder docker image](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml/badge.svg?branch=main)](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml)
 
-[Work in progress] 
+[Version Alpha 0.8.1]
 
-# Helbreader - API for self-healing software
+## Deployment
+
+### Backend
+
+Made in Python 3 with usage of libraries like pandas, numpy, plotly, paramiko, psycopg2, PyJWT flask_redmail and flask_login.
+
+### Frontend
+
+Made in HTML, CSS and JS with jQuery.
+
+## Demo
 
 [helbreder.online](https://helbreder.online/)
 
-This is an REST API made for monitoring integration (webhooks mostly) in order to make self-healing operation simple
+#### Creating an account
 
-[Docker image](https://hub.docker.com/repository/docker/wiktorkisielewski/helbreder)
+Create an account by clicking the Sign up button and then click the link provided in an email sent to you to activate an account. You can then access your user panel where you can find some basic stats and you can generate the CPU usage graph of your server.
 
-## How to run
+## Usage
 
-### Authorization
+With Helbreder you can create a code for sending API requests for modules in many different programming languages.
 
+### Generating API calls
 
+First you need to choose a `module`. Then you can choose an `action` and `target kind` associated with choosen module. If necessary you can also add some `additional info`. Then you only have type in `username` and `password` for authentication. When done click on `Submit` and you are ready to see the results. Just click on any icon of choosen language and you should be able to see the request. You can easily copy the code by clicking copy icon below the code. You can also toggle night mode by clicking an icon in top left corner.
 
-### Production grade
+### Supported modules
 
-
-
-### Local / test enivronment (docker)
-
-`docker run -dt -p 80:5000 wiktorkisielewski/helbreder`
-
-for k8s connection add: 
-
-> `-v ~/.kube/config:/kube/config --env KUBECONFIG=/kube/config `
-
-### Kubernetes
-
-## Modules
-
-### Kubernetes 
+#### k8s
 
 The kubernetes module is based on [python kubernetes-client](https://github.com/kubernetes-client/python)
 
-#### Standard fields
+#### Standard fields for k8s
 
-- `action` &#8594; [supported actions](#supported-actions)
+- `action` &#8594; `Delete`
 
-- `namespace` &#8594; [k8s docs](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+- `namespace`
 
-- `target_kind` &#8594; `pod | deployment | stateful_set`
+- `target_kind` &#8594; `Pod | Deployment | Statefull_Set`
 
 - `target_name` &#8594; name of the target
-
-> Wildcard can be used at the end of the name
->
->`some_name*` - will match any object/s with name starting with "some_name"
-
-#### Supported actions
-
-- `delete` - removes an object from cluster, based on its name and declared namespace
 
 #### Example
 
@@ -69,4 +63,32 @@ The kubernetes module is based on [python kubernetes-client](https://github.com/
     }
     ```
 
-    > target endpoint: `http://$HELBREDER_URL:80/api/k8s`
+    > target endpoint: `http://helbreder.online/api/kubernetes`
+
+#### Server
+
+@wiktorkisielewski please add some info
+
+#### Standard fields for Server
+
+- `action` &#8594; `Reboot | Get_stats`
+
+- `target_kind` &#8594; `Cpu | Ram | Memory_Main | None`
+
+- `target_name` &#8594; `User | IP | Resource Type`
+
+target endpoint: `http://helbreder.online/api/server`
+
+#### PSQL
+
+@wiktorkisielewski please add some info
+
+#### Standard fields for PSQL
+
+- `action` &#8594; `Drop`
+
+- `target_kind` &#8594; `Database | Connection`
+
+- `target_name` &#8594; name of the target
+
+target endpoint: `http://helbreder.online/api/postgresql`
