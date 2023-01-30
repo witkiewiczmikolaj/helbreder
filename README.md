@@ -8,7 +8,13 @@ This is a flask application that supports REST API requests and is able to creat
 
 ## Deployment
 
-It's an app made in Python 3 deployed as a docker image. It also uses basic HTML, CSS and Javascript. @wiktorkisielewski please provide some more info, thanks
+### Backend
+
+Made in Python 3 with usage of libraries like pandas, numpy, plotly, paramiko, psycopg2, PyJWT flask_redmail and flask_login.
+
+### Frontend
+
+Made in HTML, CSS and JS with jQuery.
 
 ## Demo
 
