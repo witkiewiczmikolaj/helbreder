@@ -1,6 +1,6 @@
 # Helbreader - API for self-healing software
 
-This is an REST API made for monitoring integration (webhooks mostly) in order to make self-healing operation simple.
+This is a flask application that supports REST API requests and is able to create them.
 
 [![Helbreder docker image](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml/badge.svg?branch=main)](https://github.com/wiktorkisielewski/helbreder/actions/workflows/image_builder.yml)
 
@@ -14,11 +14,13 @@ It's an app made in Python 3 deployed as a docker image. It also uses basic HTML
 
 [helbreder.online](https://helbreder.online/)
 
+#### Creating an account
+
 Create an account by clicking the Sign up button and then click the link provided in an email sent to you to activate an account. You can then access your user panel where you can find some basic stats and you can generate the CPU usage graph of your server.
 
 ## Usage
 
-With Helbreder you can create requests for modules in many different programming languages.
+With Helbreder you can create a code for sending API requests for modules in many different programming languages.
 
 ### Generating API calls
 
